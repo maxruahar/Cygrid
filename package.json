@@ -1,0 +1,26 @@
+{
+  "name": "cygrid",
+  "version": "0.0.1",
+  "description": "",
+  "main": "cygrid.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxruahar/Cygrid.git"
+  },
+  "author": "Maximillion Harper <maximillionrh@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^2.3.0",
+    "discord.js": "^11.2.1",
+    "enmap": "^0.4.2",
+    "enmap-level": "^1.0.0",
+    "moment": "^2.20.1",
+    "moment-duration-format": "^2.1.1"
+  }
+}
