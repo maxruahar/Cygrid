@@ -25,7 +25,7 @@ exports.run = (client, message, args, level) => {
 			}
 			output += `${settings.prefix}${c.help.name}${" ".repeat(longest - c.help.name.length)} : ${c.help.description}\n`;
 		});
-		posNames.length > 0 ? output += `\n\n== Disabled Commands ==\n${posNames.join(", ")}` : return;
+		if (posNames.length > 0) output += `\n\n== Disabled Commands ==\n\`${posNames.join("\`, ")}\``;
 		message.channel.send(output, {code: "asciidoc", split: {char: "\u200b"}});
 	} else {
 		let command = args[0];
