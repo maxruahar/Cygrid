@@ -11,7 +11,7 @@ exports.run = (client, message, args, level) => {
 			: [];
 		//rename myCommands to getCommands. define myCommands as getCommads.filter(commands that aren't enabled in server or are guild restricted)  cmd.conf.guilds > 0 ? [filter by] cmd.conf.guilds.includes(cmd) && settings.enabledCommands.includes(cmd) : [filter by] settings.enabledCommands.includes(cmd)
 		const commandNames = myCommands.keyArray();
-		const posNames = posCommands.keyArray();
+		if (typeof posCommands !== 'array') const posNames = posCommands.keyArray();
 		const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
 
 		let currentCategory = "";
@@ -25,7 +25,7 @@ exports.run = (client, message, args, level) => {
 			}
 			output += `${settings.prefix}${c.help.name}${" ".repeat(longest - c.help.name.length)} : ${c.help.description}\n`;
 		});
-		if (posNames.length > 0) output += `\n\n== Disabled Commands ==\n\`${posNames.join("\`, ")}\``;
+		if (posNames.length > 0) output += `\n\n== Disabled Commands ==\n${posNames.join(", ")}`;
 		message.channel.send(output, {code: "asciidoc", split: {char: "\u200b"}});
 	} else {
 		let command = args[0];
