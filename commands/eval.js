@@ -7,7 +7,7 @@ exports.run = async (client, message, args, level) => { // eslint-disable-line n
 		message.channel.send(`\`\`\`js\n${clean}\n\`\`\``);
 	} catch (err) {
 		message.channel.send(`\`ERROR\``);
-		message.channel.send(`${await client.clean(client, err)}`);
+		message.channel.send(`\`\`\`${await client.clean(client, err)}\`\`\``);
 	}
 
 };
