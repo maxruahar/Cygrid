@@ -77,7 +77,6 @@ module.exports = (client) => {
 	  text = require("util").inspect(text, {depth: 0});
   
 	text = text
-		.replace(`/home/ubuntu`, ``)
 		.replace(/`/g, "`" + String.fromCharCode(8203))
 		.replace(/@/g, "@" + String.fromCharCode(8203))
 		.replace(client.token, "mfa.VkO_2G4Qv3T--NO--lWetW_tjND--TOKEN--QFTm6YGtzq9PH--4U--tG0");
@@ -95,7 +94,7 @@ module.exports = (client) => {
 
 	// These 2 process methods will catch exceptions and give *more details* about the error and stack trace.
 	process.on("uncaughtException", (err) => {
-		const errorMsg = err.stack.replace(new RegExp(`${__dirname}/`, "g"), "./");
+		const errorMsg = err.stack.replace(new RegExp(`/`, "g"), "./");
 		console.log(`Uncaught Exception: ${errorMsg}`);
 		// Always best practice to let the code crash on uncaught exceptions. 
 		// Because you should be catching them anyway.
