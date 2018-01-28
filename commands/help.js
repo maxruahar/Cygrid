@@ -11,7 +11,8 @@ exports.run = (client, message, args, level) => {
 			: [];
 		//rename myCommands to getCommands. define myCommands as getCommads.filter(commands that aren't enabled in server or are guild restricted)  cmd.conf.guilds > 0 ? [filter by] cmd.conf.guilds.includes(cmd) && settings.enabledCommands.includes(cmd) : [filter by] settings.enabledCommands.includes(cmd)
 		const commandNames = myCommands.keyArray();
-		if (typeof posCommands !== 'array') const posNames = posCommands.keyArray();
+		let posNames;
+		if (typeof posCommands !== 'array') posNames = posCommands.keyArray();
 		const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
 
 		let currentCategory = "";
