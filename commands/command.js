@@ -15,7 +15,7 @@ exports.run = async (client, message, [action, key, spec, ...value], level) => {
 
 	const settings = client.settings.get(message.guild.id);
 	const logChannel = client.channels.find("id", settings.logChannel);
-	const cmds = settings.enabledCommands;
+	let cmds = settings.enabledCommands;
 	let cmd = client.commands.get(key) || client.commands.get(client.aliases.get(key));
 	const isDef = "328838896274112513";
 	switch (action) {
@@ -37,7 +37,7 @@ exports.run = async (client, message, [action, key, spec, ...value], level) => {
 			if (!cmd && key) return message.channel.send(`Invalid command: \`${key}\``);
 			if (!cmds.includes(key)) return message.channel.send(`\`${key}\` is not enabled on this server.`);
 			if (cmds.includes(key)) {
-				cmds = cmds.filter(c => e !== key);
+				cmds = cmds.filter(c => c !== key);
 				settings.enabledCommands = cmds;
 				client.settings.set(message.guild.id, settings);
 				return message.channel.send(`\`${key}\` successfully disabled for ${message.guild.name}.`);
