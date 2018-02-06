@@ -20,7 +20,8 @@ exports.conf = {
 	guildOnly: false,
 	aliases: ["ava"],
 	permLevel: "User",
-	guilds: []
+	guilds: [],
+	cooldown: 2500
 };
 
 exports.help = {

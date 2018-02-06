@@ -5,7 +5,9 @@ const readdir = promisify(require("fs").readdir);
 const Enmap = require("enmap");
 const EnmapLevel = require("enmap-level");
 
-client.rebootChannel = "";
+let rebootChannel = "";
+client.cmdCD = new Set();
+client.ignoredUsers = new Set();
 
 client.config = require("./config.js");
 require("./modules/functions.js")(client);

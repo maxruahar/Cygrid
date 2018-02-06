@@ -104,7 +104,8 @@ exports.conf = {
 	guildOnly: true,
 	aliases: ["setting", "settings", "conf"],
 	permLevel: "Administrator",
-	guilds: []
+	guilds: [],
+	cooldown: 2000
 };
 
 exports.help = {

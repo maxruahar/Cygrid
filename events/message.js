@@ -5,6 +5,7 @@
 module.exports = (client, message) => {
 
 	if (message.author.bot) return;
+	if (client.ignoredUsers.has(message.author.id)) return message.delete();
 
 	const settings = message.guild
 		? client.settings.get(message.guild.id)
@@ -19,7 +20,6 @@ module.exports = (client, message) => {
 	if (message.content.indexOf(settings.prefix) !== 0) return;
 
 	message.settings = settings;
-
 	const cmdstr = message.content.slice(settings.prefix.length);
 	const args = message.content.slice(settings.prefix.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
@@ -27,6 +27,8 @@ module.exports = (client, message) => {
 	const cmd = client.commands.get(command) || client.commands.get(client.aliases.get(command));
 	if (!cmd) return;
 	const guilds = cmd.conf.guilds;
+	const cmdCD = client.cmdCD;
+	const ignoredUsers = client.ignoredUsers;
 
 	if (cmd && cmd.conf.guilds.length > 0 && !guilds.includes(message.guild.id))
 		return message.channel.send(`\`${command}\` cannot be used on this server.`);
@@ -44,6 +46,17 @@ module.exports = (client, message) => {
 			return;
 		}
 	}
+
+	if (cmdCD.has(message.author.id)) {
+		ignoredUsers.add(message.author.id);
+		setTimeout(() => {
+			ignoredUsers.delete(message.author.id);
+		}, cmd.conf.cooldown);
+		return  message.channel.send(`Please wait, \`${cmd.help.name}\` is currently on cooldown. **(${cmd.conf.cooldown/1000}s)**`);}
+	cmdCD.add(message.author.id);
+	setTimeout(() => {
+		cmdCD.delete(message.author.id);
+	}, cmd.conf.cooldown);
 
 	message.author.permLevel = level;
 
