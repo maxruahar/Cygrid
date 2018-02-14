@@ -28,5 +28,5 @@ exports.help = {
 	name: "avatar",
 	category: "Info",
 	description: "Returns the user's avatar if no argument provided; returns up to 3 mentioned users' avatars with args.",
-	usage: "avatar [user]"
+	usage: "avatar [user(s)]"
 };

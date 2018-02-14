@@ -112,5 +112,5 @@ exports.help = {
 	name: "set",
 	category: "System",
 	description: "View or modify server settings.",
-	usage: "set <get/add/edit/del> <key> <value>"
+	usage: "set <get/add/edit/del> <key> [value]"
 };

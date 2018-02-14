@@ -53,5 +53,5 @@ exports.help = {
 	name: "unmute",
 	category: "Moderation",
 	description: "Unmutes specified user(s).",
-	usage: "unmute [user1] {user2} {user3}"
+	usage: "unmute <user1> [user2] [user3]"
 };
