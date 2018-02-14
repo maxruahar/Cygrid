@@ -34,7 +34,7 @@ exports.run = (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: [""],
+  aliases: [],
   permLevel: "Bot Owner",
   guilds: [],
   cooldown: 2500

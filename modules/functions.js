@@ -76,7 +76,7 @@ module.exports = (client) => {
 	if (typeof evaled !== "string")
 	  text = require("util").inspect(text, {depth: 0});
   
-	text = text
+	text = text.split("\n", 1)[0]
 		.replace(new RegExp(`${__dirname}/`, "g"), "./")
 		.replace(/`/g, "`" + String.fromCharCode(8203))
 		.replace(/@/g, "@" + String.fromCharCode(8203))

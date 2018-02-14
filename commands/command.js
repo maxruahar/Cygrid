@@ -17,42 +17,42 @@ exports.run = async (client, message, [action, key, spec, ...value], level) => {
 	const logChannel = client.channels.find("id", settings.logChannel);
 	let cmds = settings.enabledCommands;
 	let cmd = client.commands.get(key) || client.commands.get(client.aliases.get(key));
+	const cmdName = cmd.help.name;
 	const isDef = "328838896274112513";
 	switch (action) {
 		case "e":
 		case "enable":
 			if (!cmd && !key) return message.channel.send("Please specify a command to enable.");
 			if (!cmd && key) return message.channel.send(`Invalid command: \`${key}\``);
-			if (cmds.includes(key)) return message.channel.send(`\`${key}\` is already enabled on this server.`);
-			if (!cmds.includes(key)) {
-				cmds.push(key);
+			if (cmds.includes(cmdName)) return message.channel.send(`\`${cmdName}\` is already enabled on this server.`);
+			if (!cmds.includes(cmdName)) {
+				cmds.push(cmdName);
 				settings.enabledCommands = cmds;
 				client.settings.set(message.guild.id, settings);
-				return message.channel.send(`\`${key}\` successfully enabled for ${message.guild.name}`);
+				return message.channel.send(`\`${cmdName}\` successfully enabled for ${message.guild.name}`);
 			}
 		break;
 		case "d":
 		case "disable":
 			if (!cmd && !key) return message.channel.send("Please specify a command to disable.");
 			if (!cmd && key) return message.channel.send(`Invalid command: \`${key}\``);
-			if (!cmds.includes(key)) return message.channel.send(`\`${key}\` is not enabled on this server.`);
-			if (cmds.includes(key)) {
-				cmds = cmds.filter(c => c !== key);
+			if (!cmds.includes(cmdName)) return message.channel.send(`\`${cmdName}\` is not enabled on this server.`);
+			if (cmds.includes(cmdName)) {
+				cmds = cmds.filter(c => c !== cmdName);
 				settings.enabledCommands = cmds;
 				client.settings.set(message.guild.id, settings);
-				return message.channel.send(`\`${key}\` successfully disabled for ${message.guild.name}.`);
+				return message.channel.send(`\`${cmdName}\` successfully disabled for ${message.guild.name}.`);
 			}
 		break;
 		case "r":
 		case "reload":
 			if (!cmd && !key) return message.channel.send("Please specify a command to reload.");
 			if (!cmd && key) return message.channel.send(`Invalid command: \`${key}\``);
-			const command = client.commands.get(key) || client.commands.get(client.aliases.get(key));
-			let response = await client.unloadCommand(command.help.name);
+			let response = await client.unloadCommand(cmd.help.name);
 			if (response) return message.channel.send(`Error unloading: ${response}`);
-			response = client.loadCommand(command.help.name);
+			response = client.loadCommand(cmd.help.name);
 			if (response) return message.channel.send(`Error loading: ${response}`);
-			return message.channel.send(`\`${command.help.name}\` reloaded.`);
+			return message.channel.send(`\`${cmd.help.name}\` reloaded.`);
 		break;
 		case "g":
 		case "guilds":

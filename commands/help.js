@@ -4,12 +4,11 @@ exports.run = (client, message, args, level) => {
 			? client.settings.get(message.guild.id)
 			: client.config.defaultSettings;
 		const myCommands = message.guild
-			? client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level && !cmd.conf.guilds.includes(message.guild.id) && settings.enabledCommands.includes(cmd.help.name))
-			: client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level && !cmd.conf.guildOnly);
+			? client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level && !cmd.conf.guilds.includes(message.guild.id) && settings.enabledCommands.includes(cmd.help.name)&& cmd.conf.enabled)
+			: client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level && !cmd.conf.guildOnly && cmd.conf.enabled);
 		const posCommands = message.guild
-			? client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level && !cmd.conf.guilds.includes(message.guild.id) && !settings.enabledCommands.includes(cmd.help.name))
-			: client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level && !cmd.conf.guildOnly);
-		//rename myCommands to getCommands. define myCommands as getCommads.filter(commands that aren't enabled in server or are guild restricted)  cmd.conf.guilds > 0 ? [filter by] cmd.conf.guilds.includes(cmd) && settings.enabledCommands.includes(cmd) : [filter by] settings.enabledCommands.includes(cmd)
+			? client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level && !cmd.conf.guilds.includes(message.guild.id) && !settings.enabledCommands.includes(cmd.help.name)&& cmd.conf.enabled)
+			: client.commands.filter(cmd => client.levelCache[cmd.conf.permLevel] <= level && !cmd.conf.guildOnly && cmd.conf.enabled);
 		const commandNames = myCommands.keyArray();
 		const posNames = posCommands.keyArray();
 		const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
@@ -29,8 +28,8 @@ exports.run = (client, message, args, level) => {
 		message.channel.send(output, {code: "asciidoc", split: {char: "\u200b"}});
 	} else {
 		let command = args[0];
-		if (client.commands.has(command)) {
-			command = client.commands.get(command);
+		if (client.commands.has(command) || client.aliases.has(command)) {
+			command = client.commands.get(command) || client.commands.get(client.aliases.get(command));
 			if (level < client.levelCache[command.conf.permLevel]) return;
 			message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage: ${command.help.usage}\naliases: ${command.conf.aliases.join(", ")}\n= ${command.help.name} =`, {code:"asciidoc"});
 		}
