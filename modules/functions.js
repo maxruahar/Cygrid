@@ -75,9 +75,8 @@ module.exports = (client) => {
 	  text = await text;
 	if (typeof evaled !== "string")
 	  text = require("util").inspect(text, {depth: 0});
-  
-	text = text.split("\n", 1)[0]
-		.replace(new RegExp(`${__dirname}/`, "g"), "./")
+  	if (text.toLowerCase().includes("error")) text = text.split("\n", 1)[0];
+	text = text
 		.replace(/`/g, "`" + String.fromCharCode(8203))
 		.replace(/@/g, "@" + String.fromCharCode(8203))
 		.replace(client.token, "mfa.VkO_2G4Qv3T--NO--lWetW_tjND--TOKEN--QFTm6YGtzq9PH--4U--tG0");

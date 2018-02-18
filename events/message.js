@@ -31,17 +31,17 @@ module.exports = (client, message) => {
 	const ignoredUsers = client.ignoredUsers;
 
 	if (cmd && cmd.conf.guilds.length > 0 && !guilds.includes(message.guild.id))
-		return message.channel.send(`\`${command}\` cannot be used on this server.`);
+		return message.channel.send(`\`${cmd.help.name}\` cannot be used on this server.`);
 
-	// if (cmd && !settings.enabledCommands.includes(command) || !settings.enabledCommands.includes(client.aliases.get(command))) 
-	// 	return message.channel.send(`\`${command}\` is not enabled on this server.`);
+	if (cmd && !settings.enabledCommands.includes(cmd.help.name))
+	 	return message.channel.send(`\`${cmd.help.name}\` is not enabled on this server.`);
 
 	if (cmd && !message.guild && cmd.conf.guildOnly)
-		return message.channel.send(`\`${command}\` is not usable through PM. Please run it in a guild.`);
+		return message.channel.send(`\`${cmd.help.name}\` is not usable through PM. Please run it in a guild.`);
 
 	if (level < client.levelCache[cmd.conf.permLevel]) {
 		if (settings.systemNotice === "true") {
-			return message.channel.send(`You do not have permission to use \`${command}.\``);
+			return message.channel.send(`You do not have permission to use \`${cmd.help.name}.\``);
 		} else {
 			return;
 		}
