@@ -93,7 +93,7 @@ exports.run = async (client, message, [action, key, spec, ...value], level) => {
 			}
 		break;
 		default:
-			return message.channel.send("Incorrect usage. Use `.help command` for more information.");
+			return message.channel.send("Incorrect usage. Use `.help <command>` for more information.");
 	}
 
 };
