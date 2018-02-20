@@ -3,20 +3,25 @@
 // goes `client, other, args` when this function is run.
 
 module.exports = (client, message) => {
+	const settings = message.guild
+		? client.settings.get(message.guild.id)
+		: client.config.defaultSettings;
+
+	if (settings.spamFilter == "true") {
+		if (message.content.toLowerCase().indexOf("wwww") > -1) message.delete();
+		const msg = message.content.toLowerCase().split("");
+		for (i = 0; i < msg.length; i++) {if (msg[i] == msg[i+1] && msg[i] == msg[i+2] && msg[i] == msg[i+3] && msg[i] == msg[i+4]) return message.delete();}
+	}
 
 	if (message.author.bot) return;
 	if (client.ignoredUsers.has(message.author.id)) return message.delete();
 
-	const settings = message.guild
-		? client.settings.get(message.guild.id)
-		: client.config.defaultSettings;
-		
 	if (settings.muteList.includes(message.author.id)) {
 		message.delete();
 		const muteLog = client.channels.find("id", settings.logChannel);
 		muteLog.send(message.author.tag + ": `" + message.content + "`" + " deleted in " + message.channel.toString());
 	}
-	
+
 	if (message.content.indexOf(settings.prefix) !== 0) return;
 
 	message.settings = settings;
