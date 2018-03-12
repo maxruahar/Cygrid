@@ -9,8 +9,10 @@ module.exports = (client, message) => {
 
 	if (settings.spamFilter == "true") {
 		if (message.content.toLowerCase().indexOf("wwww") > -1) message.delete();
-		const msg = message.content.toLowerCase().split("");
-		for (i = 0; i < msg.length; i++) {if (msg[i] == msg[i+1] && msg[i] == msg[i+2] && msg[i] == msg[i+3] && msg[i] == msg[i+4]) return message.delete();}
+		if (message.mentions.users.has("151115578713702400") || message.mentions.users.has("132625054264459264")) message.delete();
+
+//		const msg = message.content.toLowerCase().split("");
+//		for (i = 0; i < msg.length; i++) {if (msg[i] == msg[i+1] && msg[i] == msg[i+2] && msg[i] == msg[i+3] && msg[i] == msg[i+4]) return message.delete();}
 	}
 
 	if (message.author.bot) return;
