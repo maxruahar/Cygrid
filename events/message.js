@@ -6,23 +6,49 @@ module.exports = (client, message) => {
 	const settings = message.guild
 		? client.settings.get(message.guild.id)
 		: client.config.defaultSettings;
-
-	if (settings.spamFilter == "true") {
-		if (message.content.toLowerCase().indexOf("wwww") > -1) message.delete();
-		if (message.mentions.users.has("151115578713702400") || message.mentions.users.has("132625054264459264")) message.delete();
-
-//		const msg = message.content.toLowerCase().split("");
-//		for (i = 0; i < msg.length; i++) {if (msg[i] == msg[i+1] && msg[i] == msg[i+2] && msg[i] == msg[i+3] && msg[i] == msg[i+4]) return message.delete();}
-	}
+	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
 	if (message.author.bot) return;
 	if (client.ignoredUsers.has(message.author.id)) return message.delete();
+	if (message.guild.id == "303835144073248770" && message.author !== "97928972305707008") return;
 
 	if (settings.muteList.includes(message.author.id)) {
 		message.delete();
 		const muteLog = client.channels.find("id", settings.logChannel);
 		muteLog.send(message.author.tag + ": `" + message.content + "`" + " deleted in " + message.channel.toString());
 	}
+
+	if (settings.spamFilter == "true") {
+		if (message.content.toLowerCase().indexOf("wwww") > -1) message.delete();
+		const gex = client.config.gex;
+		let last = "";
+		let output = "";
+		let men = [];
+		let check = "false";
+		let msg = message.content;
+
+		message.mentions.users.forEach(m => {
+			if (Object.keys(gex).includes(m.id)) check = "true";
+			men.push(gex[m.id]);
+			msg = msg.replace(/<@!?\d+>/g, `@${m.username}`);
+		});
+		if (check == "true") {
+			if (men.length == 1) {
+				output = men[0];
+			message.reply(`You do not have permission to mention **${output}**:\n${msg}`);
+			} else {
+				last = men.pop();
+				output = men.join("**, **");
+				if (men.length == 1) {
+					message.reply(`You do not have permission to mention **${output}** and **${last}**:\n${msg}`);
+				} else {
+					message.reply(`You do not have permission to mention **${output}**, and **${last}**:\n${msg}`);
+				}
+			}
+			return message.delete();
+		}
+	}
+
 
 	if (message.content.indexOf(settings.prefix) !== 0) return;
 
