@@ -10,7 +10,6 @@ module.exports = (client, message) => {
 
 	if (message.author.bot) return;
 	if (client.ignoredUsers.has(message.author.id)) return message.delete();
-	if (message.guild.id == "303835144073248770" && message.author !== "97928972305707008") return;
 
 	if (settings.muteList.includes(message.author.id)) {
 		message.delete();
@@ -49,7 +48,7 @@ module.exports = (client, message) => {
 		}
 	}
 
-
+	if (message.guild.id == "303835144073248770" && message.author !== "97928972305707008") return;
 	if (message.content.indexOf(settings.prefix) !== 0) return;
 
 	message.settings = settings;

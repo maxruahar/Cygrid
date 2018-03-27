@@ -4,7 +4,6 @@ exports.run = (client, message, args, level) => {
   };
   const x = client.channels.get('412093571483828225');
   message.channel.send(x.toString());
-  message.channel.send('<#412093571483828225>');
 };
 
 exports.conf = {
