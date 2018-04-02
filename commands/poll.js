@@ -4,6 +4,7 @@ exports.run = (client, message, args, level) => {
 	if (!args[0]) return message.channel.send(`Please submit a valid question. Questions should end with \`?\``);
 	if (!message.content.includes("?")) return message.channel.send(`Please submit a valid question. Questions should end with \`?\``);
 	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+	const emojibet = ["🇦", "🇧", "🇨", "🇩", "🇪", "🇫", "🇬", "🇭", "🇮", "🇯", "🇰", "🇱", "🇲", "🇳", "🇴", "🇵", "🇶", "🇷", "🇸", "🇹", "🇺", "🇻", "🇼", "🇽", "🇾", "🇿"];
 	const pQ = `${args.join(" ").split("?", 1)[0]}?`;
 	const pOpts = (message.content.split("?")[1]).substr(1).split("  ");
 	let pResponse = "";
@@ -11,16 +12,29 @@ exports.run = (client, message, args, level) => {
 	let i = 0;
 
 	pOpts.forEach(o => {
-		pResponse += `:regional_indicator_${alphabet[i]}: ‣ ${o}\n`;
+//		pResponse += `:regional_indicator_${alphabet[i]}: ‣ ${o}\n`;
+		pResponse += `${emojibet[i]}: ‣ ${o}\n`;
 		i++;
 	});
 
+	i = 0;
 	pEmbed.title = pQ;
 	pEmbed.description = pResponse;
 	pEmbed.footer = {"icon_url": message.guild.iconURL, "text": message.guild.name};
 	pEmbed.timestamp = new Date();
 
-	message.channel.send("", {embed: pEmbed});
+	message.channel.send("", {embed: pEmbed})
+	.then((message) => {
+		let o = 0, x = pOpts.length;
+		function react() {
+			message.react(emojibet[o]);
+			o++;
+			if (o < x) {
+				setTimeout(react, 500);
+			}
+		}
+		react();
+	});
 };
 
 exports.conf = {

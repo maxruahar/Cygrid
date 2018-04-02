@@ -48,7 +48,8 @@ module.exports = (client, message) => {
 		}
 	}
 
-	if (message.guild.id == "303835144073248770" && message.author !== "97928972305707008") return;
+	if (message.guild.id == "303835144073248770" && message.author !== "97928972305707008") return; //Official Runescape Discord server
+	if (message.guild.id == "427813578674798592" && message.author !== "97928972305707008") return; //Official Farming Discord server
 	if (message.content.indexOf(settings.prefix) !== 0) return;
 
 	message.settings = settings;
@@ -61,6 +62,8 @@ module.exports = (client, message) => {
 	const guilds = cmd.conf.guilds;
 	const cmdCD = client.cmdCD;
 	const ignoredUsers = client.ignoredUsers;
+
+	if (cmd && !cmd.conf.enabled) return message.channel.send(`\`${cmd.help.name}\` is currently disabled.`);
 
 	if (cmd && cmd.conf.guilds.length > 0 && !guilds.includes(message.guild.id))
 		return message.channel.send(`\`${cmd.help.name}\` cannot be used on this server.`);
