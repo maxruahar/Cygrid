@@ -7,6 +7,21 @@ module.exports = (client, message) => {
 		? client.settings.get(message.guild.id)
 		: client.config.defaultSettings;
 	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+	const gex = client.config.gex;
+
+	if (message.guild) {
+		if (message.guild.id  == "303835144073248770" && Object.keys(gex).includes(message.author.id)) {
+			const embed = {};
+			embed.author = {"name": gex[message.author.id], "icon_url": message.author.avatarURL};
+			embed.description = `New message from ${gex[message.author.id]} in <#${message.channel.id}>`;
+			embed.color = "16776960";
+			embed.fields = [{"name": "Content", "value": message.content}];
+			embed.footer = {"icon_url": "https://i.imgur.com/xIKUTMP.png", "text": message.author.tag};
+			embed.timestamp = new Date();
+			const chan = client.channels.get('426066222627684364');
+			chan.send("", {embed: embed});
+		}
+	}
 
 	if (message.author.bot) return;
 	if (client.ignoredUsers.has(message.author.id)) return message.delete();
@@ -19,7 +34,6 @@ module.exports = (client, message) => {
 
 	if (settings.spamFilter == "true") {
 		if (message.content.toLowerCase().indexOf("wwww") > -1) message.delete();
-		const gex = client.config.gex;
 		let last = "";
 		let output = "";
 		let men = [];
@@ -31,6 +45,7 @@ module.exports = (client, message) => {
 			men.push(gex[m.id]);
 			msg = msg.replace(/<@!?\d+>/g, `@${m.username}`);
 		});
+//		message.channel.send(`${men}`);
 		if (check == "true") {
 			if (men.length == 1) {
 				output = men[0];
@@ -48,8 +63,12 @@ module.exports = (client, message) => {
 		}
 	}
 
-	if (message.guild.id == "303835144073248770" && message.author !== "97928972305707008") return; //Official Runescape Discord server
-	if (message.guild.id == "427813578674798592" && message.author !== "97928972305707008") return; //Official Farming Discord server
+	if (message.guild) {
+		if (message.guild.id == "303835144073248770" && message.author !== "97928972305707008") return; //Official Runescape Discord server
+		if (message.guild.id == "427813578674798592" && message.author !== "97928972305707008") return; //Official Farming Discord server
+		if (message.guild.id == "324132423636090880" && message.author !== "97928972305707008") return; //Official OSRS Discord server
+	}
+
 	if (message.content.indexOf(settings.prefix) !== 0) return;
 
 	message.settings = settings;
@@ -63,20 +82,24 @@ module.exports = (client, message) => {
 	const cmdCD = client.cmdCD;
 	const ignoredUsers = client.ignoredUsers;
 
-	if (cmd && !cmd.conf.enabled) return message.channel.send(`\`${cmd.help.name}\` is currently disabled.`);
-
-	if (cmd && cmd.conf.guilds.length > 0 && !guilds.includes(message.guild.id))
-		return message.channel.send(`\`${cmd.help.name}\` cannot be used on this server.`);
-
-	if (cmd && !settings.enabledCommands.includes(cmd.help.name))
-	 	return message.channel.send(`\`${cmd.help.name}\` is not enabled on this server.`);
-
 	if (cmd && !message.guild && cmd.conf.guildOnly)
-		return message.channel.send(`\`${cmd.help.name}\` is not usable through PM. Please run it in a guild.`);
+		return message.channel.send(`**${cmd.help.name}** is not usable through PM. Please run it in a guild.`);
+
+	if (cmd && !cmd.conf.enabled) return message.channel.send(`**${cmd.help.name}** is currently disabled.`);
+
+	if (cmd && message.guild && cmd.conf.guilds.length > 0 && !guilds.includes(message.guild.id)) {
+		return message.channel.send(`**${cmd.help.name}** cannot be used on this server.`);
+	} else if (cmd && !message.guild && cmd.conf.guilds.length > 0) {
+		return message.channel.send(`**${cmd.help.name}** is not usable through PM.`);
+	}
+
+	if (cmd && message.guild && !settings.enabledCommands.includes(cmd.help.name)) {
+	 	return message.channel.send(`**${cmd.help.name}** is not enabled on this server.`);
+	}
 
 	if (level < client.levelCache[cmd.conf.permLevel]) {
 		if (settings.systemNotice === "true") {
-			return message.channel.send(`You do not have permission to use \`${cmd.help.name}.\``);
+			return message.channel.send(`You do not have permission to use **${cmd.help.name}.**`);
 		} else {
 			return;
 		}
@@ -87,7 +110,7 @@ module.exports = (client, message) => {
 		setTimeout(() => {
 			ignoredUsers.delete(message.author.id);
 		}, cmd.conf.cooldown);
-		return  message.channel.send(`Please wait, \`${cmd.help.name}\` is currently on cooldown. **(${cmd.conf.cooldown/1000}s)**`);}
+		return  message.channel.send(`Please wait, **${cmd.help.name}** is currently on cooldown. **(${cmd.conf.cooldown/1000}s)**`);}
 	cmdCD.add(message.author.id);
 	setTimeout(() => {
 		cmdCD.delete(message.author.id);
