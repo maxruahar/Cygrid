@@ -49,6 +49,6 @@ exports.conf = {
 exports.help = {
 	name: "poll",
 	category: "Community",
-	description: "Create a poll for users to participate in voting. Seperate options with spaces.",
-	usage: "poll <question> <option a> <option b> [further options]"
+	description: "Create a poll for users to participate in voting. Seperate options with double spaces.",
+	usage: "poll <question> <option a>  <option b>  [further options]"
 };
