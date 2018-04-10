@@ -8,12 +8,13 @@ module.exports = (client, message) => {
 		: client.config.defaultSettings;
 	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 	const gex = client.config.gex;
+	const jmod = client.config.jmod;
 
 	if (message.guild) {
-		if (message.guild.id  == "303835144073248770" && message.channel.id !== "426066222627684364"  && Object.keys(gex).includes(message.author.id)) {
+		if (message.guild.id  == "303835144073248770" && message.channel.id !== "426066222627684364"  && Object.keys(jmod).includes(message.author.id)) {
 			const embed = {};
-			embed.author = {"name": gex[message.author.id], "icon_url": message.author.avatarURL};
-			embed.description = `**New message/* from ${gex[message.author.id]}*/ in <#${message.channel.id}>**:\n${message.content}`;
+			embed.author = {"name": jmod[message.author.id], "icon_url": message.author.avatarURL};
+			embed.description = `**New message in <#${message.channel.id}>**:\n${message.content}`;
 			embed.color = "16776960";
 //			embed.fields = [{"name": "Content", "value": message.content}];
 			embed.footer = {"icon_url": "https://i.imgur.com/xIKUTMP.png", "text": message.author.tag};
