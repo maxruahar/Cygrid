@@ -19,21 +19,8 @@ exports.run = (client, message, args, level) => {
 
   request(options, callback);*/
 
-const options = {
-	url: 'https://hooks.zapier.com/hooks/catch/2830250/fbzex5/',
-	method: "POST",
-	body: "Sent from a discord.js bot"
-}
-
-
-
-function callback(error,response,body) {
-	message.channel.send(response.statusMessage);
-	message.channel.send(body);
-    }
-
-request(options, callback);
-
+	message.channel.send('!M&S')
+		.then(msg => {msg.delete(2500)});
 };
 
 exports.conf = {
