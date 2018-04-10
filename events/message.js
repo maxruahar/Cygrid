@@ -10,15 +10,15 @@ module.exports = (client, message) => {
 	const gex = client.config.gex;
 
 	if (message.guild) {
-		if (message.guild.id  == "303835144073248770" && Object.keys(gex).includes(message.author.id)) {
+		if (message.guild.id  == "303835144073248770" && message.channel.id !== "426066222627684364"  && Object.keys(gex).includes(message.author.id)) {
 			const embed = {};
 			embed.author = {"name": gex[message.author.id], "icon_url": message.author.avatarURL};
-			embed.description = `New message from ${gex[message.author.id]} in <#${message.channel.id}>`;
+			embed.description = `**New message/* from ${gex[message.author.id]}*/ in <#${message.channel.id}>**:\n${message.content}`;
 			embed.color = "16776960";
-			embed.fields = [{"name": "Content", "value": message.content}];
+//			embed.fields = [{"name": "Content", "value": message.content}];
 			embed.footer = {"icon_url": "https://i.imgur.com/xIKUTMP.png", "text": message.author.tag};
 			embed.timestamp = new Date();
-			const chan = client.channels.get('426066222627684364');
+			const chan = client.channels.get('432897130408050692');
 			chan.send("", {embed: embed});
 		}
 	}
@@ -36,24 +36,51 @@ module.exports = (client, message) => {
 		if (message.content.toLowerCase().indexOf("wwww") > -1) message.delete();
 		let last = "";
 		let output = "";
-		let men = [];
 		let check = "false";
 		let msg = message.content;
-
+	        let x = message.content.match(/<@!?\d+>/g);
+	        const users = [];
+		const mens = [];
+	        const ids = [];
+	        let i = 0, j = 0;
 		message.mentions.users.forEach(m => {
 			if (Object.keys(gex).includes(m.id)) check = "true";
-			men.push(gex[m.id]);
-			msg = msg.replace(/<@!?\d+>/g, `@${m.username}`);
 		});
+		if (check == "true") {
+			x.forEach(o => {
+				let raw = o.replace(/<@/g, "").replace(/>/g, "");
+				let id = raw.indexOf("!") > -1 ? raw.replace("!", "") : raw;
+				if (Object.keys(gex).includes(id)) {
+					users.push(`@${gex[id]}`);
+					mens.push(`@${gex[id]}`);
+				} else {
+					users.push(`@${client.users.get(id).username}`);
+				}
+				ids.push(raw);
+				i++;
+			});
+			users.forEach(u => {
+				msg = msg.replace(`<@${ids[j]}>`, users[j]);
+				j++;
+			});
+		}
+//	        message.channel.send("body:\n" + y);
+
+
+//		message.mentions.users.forEach(m => {
+//			if (Object.keys(gex).includes(m.id) && m.id !== client.config.ownerID) check = "true";
+//			men.push(gex[m.id]);
+//			msg = msg.replace(/<@!?\d+>/g, `@${m.username}`);
+//		});
 //		message.channel.send(`${men}`);
 		if (check == "true") {
-			if (men.length == 1) {
-				output = men[0];
+			if (mens.length == 1) {
+				output = mens[0];
 			message.reply(`You do not have permission to mention **${output}**:\n${msg}`);
 			} else {
-				last = men.pop();
-				output = men.join("**, **");
-				if (men.length == 1) {
+				last = mens.pop();
+				output = mens.join("**, **");
+				if (mens.length == 1) {
 					message.reply(`You do not have permission to mention **${output}** and **${last}**:\n${msg}`);
 				} else {
 					message.reply(`You do not have permission to mention **${output}**, and **${last}**:\n${msg}`);
@@ -64,9 +91,9 @@ module.exports = (client, message) => {
 	}
 
 	if (message.guild) {
-		if (message.guild.id == "303835144073248770" && message.author !== "97928972305707008") return; //Official Runescape Discord server
-		if (message.guild.id == "427813578674798592" && message.author !== "97928972305707008") return; //Official Farming Discord server
-		if (message.guild.id == "324132423636090880" && message.author !== "97928972305707008") return; //Official OSRS Discord server
+		if (message.guild.id == "303835144073248770" && message.author.id !== "97928972305707008") return; //Official Runescape Discord server
+		if (message.guild.id == "427813578674798592" && message.author.id !== "97928972305707008") return; //Official Farming Discord server
+		if (message.guild.id == "324132423636090880" && message.author.id !== "97928972305707008") return; //Official OSRS Discord server
 	}
 
 	if (message.content.indexOf(settings.prefix) !== 0) return;
