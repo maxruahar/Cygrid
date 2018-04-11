@@ -9,9 +9,13 @@ module.exports = (client, message) => {
 	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 	const gex = client.config.gex;
 	const jmod = client.config.jmod;
+	const jlog = ["424254117767282709", "424254313448079362", "428220727154442242", "425234452533346304"];
 
 	if (message.guild) {
-		if (message.guild.id  == "303835144073248770" && message.channel.id !== "426066222627684364"  && Object.keys(jmod).includes(message.author.id)) {
+		if (message.guild.id  == "303835144073248770"
+		&& jlog.includes(message.channel.parentID)
+		&& message.channel.id !== "432897130408050692"
+		&& Object.keys(jmod).includes(message.author.id)) {
 			const embed = {};
 			embed.author = {"name": jmod[message.author.id], "icon_url": message.author.avatarURL};
 			embed.description = `**New message in <#${message.channel.id}>**:\n${message.content}`;
@@ -19,6 +23,7 @@ module.exports = (client, message) => {
 //			embed.fields = [{"name": "Content", "value": message.content}];
 			embed.footer = {"icon_url": "https://i.imgur.com/xIKUTMP.png", "text": message.author.tag};
 			embed.timestamp = new Date();
+//			const chan = client.channels.get('398676006325452801');
 			const chan = client.channels.get('432897130408050692');
 			chan.send("", {embed: embed});
 		}
