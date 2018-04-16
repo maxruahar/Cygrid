@@ -17,7 +17,7 @@ exports.run = async (client, message, [action, key, spec, ...value], level) => {
 	const logChannel = client.channels.find("id", settings.logChannel);
 	let cmds = settings.enabledCommands;
 	let cmd = client.commands.get(key) || client.commands.get(client.aliases.get(key));
-	const cmdName = cmd.help.name;
+	if (cmd) cmdName = cmd.help.name;
 	const isDef = "328838896274112513";
 	switch (action) {
 		case "e":
