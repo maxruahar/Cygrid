@@ -9,7 +9,7 @@ module.exports = (client, message) => {
 	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 	const gex = client.config.gex;
 	const jmod = client.config.jmod;
-	const jlog = ["424254117767282709", "424254313448079362", "428220727154442242", "425234452533346304"];
+	const jlog = ["424254117767282709", "424254313448079362", "428220727154442242", "425234452533346304", "433571053911015424"];
 
 	if (message.guild) {
 		if (message.guild.id  == "303835144073248770"
@@ -21,7 +21,7 @@ module.exports = (client, message) => {
 			embed.description = `**New message in <#${message.channel.id}>**:\n${message.content}`;
 			embed.color = "16776960";
 //			embed.fields = [{"name": "Content", "value": message.content}];
-			embed.footer = {"icon_url": "https://i.imgur.com/xIKUTMP.png", "text": message.author.tag};
+			embed.footer = {"icon_url": "https://i.imgur.com/xIKUTMP.png", "text": message.channel.name};
 			embed.timestamp = new Date();
 //			const chan = client.channels.get('398676006325452801');
 			const chan = client.channels.get('432897130408050692');
@@ -58,7 +58,7 @@ module.exports = (client, message) => {
 				let id = raw.indexOf("!") > -1 ? raw.replace("!", "") : raw;
 				if (Object.keys(gex).includes(id)) {
 					users.push(`@${gex[id]}`);
-					mens.push(`@${gex[id]}`);
+					mens.push(`${gex[id]}`);
 				} else {
 					users.push(`@${client.users.get(id).username}`);
 				}
