@@ -21,7 +21,7 @@ exports.run = (client, message, args, level) => {
 
 	const x = [1, 2, 3, 4, 5, 6, 7];
 	x.forEach(y => {
-		message.channel.send(`https://cdn.runescape.com/assets/img/external/news/2018/4/EliteDungeon${y}.png`;
+		message.channel.send(`https://cdn.runescape.com/assets/img/external/news/2018/4/EliteDungeon${y}.png`);
 	});
 };
 

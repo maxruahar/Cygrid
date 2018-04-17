@@ -1,3 +1,3 @@
 module.exports = (client, member) => {
-	const settings = client.settings.get(member.guild.id);
+//	const settings = client.settings.get(member.guild.id);
 }
