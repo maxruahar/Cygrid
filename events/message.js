@@ -3,7 +3,7 @@
 // goes `client, other, args` when this function is run.
 
 module.exports = (client, message) => {
-	const settings = message.guild
+	const settings = client.guilds.get(message.guild.id)
 		? client.settings.get(message.guild.id)
 		: client.config.defaultSettings;
 	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
@@ -50,7 +50,7 @@ module.exports = (client, message) => {
 	        const ids = [];
 	        let i = 0, j = 0;
 		message.mentions.users.forEach(m => {
-			if (Object.keys(gex).includes(m.id)) check = "true";
+			if (Object.keys(gex).includes(m.id) && !Object.keys(jmod).includes(message.author.id)) check = "true";
 		});
 		if (check == "true") {
 			x.forEach(o => {
@@ -82,17 +82,16 @@ module.exports = (client, message) => {
 		if (check == "true") {
 			if (mens.length == 1) {
 				output = mens[0];
-			message.reply(`You do not have permission to mention **${output}**:\n${msg}`);
+			message.reply(`Thanks for tagging **${output}**! Please be aware that we are not always able to respond to your questions and messages.`);
 			} else {
 				last = mens.pop();
 				output = mens.join("**, **");
 				if (mens.length == 1) {
-					message.reply(`You do not have permission to mention **${output}** and **${last}**:\n${msg}`);
+					message.reply(`Thanks for tagging **${output}** and **${last}**! Please be aware that we are not always able to respond to your questions and messages.`);
 				} else {
-					message.reply(`You do not have permission to mention **${output}**, and **${last}**:\n${msg}`);
+					message.reply(`Thanks for tagging **${output}**, and **${last}**! Please be aware that we are not always able to respond to your questions and messages.`);
 				}
 			}
-			return message.delete();
 		}
 	}
 
