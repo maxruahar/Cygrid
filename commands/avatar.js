@@ -1,16 +1,24 @@
 exports.run = (client, message, args, level) => {
 
+	//Use guild-specific settings if used in guild or default settings otherwise
+	const settings = message.guild
+		? client.settings.get(message.guild.id)
+		: client.config.defaultSettings;
+
+	//If no message is provided, return user avatar
 	if (!args[0]) {
+		return message.channel.send(message.author.avatarURL);
+	}
 
-		message.channel.send(message.author.avatarURL);	
-
-	} else if (message.mentions.users.array().length <= 3) {
+	//If there are between 1 and 3 mentions return users' avatars
+	else if (message.mentions.users.array().length > 0 && message.mentions.users.array().length <= 3) {
 		const users = message.mentions.users;
-		users.forEach( u => {
-			message.channel.send(u.avatarURL);
-		});
-	} else {
-		message.channel.send("Too many arguments provided. Please use no more than 3 mentions.");
+		users.forEach(u => message.channel.send(u.avatarURL));
+	}
+
+	//Otherwise, return generic error message and prompt user to use help command
+	else {
+		message.channel.send(`Incorrect arguments provided. Please use **${settings.prefix}help avatar** for more information.`);
 	}
 
 };
