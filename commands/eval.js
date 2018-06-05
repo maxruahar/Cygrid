@@ -24,7 +24,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ["e"],
-	permLevel: "Bot Admin",
+	permLevel: "Bot Dev",
 	guilds: [],
 	cooldown: 1000
 };
