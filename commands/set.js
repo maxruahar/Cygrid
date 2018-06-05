@@ -14,7 +14,7 @@ const { inspect } = require("util");
 exports.run = async (client, message, [action, key, ...value], level) => { // eslint-disable-line no-unused-vars
 	
 	const settings = client.settings.get(message.guild.id);
-	const logChannel = client.channels.find("id", settings.logChannel);
+	const logChannel = client.channels.get(settings.logChannel);
 	const isDef = "328838896274112513";
 
 	if (action === "add") {
