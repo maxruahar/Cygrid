@@ -8,6 +8,14 @@ const EnmapLevel = require("enmap-level");
 client.rebootChannel = "";
 client.cmdCD = new Set();
 client.ignoredUsers = new Set();
+client.skillingBans = {
+"213996200544829450": "Nelver",
+"206709131514609685": "Derek",
+"227019040512671744": "Thulthar",
+"202758257738121216": "Zemo",
+"381047676105523200": "Rusty",
+"258019528011808770": "PK"
+}
 
 client.config = require("./config.js");
 require("./modules/functions.js")(client);
