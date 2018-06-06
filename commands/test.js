@@ -19,17 +19,21 @@ exports.run = (client, message, args, level) => {
 
   request(options, callback);*/
 
-	const x = [1, 2, 3, 4, 5, 6, 7];
-	x.forEach(y => {
-		message.channel.send(`https://cdn.runescape.com/assets/img/external/news/2018/4/EliteDungeon${y}.png`);
-	});
+	let x = "false";
+	if (x._called) message.channel.send('not as you thought');
+	x = setTimeout(() => {message.channel.send('test')}, 2000);
+	setTimeout(() => {if (x._called == false) message.channel.send('false')}, 1000);
+	setTimeout(() => {if (x._called == true) message.channel.send('true1')}, 1000);
+	setTimeout(() => {if (x._called == false) message.channel.send('false2')}, 4000);
+	setTimeout(() => {if (x._called == true) message.channel.send('true')}, 4000);
+
 };
 
 exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: [],
-  permLevel: "Bot Owner",
+  permLevel: "Bot Admin",
   guilds: [],
   cooldown: 2500
 };
