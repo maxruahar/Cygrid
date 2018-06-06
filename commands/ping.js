@@ -1,6 +1,6 @@
 exports.run = async (client, message, args, level) => {
   const msg = await message.channel.send("Pong!");
-  msg.edit(`Pong! (${m.createdTimestamp - message.createdTimestemp}ms)`)
+  msg.edit(`Pong! (${msg.createdTimestamp - message.createdTimestamp}ms)`)
 };
 
 exports.conf = {
