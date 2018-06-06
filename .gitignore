@@ -1,3 +1,7 @@
 node_modules
 config.js
+.flowconfig
+/.je-project-settings
+cygrid.sublime-project
+cygrid.sublime-workspace
 data/settings/
