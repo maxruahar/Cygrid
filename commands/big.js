@@ -17,8 +17,8 @@ exports.run = (client, message, args, level) => {
 	//If no text is supplied, return message
 	if (!args[0]) return message.channel.send("Please specify a string to enlarge.");
 
-	//Delete invoking message sent by user
-	message.delete();
+	//Delete invoking message sent by user if in guild
+	if (message.guild) message.delete();
 
 	//Check each character for action
 	for (i = 0; i < msg.length; i++) {
