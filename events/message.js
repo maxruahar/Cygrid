@@ -101,6 +101,7 @@ module.exports = (client, message) => {
 		if (message.guild.id == "324132423636090880" && message.author.id !== "97928972305707008") return; //Official OSRS Discord server
 	}
 
+	if (message.content.toLowerCase().includes("prefix") && message.content.includes("<@398315492877533186>")) return message.channel.send(`The prefix in this server is set to **${settings.prefix}**`);
 	if (message.content.indexOf(settings.prefix) !== 0) return;
 
 	message.settings = settings;
