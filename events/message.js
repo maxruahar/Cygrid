@@ -6,6 +6,7 @@ module.exports = (client, message) => {
 	const settings = (message.guild)
 		? client.settings.get(message.guild.id)
 		: client.config.defaultSettings;
+	message.url = `https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${message.id}`;
 	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 	const gex = client.config.gex;
 	const jmod = client.config.jmod;
@@ -39,7 +40,7 @@ module.exports = (client, message) => {
 	}
 
 	if (settings.spamFilter == "true") {
-		if (message.content.toLowerCase().indexOf("wwww") > -1) message.delete();
+		if (message.content.toLowerCase().indexOf("wwwwwwwwww") > -1) message.delete();
 		let last = "";
 		let output = "";
 		let check = "false";
