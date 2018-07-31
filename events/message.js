@@ -6,11 +6,11 @@ module.exports = (client, message) => {
 	const settings = (message.guild)
 		? client.settings.get(message.guild.id)
 		: client.config.defaultSettings;
-	message.url = `https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${message.id}`;
+	if (message.guild) message.url = `https://discordapp.com/channels/${message.guild.id}/${message.channel.id}/${message.id}`;
 	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 	const gex = client.config.gex;
 	const jmod = client.config.jmod;
-	const jlog = ["424254117767282709", "440528752561225729", "424254313448079362", "428220727154442242"];
+	const jlog = ["424254117767282709", "440528752561225729", "424254313448079362", "428220727154442242", "469800165113331713"];
 
 	if (message.guild) {
 		if (message.guild.id  == "303835144073248770"
