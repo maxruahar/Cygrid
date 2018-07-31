@@ -17,9 +17,6 @@ exports.run = (client, message, args, level) => {
 	const list = () => {
 		const x = result(min, max);
 		output += `• ${x}\n`;
-
-		console.log(x);
-
 		i++;
 		if (i < num) {
 			list();
