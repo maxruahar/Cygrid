@@ -10,13 +10,14 @@ module.exports = (client, message) => {
 	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 	const gex = client.config.gex;
 	const jmod = client.config.jmod;
-	const jlog = ["424254117767282709", "440528752561225729", "424254313448079362", "428220727154442242", "469800165113331713"];
+	const jlog = ["424254117767282709", "440528752561225729", "424254313448079362", "428220727154442242", "469800165113331713", "474574393159188491", "473830893568524288"];
 
 	if (message.guild) {
 		if (message.guild.id  == "303835144073248770"
 		&& jlog.includes(message.channel.parentID)
 		&& message.channel.id !== "432897130408050692"
-		&& Object.keys(jmod).includes(message.author.id)) {
+//		&& Object.keys(jmod).includes(message.author.id)) {
+		&& message.member._roles.includes("303835235290972160")) {
 			const embed = {};
 			embed.author = {"name": jmod[message.author.id], "icon_url": message.author.avatarURL};
 			embed.description = `**New message in <#${message.channel.id}>**:\n${message.content}`;
