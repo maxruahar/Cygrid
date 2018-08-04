@@ -17,7 +17,7 @@ module.exports = (client, message) => {
 		&& jlog.includes(message.channel.parentID)
 		&& message.channel.id !== "432897130408050692"
 //		&& Object.keys(jmod).includes(message.author.id)) {
-		&& message.member._roles.includes("303835235290972160")) {
+		&& message.member.roles.has("303835235290972160")) {
 			const embed = {};
 			embed.author = {"name": jmod[message.author.id], "icon_url": message.author.avatarURL};
 			embed.description = `**New message in <#${message.channel.id}>**:\n${message.content}`;
