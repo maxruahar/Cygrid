@@ -5,7 +5,9 @@ module.exports = (client, member) => {
 		member.ban(`${member.user.username} was banned automatically upon joining as they are on the auto-ban list.`);
 		logChannel.send(`${member.user.username} was banned automatically upon joining as they are on the auto-ban list.`);
 	}
-	if (RegExp('discord.gg').test(member.user.username) || RegExp('add me').test(member.user.username)) {
+	if (RegExp('discord.gg').test(member.user.username)
+		|| RegExp('add me').test(member.user.username)
+		|| RegExp('pls add').test(member.user.username)) {
 		member.ban(`${member.user.username} was banned automatically upon joining as their username seems to be advertising other servers.`);
 	}
 }
