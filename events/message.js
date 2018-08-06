@@ -1,6 +1,7 @@
 // The MESSAGE event runs anytime a message is received
 // Note that due to the binding of client to every event, every event
 // goes `client, other, args` when this function is run.
+const { inspect } = require("util");
 
 module.exports = (client, message) => {
 	const settings = (message.guild)
@@ -12,6 +13,8 @@ module.exports = (client, message) => {
 	const jmod = client.config.jmod;
 	const jlog = ["424254117767282709", "440528752561225729", "424254313448079362", "428220727154442242", "469800165113331713", "474574393159188491", "473830893568524288"];
 
+	if (message.author.bot) return;
+	if (message.member == "null") return;
 	if (message.guild) {
 		if (message.guild.id  == "303835144073248770"
 		&& jlog.includes(message.channel.parentID)
@@ -31,7 +34,6 @@ module.exports = (client, message) => {
 		}
 	}
 
-	if (message.author.bot) return;
 	if (client.ignoredUsers.has(message.author.id)) return message.delete();
 
 	if (settings.muteList.includes(message.author.id)) {
