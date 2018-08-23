@@ -5,7 +5,7 @@ module.exports = async client => {
 	client.user.setActivity(`over ${client.guilds.size} servers`, {type: "WATCHING"});
 	client.guilds.filter(g => !client.settings.has(g.id)).forEach(g => client.settings.set(g.id, client.config.defaultSettings));
         client.guilds.forEach(g => {
-                if (g.me.hasPermission("MANAGE_GUILD")) g.invite = g.fetchInvites().then(invs => invs.sort((a, b) => a.uses - b.uses).lastKey().code);
+                if (g.me.hasPermission("MANAGE_GUILD")) g.invite = g.fetchInvites().then(invs => invs.sort((a, b) => a.uses - b.uses).last().code);
         });
 
 	//client.channels.find("id", client.rebootChannel).send(`${client.user.tag}, ready to serve ${client.users.size} users.`);
