@@ -14,7 +14,15 @@ module.exports = (client, message) => {
 	const jlog = ["424254117767282709", "440528752561225729", "424254313448079362", "428220727154442242", "469800165113331713", "474574393159188491", "473830893568524288"];
 
 	if (message.author.bot) return;
-	if (message.member == "null") return;
+	if (message.member == null) return;
+
+	if (RegExp('discord.gg').test(message.author.username)
+                || RegExp('add me').test(message.author.username)
+                || RegExp('pls add').test(message.author.username)
+                || RegExp('add pls').test(message.author.username)) {
+                message.author.lastMessage.delete();
+	}
+
 	if (message.guild) {
 		if (message.guild.id  == "303835144073248770"
 		&& jlog.includes(message.channel.parentID)
