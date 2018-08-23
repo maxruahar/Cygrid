@@ -4,6 +4,9 @@ module.exports = async client => {
 	console.log(`Ready: ${client.user.tag}, ready to serve ${client.users.size} users in ${client.guilds.size} servers.`);
 	client.user.setActivity(`over ${client.guilds.size} servers`, {type: "WATCHING"});
 	client.guilds.filter(g => !client.settings.has(g.id)).forEach(g => client.settings.set(g.id, client.config.defaultSettings));
+        client.guilds.forEach(g => {
+                g.invite = g.fetchInvites().then(invs => invs.sort((a, b) => a.uses - b.uses).lastKey());
+        });
 
 	//client.channels.find("id", client.rebootChannel).send(`${client.user.tag}, ready to serve ${client.users.size} users.`);
 	//client.rebootChannel = "";
