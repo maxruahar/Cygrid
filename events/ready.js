@@ -6,7 +6,7 @@ module.exports = async client => {
 	client.guilds.filter(g => !client.settings.has(g.id)).forEach(g => client.settings.set(g.id, client.config.defaultSettings));
         client.guilds.forEach(g => {
                 if (g.me.hasPermission("MANAGE_GUILD")) {
-                        g.invite = `https://discord.gg/${g.fetchInvites().then(invs => invs.sort((a, b) => a.uses - b.uses).last().code.toString())}`;
+                        g.invite = `https://discord.gg/${await g.fetchInvites().then(invs => invs.sort((a, b) => a.uses - b.uses).last().code.toString())}`;
                 }
         });
 
