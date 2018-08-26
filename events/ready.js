@@ -4,9 +4,11 @@ module.exports = async client => {
 	console.log(`Ready: ${client.user.tag}, ready to serve ${client.users.size} users in ${client.guilds.size} servers.`);
 	client.user.setActivity(`over ${client.guilds.size} servers`, {type: "WATCHING"});
 	client.guilds.filter(g => !client.settings.has(g.id)).forEach(g => client.settings.set(g.id, client.config.defaultSettings));
-        client.guilds.forEach(g => {
+        client.guilds.forEach(async g => {
                 if (g.me.hasPermission("MANAGE_GUILD")) {
-                        g.invite = `https://discord.gg/${await g.fetchInvites().then(invs => invs.sort((a, b) => a.uses - b.uses).last().code.toString())}`;
+			if (await g.fetchInvites().then(invites => invites.size) < 2) return;
+			const x = await g.fetchInvites().then(invs => invs.sort((a, b) => a.uses - b.uses).last().code);
+                        g.invite = `https://discord.gg/${x}`;
                 }
         });
 
