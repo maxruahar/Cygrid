@@ -14,6 +14,7 @@ module.exports = (client, message) => {
 	const jlog = ["424254117767282709", "440528752561225729", "424254313448079362", "428220727154442242", "469800165113331713", "474574393159188491", "473830893568524288"];
 
 	if (message.author.bot) return;
+	if (!message.guild && message.author.id !== client.config.ownerID) client.users.get(client.config.ownerID).send(`**${message.author.tag}**: ${message.content}`);
 	if (message.member == null) return;
 
 	if (RegExp('discord.gg').test(message.author.username)
