@@ -44,6 +44,7 @@ exports.run = async (client, message, args, level) => {
       ]
     }
   };
+  info.embed.timestamp = new Date();
   await message.channel.send(info);
   message.delete();
 };
