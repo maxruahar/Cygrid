@@ -17,7 +17,7 @@ exports.run = async (client, message, args, level) => {
       "fields": [
         {
           "name": "Major Feature #1: Polling",
-          "value": "One of the most notable features is the polling system. It is very easy to use and will create an embedded question/answer template and auto-react to all the available options for you. This is limited to a question of X characters and X amount of answers. The proper usage is: \"**.poll Each question must end in a question mark? While  each  answer  is  split  with  two  spaces**\""
+          "value": "One of the most notable features is the polling system. It is very easy to use and will create an embedded question/answer template and auto-react to all the available options for you. This is limited to 20 amount of answers as there can be no more than 20 reactions to a message. The proper usage is: \"**.poll Each question must end in a question mark? While  each  answer  is  split  with  two  spaces**\""
         },
         {
           "name": "Major Feature #2: Jagex Moderator Spam Prevention",
@@ -44,7 +44,7 @@ exports.run = async (client, message, args, level) => {
       ]
     }
   };
-  message.channel.send(info);
+  await message.channel.send(info);
   message.delete();
 };
 

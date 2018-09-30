@@ -1,12 +1,12 @@
 const { inspect } = require("util");
 
 exports.run = (client, message, args, level) => {
-	if (!args[0]) return message.channel.send(`Please submit a valid question. Questions should end with \`?\``);
-	if (!message.content.includes("?")) return message.channel.send(`Please submit a valid question. Questions should end with \`?\``);
+	if (!args[0] || !message.content.includes("?")) return message.channel.send(`Please submit a valid question. Questions should end with \`?\``);
 	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 	const emojibet = ["🇦", "🇧", "🇨", "🇩", "🇪", "🇫", "🇬", "🇭", "🇮", "🇯", "🇰", "🇱", "🇲", "🇳", "🇴", "🇵", "🇶", "🇷", "🇸", "🇹", "🇺", "🇻", "🇼", "🇽", "🇾", "🇿"];
 	const pQ = `${args.join(" ").split("?", 1)[0]}?`;
 	const pOpts = (message.content.split("?")[1]).substr(1).split("  ");
+	if (pOpts > 20) return message.channel.send("Please supply 20 or less possible answers. This is a limit set in place by Discord on the number of reactions that a message can have.");
 	let pResponse = "";
 	let pEmbed = {};
 	let i = 0;
