@@ -53,7 +53,7 @@ exports.conf = {
 
 exports.help = {
   name: "roll",
-  category: "Miscellaneous",
-  description: "Roll x amount of numbers between y and z. x must be less than or equal to 50.",
+  category: "Fun",
+  description: "Roll **x** amount of numbers between **y** and **z**. **x** must be less than or equal to 50.",
   usage: "roll <number of rolls> <minimum value> <maximum value>"
 };

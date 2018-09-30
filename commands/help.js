@@ -50,7 +50,7 @@ exports.conf = {
 
 exports.help = {
 	name: "help",
-	category: "System",
+	category: "Info",
 	description: "Displays all commands you have permission to use.",
 	usage: "help [command]"
 };

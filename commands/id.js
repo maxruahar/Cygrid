@@ -33,7 +33,7 @@ exports.conf = {
 
 exports.help = {
   name: "id",
-  category: "System",
+  category: "Info",
   description: "Used to collect channel/user/role IDs.",
   usage: "id <c/u/r> <name>"
 };

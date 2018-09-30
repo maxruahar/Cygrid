@@ -18,7 +18,7 @@ exports.conf = {
 
 exports.help = {
   name: "ping",
-  category: "System",
+  category: "Info",
   description: "Returns the bot latency in milliseconds.",
   usage: "ping"
 };
