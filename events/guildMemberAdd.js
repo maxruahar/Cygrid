@@ -8,8 +8,10 @@ module.exports = async (client, member) => {
 	if (RegExp('discord.gg').test(member.user.username)
 		|| RegExp('add me').test(member.user.username)
 		|| RegExp('pls add').test(member.user.username)
-		|| RegExp('add pls').test(member.user.username)) {
-		member.ban(`${member.user.username} was banned automatically upon joining as their username seems to be advertising other servers.`);
+		|| RegExp('add pls').test(member.user.username)
+		|| RegExp('twitch.tv').test(member.user.username)
+		|| RegExp('twitter.com').test(member.user.username)) {
+		member.ban(`${member.user.username} was banned automatically upon joining as their username seems to be advertising other servers/websites.`);
 //		if (member.user.lastMessage.channel.messages.get(member.user.lastMessageID).type == "GUILD_MEMBER_JOIN") {
 //		await client.wait(10000);
 //			member.user.lastMessage.delete();

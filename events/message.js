@@ -18,10 +18,12 @@ module.exports = (client, message) => {
 	if (message.member == null) return;
 
 	if (RegExp('discord.gg').test(message.author.username)
-                || RegExp('add me').test(message.author.username)
-                || RegExp('pls add').test(message.author.username)
-                || RegExp('add pls').test(message.author.username)) {
-                message.author.lastMessage.delete();
+    || RegExp('add me').test(message.author.username)
+    || RegExp('pls add').test(message.author.username)
+    || RegExp('add pls').test(message.author.username)
+    || RegExp('twitch.tv').test(message.author.username)
+    || RegExp('twitter.com').test(message.author.username)) {
+    message.author.lastMessage.delete();
 	}
 
 	if (message.guild) {
