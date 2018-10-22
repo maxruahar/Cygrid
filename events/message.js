@@ -17,12 +17,15 @@ module.exports = (client, message) => {
 	if (!message.guild && message.author.id !== client.config.ownerID) client.users.get(client.config.ownerID).send(`**${message.author.tag}**: ${message.content}`);
 	if (message.member == null) return;
 
-	if (RegExp('discord.gg').test(message.author.username)
-    || RegExp('add me').test(message.author.username)
-    || RegExp('pls add').test(message.author.username)
-    || RegExp('add pls').test(message.author.username)
-    || RegExp('twitch.tv').test(message.author.username)
-    || RegExp('twitter.com').test(message.author.username)) {
+	if (/discord.gg/gi.test(member.user.username)
+		|| /discord.me/gi.test(member.user.username)
+		|| /add me/gi.test(member.user.username)
+		|| /pls add/gi.test(member.user.username)
+		|| /add pls/gi.test(member.user.username)
+		|| /twitch.tv/gi.test(member.user.username)
+		|| /twitter.com/gi.test(member.user.username)
+		|| /selling/gi.test(member.user.username)
+		|| /.gg/gi.test(member.user.username)) {
     message.author.lastMessage.delete();
 	}
 
