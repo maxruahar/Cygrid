@@ -17,16 +17,16 @@ module.exports = (client, message) => {
 	if (!message.guild && message.author.id !== client.config.ownerID) client.users.get(client.config.ownerID).send(`**${message.author.tag}**: ${message.content}`);
 	if (message.member == null) return;
 
-	if (/discord.gg/gi.test(member.user.username)
-		|| /discord.me/gi.test(member.user.username)
-		|| /add me/gi.test(member.user.username)
-		|| /pls add/gi.test(member.user.username)
-		|| /add pls/gi.test(member.user.username)
-		|| /twitch.tv/gi.test(member.user.username)
-		|| /twitter.com/gi.test(member.user.username)
-		|| /selling/gi.test(member.user.username)
-		|| /.gg/gi.test(member.user.username)
-		|| /tweet/gi.test(member.user.username)) {
+	if (/discord.gg/gi.test(message.author.username)
+		|| /discord.me/gi.test(message.author.username)
+		|| /add me/gi.test(message.author.username)
+		|| /pls add/gi.test(message.author.username)
+		|| /add pls/gi.test(message.author.username)
+		|| /twitch.tv/gi.test(message.author.username)
+		|| /twitter.com/gi.test(message.author.username)
+		|| /selling/gi.test(message.author.username)
+		|| /.gg/gi.test(message.author.username)
+		|| /tweet/gi.test(message.author.username)) {
     message.author.lastMessage.delete();
 	}
 
