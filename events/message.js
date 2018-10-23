@@ -25,7 +25,7 @@ module.exports = (client, message) => {
 		|| /twitch.tv/gi.test(message.author.username)
 		|| /twitter.com/gi.test(message.author.username)
 		|| /selling/gi.test(message.author.username)
-		|| /.gg/gi.test(message.author.username)
+		|| /\.gg/gi.test(message.author.username)
 		|| /tweet/gi.test(message.author.username)) {
     message.author.lastMessage.delete();
 	}
