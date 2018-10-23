@@ -1,3 +1,4 @@
+
 module.exports = async (client, member) => {
 	const settings = client.settings.get(member.guild.id);
 	const logChannel = client.channels.get(settings.logChannel);
@@ -13,7 +14,8 @@ module.exports = async (client, member) => {
 		|| /twitch.tv/gi.test(member.user.username)
 		|| /twitter.com/gi.test(member.user.username)
 		|| /selling/gi.test(member.user.username)
-		|| /.gg/gi.test(member.user.username)) {
+		|| /.gg/gi.test(member.user.username)
+		|| /tweet/gi.test(member.user.username)) {
 		member.ban(`${member.user.username} was banned automatically upon joining as their username seems to be advertising other servers/websites.`);
 //		if (member.user.lastMessage.channel.messages.get(member.user.lastMessageID).type == "GUILD_MEMBER_JOIN") {
 //		await client.wait(10000);
