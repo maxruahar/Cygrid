@@ -10,7 +10,7 @@ exports.run = (client, message, args, level) => {
 	let pResponse = "";
 	let pEmbed = {};
 	let i = 0;
-	message.delete(7500);
+	message.delete();
 
 	pOpts.forEach(o => {
 //		pResponse += `:regional_indicator_${alphabet[i]}: ‣ ${o}\n`;
