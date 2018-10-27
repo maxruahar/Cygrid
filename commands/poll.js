@@ -13,7 +13,6 @@ exports.run = (client, message, args, level) => {
 	message.delete();
 
 	pOpts.forEach(o => {
-//		pResponse += `:regional_indicator_${alphabet[i]}: ‣ ${o}\n`;
 		pResponse += `${emojibet[i]}: ‣ ${o}\n`;
 		i++;
 	});
