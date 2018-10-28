@@ -3,9 +3,12 @@ exports.run = async (client, message, args, level) => {
   //If a user is mentioned, get their user object
   const user = message.mentions.users.first();
 
+  //Remove invoking message
+  message.delete();
+
   //Find number of messages to remove by checking if arguments are numbers
-  //in case of a user being specified, plus one to include invoking message
-  const num = !!parseInt(args[0]) ? parseInt(args[0]) + 1 : parseInt(args[1]) + 1;
+  //in case of a user being specified
+  const num = !!parseInt(args[0]) ? parseInt(args[0]) : parseInt(args[1]);
 
   //If no number of messages is specified, return error message to channel
   if (!num) return message.channel.send("Please specify an amount of messages to remove.");
@@ -29,7 +32,7 @@ exports.run = async (client, message, args, level) => {
         .then(msgs => {
 
           //Populate the confirmation message based on whether a user was provided or not
-          const msg = user ? `Removed **${msgs.size - 1}** messages from ${user.username}.` : `Removed **${msgs.size - 1}** messages.`;
+          const msg = user ? `Removed **${msgs.size}** messages from ${user.username}.` : `Removed **${msgs.size}** messages.`;
 
           //Send confirmation message to channel
           message.channel.send(msg)
@@ -47,7 +50,7 @@ exports.run = async (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ["purge"],
+  aliases: ["purge", "p"],
   permLevel: "Administrator",
   guilds: [],
   cooldown: 2500
