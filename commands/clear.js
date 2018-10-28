@@ -29,7 +29,7 @@ exports.run = async (client, message, args, level) => {
         .then(msgs => {
 
           //Populate the confirmation message based on whether a user was provided or not
-          const msg = user ? `Removed ${msgs.size} messages from ${user.username}.` : `Removed ${msgs.size} messages.`;
+          const msg = user ? `Removed ${msgs.size - 1} messages from ${user.username}.` : `Removed ${msgs.size - 1} messages.`;
 
           //Send confirmation message to channel
           message.channel.send(msg)
