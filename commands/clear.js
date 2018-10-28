@@ -3,6 +3,9 @@ exports.run = async (client, message, args, level) => {
   //If a user is mentioned, get their user object
   const user = message.mentions.users.first();
 
+  //Return if user without permissions tries to remove others' messages
+  if (!user && level < 3 || message.author.id !== user.id && level < 3) return;
+
   //Remove invoking message
   await message.delete();
 
@@ -51,7 +54,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["purge", "p"],
-  permLevel: "Administrator",
+  permLevel: "User",
   guilds: [],
   cooldown: 2500
 };
