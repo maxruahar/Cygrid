@@ -4,7 +4,7 @@ exports.run = async (client, message, args, level) => {
   const user = message.mentions.users.first();
 
   //Remove invoking message
-  message.delete();
+  await message.delete();
 
   //Find number of messages to remove by checking if arguments are numbers
   //in case of a user being specified
