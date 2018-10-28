@@ -4,7 +4,7 @@ exports.run = async (client, message, args, level) => {
   const user = message.mentions.users.first();
 
   //Return if user without permissions tries to remove others' messages
-  if (!user && level < 3 || message.author.id !== user.id && level < 3) return;
+  if (!user && level < 2 || message.author.id !== user.id && level < 2) return;
 
   //Remove invoking message
   await message.delete();
