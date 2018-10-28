@@ -32,7 +32,10 @@ exports.run = async (client, message, args, level) => {
           const msg = user ? `Removed ${msgs.size} messages from ${user.username}.` : `Removed ${msgs.size} messages.`;
 
           //Send confirmation message to channel
-          message.channel.send(msg);
+          message.channel.send(msg)
+
+            //Remove confirmation message after 1 second
+            .then(m => m.delete(1000));
         })
 
         //Log error to console if there is one
