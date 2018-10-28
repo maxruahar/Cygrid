@@ -7,7 +7,7 @@ exports.run = async (client, message, args, level) => {
   if (!user && level < 2) user = message.author;
 
   //Return if user without permissions tries to remove others' messages
-  if (message.author.id !== user.id && level < 2) return;
+  if (user && message.author.id !== user.id && level < 2) return;
 
   //Remove invoking message
   await message.delete();
