@@ -4,8 +4,8 @@ exports.run = async (client, message, args, level) => {
   const user = message.mentions.users.first();
 
   //Find number of messages to remove by checking if arguments are numbers
-  //in case of a user being specified
-  const num = !!parseInt(args[0]) ? parseInt(args[0]) : parseInt(args[1]);
+  //in case of a user being specified, plus one to include invoking message
+  const num = !!parseInt(args[0]) ? parseInt(args[0]) + 1 : parseInt(args[1]) + 1;
 
   //If no number of messages is specified, return error message to channel
   if (!num) return message.channel.send("Please specify an amount of messages to remove.");
@@ -35,7 +35,7 @@ exports.run = async (client, message, args, level) => {
           message.channel.send(msg)
 
             //Remove confirmation message after 1 second
-            .then(m => m.delete(1000));
+            .then(m => m.delete(2500));
         })
 
         //Log error to console if there is one
