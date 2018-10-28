@@ -7,9 +7,9 @@ module.exports = async client => {
 	client.guilds.filter(g => !client.settings.has(g.id)).forEach(g => client.settings.set(g.id, client.config.defaultSettings));
   client.guilds.forEach(async g => {
     if (g.me.hasPermission("MANAGE_GUILD")) {
-			if (await g.fetchInvites().then(invites => invites.size) < 2) {
+			if (await g.fetchInvites().then(invites => invites.size) == 1) {
 				x = await g.fetchInvites().then(invs => invs.first().code);
-      } else {
+      } else if (await g.fetchInvites().then(invites => invites.size) > 1) {
 				x = await g.fetchInvites().then(invs => invs.sort((a, b) => a.uses - b.uses).last().code);
 			}
       g.invite = `https://discord.gg/${x}`;
