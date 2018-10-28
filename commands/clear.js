@@ -1,10 +1,13 @@
 exports.run = async (client, message, args, level) => {
 
   //If a user is mentioned, get their user object
-  const user = message.mentions.users.first();
+  let user = message.mentions.users.first();
+
+  //Allow user to remove their own messages
+  if (!user && level < 2) user = message.author;
 
   //Return if user without permissions tries to remove others' messages
-  if (!user && level < 2 || message.author.id !== user.id && level < 2) return;
+  if (message.author.id !== user.id && level < 2) return;
 
   //Remove invoking message
   await message.delete();
