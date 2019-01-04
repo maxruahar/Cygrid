@@ -11,7 +11,8 @@ module.exports = (client, message) => {
 	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 	const gex = client.config.gex;
 	const jmod = client.config.jmod;
-	const jlog = ["424254117767282709", "440528752561225729", "424254313448079362", "428220727154442242", "469800165113331713", "474574393159188491", "473830893568524288"];
+	const jlog = ["424254117767282709", "473830893568524288", "469800165113331713", "474574393159188491", "424254313448079362", "524896593384701952", "428220727154442242"];
+								//General								Discussion						Clans									Lore									Community							Comp rework						M&S Rework
 
 	if (message.author.bot) return;
 	if (!message.guild && message.author.id !== client.config.ownerID) client.users.get(client.config.ownerID).send(`**${message.author.tag}**: ${message.content}`);
