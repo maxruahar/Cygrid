@@ -4,7 +4,7 @@ exports.run = async (client, message, args, level) => {
   let user = message.mentions.users.first();
 
   //Allow user to remove their own messages
-  if (!user && level < 2) user = message.author;
+  if (!user && level < 1) user = message.author;
 
   //Return if user without permissions tries to remove others' messages
   if (user && message.author.id !== user.id && level < 2) return;
