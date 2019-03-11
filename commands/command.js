@@ -89,11 +89,11 @@ exports.run = async (client, message, [action, key, spec, ...value], level) => {
 					message.channel.send(`**${cmd.help.name}** is currently available to all guilds.`);
 			}
 			else {
-				return message.channel.send(`Invalid usage. Please use **.command guilds <command> <add/del> <serverID>**.`);
+				return message.channel.send(`Invalid usage. Please use **${settings.prefix}command guilds <command> <add/del> <serverID>**.`);
 			}
 		break;
 		default:
-			return message.channel.send("Incorrect usage. Use `.help <command>` for more information.");
+			return message.channel.send(`Incorrect usage. Use \`${settings.prefix}help <command>\` for more information.`);
 	}
 
 };
@@ -110,6 +110,6 @@ exports.conf = {
 exports.help = {
 	name: "command",
 	category: "System",
-	description: "Enable/disable/reload commands. Configure per-guild commands.",
-	usage: "command <enable/disable/reload/guilds> <cmd> [add/del]"
+	description: "Enable/disable/reload commands.",
+	usage: "command <enable/disable/reload> <cmd>"
 };
