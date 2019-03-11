@@ -15,7 +15,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
           "url": "https://discord.gg/qqducRK",
           "icon_url": "https://i.imgur.com/8sRFoa6.png"
         },
-        "description": "Description goes here!",
+        "description": `Use the command **${settings.prefix}affiliate <update> <serverID> <field> <newValue>** to update your current affiliate embed.\n\nField = Use the image below to find the letter or name for the field that you will be updating.\nNewValue = The text you want to replace the current text with.`,
         "image": {
           "url": "https://i.imgur.com/NPI0ahN.png"
         },
