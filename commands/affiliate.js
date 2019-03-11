@@ -15,14 +15,14 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
           "url": "https://discord.gg/qqducRK",
           "icon_url": "https://i.imgur.com/8sRFoa6.png"
         },
-        "description": `Use the command **${settings.prefix}affiliate <update> <serverID> <field> <newValue>** to update your current affiliate embed.\n\nField = Use the image below to find the letter or name for the field that you will be updating.\nNewValue = The text you want to replace the current text with.`,
+        "description": `Use the command **${settings.prefix}affiliate <update> <serverID> <field> <newValue>** to update your current affiliate embed.\n\nField = Use the image below to find the letter or name for the field that you will be updating.\n\nNewValue = The text you want to replace the current text with.`,
         "image": {
           "url": "https://i.imgur.com/NPI0ahN.png"
         },
         "color": 11842740,
         "footer": {
           "icon_url": "https://i.imgur.com/6c6q2iC.png",
-          "text": "Use ${settings.prefix}help affiliate for more commands"
+          "text": `Use ${settings.prefix}help affiliate for more commands`
         }
       }
     };
@@ -107,5 +107,5 @@ exports.help = {
   name: "affiliate",
   category: "Info",
   description: "Display and manage affiliate embeds.",
-  usage: `affiliate <submit/self>\n${settings.prefix}affiliate <link/unlink/display> <ID>\n${settings.prefix} affiliate <update> <ID> <field> <newValue>`
+  usage: `affiliate <submit/self>\naffiliate <link/unlink/display> <ID>\naffiliate <update> <ID> <field> <newValue>`
 };
