@@ -32,8 +32,8 @@ exports.run = (client, message, args, level) => {
 			command = client.commands.get(command) || client.commands.get(client.aliases.get(command));
 			if (level < client.levelCache[command.conf.permLevel]) return;
 			command.conf.aliases.length > 0
-			? message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage: ${settings.prefix}${command.help.usage}\naliases: ${command.conf.aliases.join(", ")}\n= ${command.help.name} =`, {code:"asciidoc"})
-			: message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage: ${settings.prefix}${command.help.usage}\n= ${command.help.name} =`, {code:"asciidoc"});
+			? message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage: ${command.help.usage}\naliases: ${command.conf.aliases.join(", ")}\n= ${command.help.name} =`, {code:"asciidoc"})
+			: message.channel.send(`= ${command.help.name} = \n${command.help.description}\nusage: ${command.help.usage}\n= ${command.help.name} =`, {code:"asciidoc"});
 
 		}
 	}
