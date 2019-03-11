@@ -37,7 +37,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
           "url": "https://discord.gg/qqducRK",
           "icon_url": "https://i.imgur.com/8sRFoa6.png"
         },
-        "title": "Click here to submit information for **${message.guild.name}**.",
+        "title": `Click here to submit information for **${message.guild.name}**.`,
         "url": "https://docs.google.com/forms/d/e/1FAIpQLSeRUtO6CFH1xfYLDKZK1G4g66Yv0KIpLaKrWdv0jera8IkodA/viewform",
         "color": 11842740,
         "footer": {
@@ -107,5 +107,5 @@ exports.help = {
   name: "affiliate",
   category: "Info",
   description: "Display and manage affiliate embeds.",
-  usage: `affiliate <submit/self>\naffiliate <link/unlink/display> <ID>\naffiliate <update> <ID> <field> <newValue>`
+  usage: `affiliate <submit/self>\n       affiliate <link/unlink/display> <ID>\n       affiliate <update> <ID> <field> <newValue>`
 };
