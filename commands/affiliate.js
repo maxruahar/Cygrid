@@ -105,7 +105,7 @@ exports.conf = {
 
 exports.help = {
   name: "affiliate",
-  category: "System",
-  description: "Send and manage affiliate embeds.",
-  usage: "affiliate <add/remove/update/view/send/self> [ID]"
+  category: "Info",
+  description: "Display and manage affiliate embeds.",
+  usage: `affiliate <submit/self>\n${settings.prefix}affiliate <link/unlink/display> <ID>\n${settings.prefix} affiliate <update> <ID> <field> <newValue>`
 };
