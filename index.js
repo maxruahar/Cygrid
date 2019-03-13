@@ -26,6 +26,7 @@ require("./modules/functions.js")(client);
 client.commands = new Enmap();
 client.aliases = new Enmap();
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
+client.affiliates = new Enmap({provider: new EnmapLevel({name: "affiliates"})});
 
 const init = async () => {
 
