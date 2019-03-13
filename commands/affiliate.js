@@ -16,9 +16,10 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
       "icon_url": "https://i.imgur.com/8sRFoa6.png"
     };
     embed.title = data.serverName;
+    embed.url = data.invite;
     embed.description = data.serverDescription;
     embed.iconURL = guild.me.hasPermission(32) ? guild.iconURL : data.iconURL;
-    embed.footer = {"icon_url": "https://i.imgur.com/6c6q2iC.png", "text": data.highlight}
+    embed.color = 11842740;
     embed.fields = [
       {"name": "__**Contact:**__", "value": data.contact, "inline": true},
       {"name": "__**Invite:**__", "value": data.invite, "inline": true}
@@ -27,6 +28,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     if (data.s4Header && data.s4Body) embed.fields.push({"name": data.s4Header, "value": data.s4Body, "inline": true});
     if (data.s5Header && data.s5Body) embed.fields.push({"name": data.s5Header, "value": data.s5Body, "inline": true});
     if (data.s6Header && data.s6Body) embed.fields.push({"name": data.s6Header, "value": data.s6Body, "inline": true});
+    embed.footer = {"icon_url": "https://i.imgur.com/6c6q2iC.png", "text": data.highlight}
 
     return final;
   }
