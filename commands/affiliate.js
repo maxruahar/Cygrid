@@ -5,6 +5,32 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   const mcs = (msg) => message.channel.send(msg);
   action = action.toLowerCase();
 
+  const embedify = (guildID, data) => {
+    const guild = client.guilds.get(guildID);    
+    const final = {"embed": {}};
+    const {embed} = final;
+
+    embed.author = {
+      "name": "RuneScape Affiliates",
+      "url": "https://discord.gg/qqducRK",
+      "icon_url": "https://i.imgur.com/8sRFoa6.png"
+    };
+    embed.title = data.serverName;
+    embed.description = data.serverDescription;
+    embed.iconURL = guild.me.hasPermission(32) ? guild.iconURL : data.iconURL;
+    embed.footer = {"icon_url": "https://i.imgur.com/6c6q2iC.png", "text": data.highlight}
+    embed.fields = [
+      {"name": "__**Contact:**__", "value": data.contact, "inline": true},
+      {"name": "__**Invite:**__", "value": data.invite, "inline": true}
+    ];
+    if (data.s3Header && data.s3Body) embed.fields.push({"name": data.s3Header, "value": data.s3Body, "inline": true});
+    if (data.s4Header && data.s4Body) embed.fields.push({"name": data.s4Header, "value": data.s4Body, "inline": true});
+    if (data.s5Header && data.s5Body) embed.fields.push({"name": data.s5Header, "value": data.s5Body, "inline": true});
+    if (data.s6Header && data.s6Body) embed.fields.push({"name": data.s6Header, "value": data.s6Body, "inline": true});
+
+    return final;
+  }
+
   if (!action) return mcs("Please specify an action.");
 
   if (level >= 4 && ["temp", "template"].includes(action)) {
@@ -50,7 +76,13 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   } else
 
   if (action == "self") {
-    
+    const id = message.guild.id;
+    if (!db.get(id)) return mcs(`No embed stored for **${message.guild.name}**.`);
+    mcs(embedify(id, db.get(id)));
+  } else
+
+  if (action == "display") {
+
   } else
 
   if (action == "link") {
@@ -58,10 +90,6 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   } else
 
   if (action == "unlink") {
-
-  } else
-
-  if (action == "display") {
 
   } else
 
