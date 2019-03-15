@@ -18,7 +18,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     embed.title = data.serverName;
     embed.url = data.invite;
     embed.description = data.serverDescription;
-    embed.thumbnail = guild ? guild.me.hasPermission(32) ? 
+    embed.thumbnail = !guild ? {"url": data.iconURL} : guild.me.hasPermission(32) ? 
       {"url": guild.iconURL} : {"url": data.iconURL};
     embed.color = 11842740;
     embed.fields = [
