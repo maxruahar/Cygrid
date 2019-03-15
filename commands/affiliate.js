@@ -27,13 +27,13 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
       {"name": "__**Invite:**__", "value": data.invite, "inline": true}
     ];
     const s3Header = !data.s3Header ? "" : data.s3Header.slice(-1) !== ":"
-      ? `**${data.s3Header}:**` : `**${data.s3Header}**`;
+      ? `__**${data.s3Header}:**__` : `__**${data.s3Header}**__`;
     const s4Header = !data.s4Header ? "" : data.s4Header.slice(-1) !== ":"
-      ? `**${data.s4Header}:**` : `**${data.s4Header}**`;
+      ? `__**${data.s4Header}:**__` : `__**${data.s4Header}**__`;
     const s5Header = !data.s5Header ? "" : data.s5Header.slice(-1) !== ":"
-      ? `**${data.s5Header}:**` : `**${data.s5Header}**`;
+      ? `__**${data.s5Header}:**__` : `__**${data.s5Header}**__`;
     const s6Header = !data.s6Header ? "" : data.s6Header.slice(-1) !== ":"
-      ? `**${data.s6Header}:**` : `**${data.s6Header}**`;
+      ? `__**${data.s6Header}:**__` : `__**${data.s6Header}**__`;
     if (data.s3Header && data.s3Body) embed.fields.push({"name": s3Header, "value": data.s3Body, "inline": true});
     if (data.s4Header && data.s4Body) embed.fields.push({"name": s4Header, "value": data.s4Body, "inline": true});
     if (data.s5Header && data.s5Body) embed.fields.push({"name": s5Header, "value": data.s5Body, "inline": true});
