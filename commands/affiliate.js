@@ -18,17 +18,26 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     embed.title = data.serverName;
     embed.url = data.invite;
     embed.description = data.serverDescription;
-    embed.thumbnail = !guild ? {"url": data.iconURL} : guild.me.hasPermission(32) ? 
-      {"url": guild.iconURL} : {"url": data.iconURL};
-    embed.color = 11842740;
+    embed.thumbnail = !guild ? {"url": data.iconURL}
+      : guild.me.hasPermission(32) && !data.iconURL
+      ? {"url": guild.iconURL} : {"url": data.iconURL};
+    embed.color = 12500670;
     embed.fields = [
       {"name": "__**Contact:**__", "value": data.contact, "inline": true},
       {"name": "__**Invite:**__", "value": data.invite, "inline": true}
     ];
-    if (data.s3Header && data.s3Body) embed.fields.push({"name": data.s3Header, "value": data.s3Body, "inline": true});
-    if (data.s4Header && data.s4Body) embed.fields.push({"name": data.s4Header, "value": data.s4Body, "inline": true});
-    if (data.s5Header && data.s5Body) embed.fields.push({"name": data.s5Header, "value": data.s5Body, "inline": true});
-    if (data.s6Header && data.s6Body) embed.fields.push({"name": data.s6Header, "value": data.s6Body, "inline": true});
+    const s3Header = !data.s3Header ? "" : data.s3Header.slice(-1) !== ":"
+      ? `**${data.s3Header}:**` : `**${data.s3Header}**`;
+    const s4Header = !data.s4Header ? "" : data.s4Header.slice(-1) !== ":"
+      ? `**${data.s4Header}:**` : `**${data.s4Header}**`;
+    const s5Header = !data.s5Header ? "" : data.s5Header.slice(-1) !== ":"
+      ? `**${data.s5Header}:**` : `**${data.s5Header}**`;
+    const s6Header = !data.s6Header ? "" : data.s6Header.slice(-1) !== ":"
+      ? `**${data.s6Header}:**` : `**${data.s6Header}**`;
+    if (data.s3Header && data.s3Body) embed.fields.push({"name": s3Header, "value": data.s3Body, "inline": true});
+    if (data.s4Header && data.s4Body) embed.fields.push({"name": s4Header, "value": data.s4Body, "inline": true});
+    if (data.s5Header && data.s5Body) embed.fields.push({"name": s5Header, "value": data.s5Body, "inline": true});
+    if (data.s6Header && data.s6Body) embed.fields.push({"name": s6Header, "value": data.s6Body, "inline": true});
     embed.footer = {"icon_url": "https://i.imgur.com/6c6q2iC.png", "text": data.highlight}
 
     return final;
@@ -48,7 +57,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
         "image": {
           "url": "https://i.imgur.com/NPI0ahN.png"
         },
-        "color": 11842740,
+        "color": 12500670,
         "footer": {
           "icon_url": "https://i.imgur.com/6c6q2iC.png",
           "text": `Use ${settings.prefix}help affiliate for more commands`
@@ -68,7 +77,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
         },
         "title": `Click here to submit information for **${message.guild.name}**.`,
         "url": "https://docs.google.com/forms/d/e/1FAIpQLSeRUtO6CFH1xfYLDKZK1G4g66Yv0KIpLaKrWdv0jera8IkodA/viewform",
-        "color": 11842740,
+        "color": 12500670,
         "footer": {
           "icon_url": "https://i.imgur.com/6c6q2iC.png",
           "text": `Use ${settings.prefix}help affiliate for more commands`
