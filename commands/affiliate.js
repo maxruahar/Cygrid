@@ -18,7 +18,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     embed.title = data.serverName;
     embed.url = data.invite;
     embed.description = data.serverDescription;
-    embed.thumbnail = guild.me.hasPermission(32) ? 
+    embed.thumbnail = guild ? guild.me.hasPermission(32) ? 
       {"url": guild.iconURL} : {"url": data.iconURL};
     embed.color = 11842740;
     embed.fields = [
@@ -78,25 +78,27 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     mcs(e);
   } else
 
-  if (action == "self") {
+  if (["s", "self"].includes(action)) {
     const id = message.guild.id;
     if (!db.get(id)) return mcs(`No embed stored for **${message.guild.name}**.`);
     mcs(embedify(id, db.get(id)));
   } else
 
-  if (action == "display") {
+  if (["d", "display"].includes(action)) {
+    const guildName = client.guilds.get(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
+    if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}.`);
+    mcs(embedify(cygID, db.get(cygID)));
+  } else
+
+  if (["l", "link"].includes(action)) {
 
   } else
 
-  if (action == "link") {
+  if (["u", "unlink"].includes(action)) {
 
   } else
 
-  if (action == "unlink") {
-
-  } else
-
-  if (action == "update") {
+  if (["up", "update"].includes(action)) {
     
   }
 
