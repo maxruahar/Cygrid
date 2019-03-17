@@ -27,6 +27,8 @@ client.commands = new Enmap();
 client.aliases = new Enmap();
 client.settings = new Enmap({provider: new EnmapLevel({name: "settings"})});
 client.affiliates = new Enmap({provider: new EnmapLevel({name: "affiliates"})});
+client.affLinks = new Enmap({provider: new EnmapLevel({name: "affLinks"})});
+client.affMessages = new Enmap({provider: new EnmapLevel({name: "affMessages"})});
 
 const init = async () => {
 
