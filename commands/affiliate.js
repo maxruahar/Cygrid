@@ -20,7 +20,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     embed.description = data.serverDescription;
     embed.thumbnail = !guild ? {"url": data.iconURL}
       : guild.me.hasPermission(32) && !data.iconURL
-      ? {"url": guild.iconURL} : {"url": data.iconURL};
+        ? {"url": guild.iconURL} : {"url": data.iconURL};
     embed.color = 12500670;
     embed.fields = [
       {"name": "__**Contact:**__", "value": data.contact, "inline": true},
@@ -38,7 +38,11 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     if (data.s4Header && data.s4Body) embed.fields.push({"name": s4Header, "value": data.s4Body, "inline": true});
     if (data.s5Header && data.s5Body) embed.fields.push({"name": s5Header, "value": data.s5Body, "inline": true});
     if (data.s6Header && data.s6Body) embed.fields.push({"name": s6Header, "value": data.s6Body, "inline": true});
-    embed.footer = {"icon_url": "https://i.imgur.com/6c6q2iC.png", "text": data.highlight}
+    embed.footer = data.highlight
+      ? {"icon_url": "https://i.imgur.com/6c6q2iC.png", "text": data.highlight}
+      : client.guilds.has(guildID)
+        ? {"icon_url": "https://i.imgur.com/6c6q2iC.png", "text": `Embed created for ${guild.name} by the Cygrid team`}
+        : {"icon_url": "https://i.imgur.com/6c6q2iC.png", "text": `Embed created for ${data.serverName} by the Cygrid team | Invite to claim and update`}
 
     return final;
   }
