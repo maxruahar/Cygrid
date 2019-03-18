@@ -106,6 +106,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   } else
 
   if (["l", "link"].includes(action)) {
+    if (!cygID) return mcs("Please specify a server ID to link.");
     const target = db.has(cygID)
       ? db.get(cygID)
       : client.guilds.has(cygID)
@@ -135,6 +136,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   } else
 
   if (["u", "unlink"].includes(action)) {
+    if (!cygID) return mcs("Please specify a server ID to unlink.");
     const target = db.has(cygID)
       ? db.get(cygID)
       : client.guilds.has(cygID)
