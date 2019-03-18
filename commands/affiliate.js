@@ -49,6 +49,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   }
 
   if (!action) return mcs("Please specify an action.");
+  message.delete();
 
   if (level >= 4 && ["temp", "template"].includes(action)) {
     const e = {
@@ -117,6 +118,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
         : target.name;
     if (!db.has(cygID)) return mcs(`No embed stored for ${targetName}.`);
     const id = level > 3 && args[0] ? args[0] : message.guild.id;
+    if (id == cygID) return mcs("Servers may not be linked to themselves.");
     const currName = db.has(id)
       ? `**${db.get(id).serverName}**`
       : client.guilds.has(id)
@@ -128,11 +130,36 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     if (!links.includes(cygID)) {
       links.push(cygID);
       affLinks.set(id, links);
-      return mcs(`${targetName} is now linked to ${currName}.`);
+      return mcs(`${targetName} has been linked to ${currName}.`);
     }
   } else
 
   if (["u", "unlink"].includes(action)) {
+    const target = db.has(cygID)
+      ? db.get(cygID)
+      : client.guilds.has(cygID)
+        ? client.guilds.get(cygID)
+        : {"name": "that server"};
+    const target = db.has(cygID)
+      ? db.get(cygID)
+      : client.guilds.has(cygID)
+        ? client.guilds.get(cygID)
+        : {"name": "that server"};
+    if (!db.has(cygID)) return mcs(`No embed stored for ${targetName}.`);
+    const id = level > 3 && args[0] ? args[0] : message.guild.id;
+    if (id == cygID) return mcs("Servers may not be linked to themselves.");
+    const currName = db.has(id)
+      ? `**${db.get(id).serverName}**`
+      : client.guilds.has(id)
+        ? `**${client.guilds.get(id).name}**`
+        : "that server";
+    if (!affLinks.has(id)) client.affLinks.set(id, []);
+    const links = affLinks.get(id);
+    if (!links.includes(cygID)) return mcs(`${targetName} is not linked to ${currName}.`);
+    if (links.includes(cygID)) {
+      links.filter(l => l !== cygID);
+      affLinks.set(id, links);
+      return mcs(`${targetName} has been unlinked from ${currName}.`);
 
   } else
 
