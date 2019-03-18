@@ -2,6 +2,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
 
   const settings = client.settings.get(message.guild.id);
   const db = client.affiliates;
+  const affLinks = client.affLinks;
   const mcs = (msg) => message.channel.send(msg);
   action = action.toLowerCase();
 
@@ -98,13 +99,37 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   } else
 
   if (["d", "display"].includes(action)) {
-    const guildName = client.guilds.get(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
+    const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
     if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}.`);
     mcs(embedify(cygID, db.get(cygID)));
   } else
 
   if (["l", "link"].includes(action)) {
-
+    const target = db.has(cygID)
+      ? db.get(cygID)
+      : client.guilds.has(cygID)
+        ? client.guilds.get(cygID)
+        : {"name": "that server"};
+    const targetName = target.serverName
+      ? `**${target.serverName}**`
+      : target.name !== "that server"
+        ? `**${target.name}**`
+        : target.name;
+    if (!db.has(cygID)) return mcs(`No embed stored for ${targetName}.`);
+    const id = level > 3 && args[0] ? args[0] : message.guild.id;
+    const currName = db.has(id)
+      ? `**${db.get(id).serverName}**`
+      : client.guilds.has(id)
+        ? `**${client.guilds.get(id).name}**`
+        : "that server";
+    if (!affLinks.has(id)) client.affLinks.set(id, []);
+    const links = affLinks.get(id);
+    if (links.includes(cygID)) return mcs(`${targetName} is already linked to ${currName}.`);
+    if (!links.includes(cygID)) {
+      links.push(cygID);
+      affLinks.set(id, links);
+      return mcs(`${targetName} is now linked to ${currName}.`);
+    }
   } else
 
   if (["u", "unlink"].includes(action)) {
