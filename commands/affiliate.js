@@ -156,10 +156,10 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
         ? `**${client.guilds.get(id).name}**`
         : "that server";
     if (!affLinks.has(id)) client.affLinks.set(id, []);
-    const links = affLinks.get(id);
+    let links = affLinks.get(id);
     if (!links.includes(cygID)) return mcs(`${targetName} is not linked to ${currName}.`);
     if (links.includes(cygID)) {
-      links.filter(l => l !== cygID);
+      links = links.filter(l => l !== cygID);
       affLinks.set(id, links);
       return mcs(`${targetName} has been unlinked from ${currName}.`);
     }
