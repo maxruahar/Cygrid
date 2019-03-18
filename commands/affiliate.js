@@ -140,11 +140,11 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
       : client.guilds.has(cygID)
         ? client.guilds.get(cygID)
         : {"name": "that server"};
-    const target = db.has(cygID)
-      ? db.get(cygID)
-      : client.guilds.has(cygID)
-        ? client.guilds.get(cygID)
-        : {"name": "that server"};
+    const targetName = target.serverName
+      ? `**${target.serverName}**`
+      : target.name !== "that server"
+        ? `**${target.name}**`
+        : target.name;
     if (!db.has(cygID)) return mcs(`No embed stored for ${targetName}.`);
     const id = level > 3 && args[0] ? args[0] : message.guild.id;
     if (id == cygID) return mcs("Servers may not be linked to themselves.");
