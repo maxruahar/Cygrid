@@ -160,7 +160,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
       links.filter(l => l !== cygID);
       affLinks.set(id, links);
       return mcs(`${targetName} has been unlinked from ${currName}.`);
-
+    }
   } else
 
   if (["up", "update"].includes(action)) {
