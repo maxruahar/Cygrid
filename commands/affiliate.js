@@ -114,7 +114,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     mcs(embedify(cygID, db.get(cygID)))
       .then(m => {
         const embedGuilds = affMessages.get(cygID);
-        embedGuilds[message.guild.id] = [m.channel.id, m.id];
+        embedGuilds[m.guild.id] = [m.guild.id, m.channel.id, m.id];
         affMessages.set(cygID, embedGuilds);
       });
   } else
