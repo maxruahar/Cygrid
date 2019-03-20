@@ -121,7 +121,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   } else
 
   if (["log"].includes(action)) {
-    if (level > 3 &&db && !db.has(cygID)) return mcs("No embed stored for that server.");
+    if (level > 3 && cygID && !db.has(cygID)) return mcs("No embed stored for that server.");
     const guilds = level > 3 && cygID
       ? Object.getOwnPropertyNames(client.affMessages.get(cygID))
       : Object.getOwnPropertyNames(client.affMessages.get(message.guild.id));
