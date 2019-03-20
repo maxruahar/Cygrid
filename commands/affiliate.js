@@ -3,6 +3,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   const settings = client.settings.get(message.guild.id);
   const db = client.affiliates;
   const affLinks = client.affLinks;
+  const affMessages = client.affMessages;
   const mcs = (msg) => message.channel.send(msg);
   action = action.toLowerCase();
 
