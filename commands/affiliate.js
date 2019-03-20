@@ -51,7 +51,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   if (!action) return mcs("Please specify an action.");
   message.delete();
 
-  if (level >= 4 && ["temp", "template"].includes(action)) {
+  if (level > 3 && ["temp", "template"].includes(action)) {
     const e = {
       "embed": {
         "author": {
@@ -99,10 +99,23 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     mcs(embedify(id, db.get(id)));
   } else
 
-  if (["d", "display"].includes(action)) {
+  if ([level > 3 && "d", "pre", "preview"].includes(action)) {
     const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
     if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}.`);
     mcs(embedify(cygID, db.get(cygID)));
+  } else
+
+  if (["p", "post"].includes(action)) {
+    const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
+    if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}.`);
+    if (!affMessages.has(cygID)) affMessage.set(cygID, []);
+    if (Object.getOwnPropertyNames(affMessages.get(cygID)).includes(message.guild.id)) return mcs(`An embed for ${guildName} has already been posted in **${message.guild.name}**.`);
+    mcs(embedify(cygID, db.get(cygID)))
+      .then(m => {
+        const embedGuilds = affMessages.get(cygID);
+        embedGuilds[message.guild.id] = [m.channel.id, m.id];
+        affMessages.set(cygID, embedGuilds);
+      });
   } else
 
   if (["l", "link"].includes(action)) {
