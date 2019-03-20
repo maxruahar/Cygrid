@@ -121,7 +121,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   } else
 
   if (["log"].includes(action)) {
-    if (level > 3 && !db.has(cygID)) return mcs("No embed stored for that server.");
+    if (level > 3 && cygID && !db.has(cygID)) return mcs("No embed stored for that server.");
     const guilds = level > 3 && cygID
       ? Object.getOwnPropertyNames(client.affMessages.get(cygID))
       : Object.getOwnPropertyNames(client.affMessages.get(message.guild.id));
@@ -129,7 +129,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
       ? db.get(cygID).serverName
       : db.get(message.guild.id).serverName;
     let response = `Servers with **${guildName}** affiliate embed:\n\n`;
-    response += guilds.map(g => `• ${db.get(g).servername}\n`);
+    response += guilds.map(g => db.has(g) ? `• ${db.get(g).servername}\n` : "");
     mcs(response);
   } else
 
