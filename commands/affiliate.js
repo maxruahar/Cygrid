@@ -109,7 +109,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   if (["p", "post"].includes(action)) {
     const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
     if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}.`);
-    if (!affMessages.has(cygID)) affMessage.set(cygID, []);
+    if (!affMessages.has(cygID)) affMessages.set(cygID, []);
     if (Object.getOwnPropertyNames(affMessages.get(cygID)).includes(message.guild.id)) return mcs(`An embed for ${guildName} has already been posted in **${message.guild.name}**.`);
     mcs(embedify(cygID, db.get(cygID)))
       .then(m => {
