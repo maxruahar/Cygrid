@@ -1,5 +1,6 @@
 exports.run = (client, message, [action, cygID, ...args], level) => {
 
+  const table = require("markdown-table");
   const settings = client.settings.get(message.guild.id);
   const db = client.affiliates;
   const affLinks = client.affLinks;
@@ -109,7 +110,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   if (["p", "post"].includes(action)) {
     const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
     if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}.`);
-    if (!affMessages.has(cygID)) affMessages.set(cygID, []);
+    if (!affMessages.has(cygID)) affMessages.set(cygID, {});
     if (Object.getOwnPropertyNames(affMessages.get(cygID)).includes(message.guild.id)) return mcs(`An embed for ${guildName} has already been posted in **${message.guild.name}**.`);
     mcs(embedify(cygID, db.get(cygID)))
       .then(m => {
@@ -117,6 +118,19 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
         embedGuilds[m.guild.id] = [m.guild.id, m.channel.id, m.id];
         affMessages.set(cygID, embedGuilds);
       });
+  } else
+
+  if (["log"].includes(action)) {
+    if (level > 3 && !db.has(cygID)) return mcs("No embed stored for that server.");
+    const guilds = level > 3 && cygID
+      ? Object.getOwnPropertyNames(client.affMessages.get(cygID))
+      : Object.getOwnPropertyNames(client.affMessages.get(message.guild.id));
+    const guildName = level > 3 && cygID
+      ? db.get(cygID).serverName
+      : db.get(message.guild.id).serverName;
+    let response = `Servers with **${guildName}** affiliate embed:\n\n`;
+    response += guilds.map(g => `• ${db.get(g).servername}\n`);
+    mcs(response);
   } else
 
   if (["l", "link"].includes(action)) {
