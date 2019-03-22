@@ -128,7 +128,8 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     const guildName = level > 3 && cygID
       ? db.get(cygID).serverName
       : db.get(message.guild.id).serverName;
-     const guildThumb = !guild ? {"url": data.iconURL}
+    const guild = client.guilds.get(guildID);
+    const guildThumb = !guild ? {"url": data.iconURL}
       : guild.me.hasPermission(32) && !data.iconURL
       ? {"url": guild.iconURL} : {"url": data.iconURL};
     let response = "";
