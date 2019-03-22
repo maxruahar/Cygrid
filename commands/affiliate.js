@@ -128,10 +128,6 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     const guildName = level > 3 && cygID
       ? db.get(cygID).serverName
       : db.get(message.guild.id).serverName;
-    const guild = client.guilds.get(message.guild.id);
-    const guildThumb = !guild ? {"url": data.iconURL}
-      : guild.me.hasPermission(32) && !data.iconURL
-      ? {"url": guild.iconURL} : {"url": data.iconURL};
     let response = "";
     guilds.forEach(g => {
       const nam = client.guilds.get(g).name;
@@ -154,7 +150,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
           },
         "title": `Servers with **${guildName}** affiliate embed:`,
         "description": response,
-        "thumbnail": guildThumb,
+        "thumbnail": {"url": message.guild.iconURL},
         "color": 12500670,
         "footer": {
           "icon_url": "https://i.imgur.com/6c6q2iC.png",
