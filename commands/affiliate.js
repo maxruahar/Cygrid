@@ -18,7 +18,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
       "url": "https://discord.gg/qqducRK",
       "icon_url": "https://i.imgur.com/8sRFoa6.png"
     };
-    embed.title = data.serverName;
+    embed.title = guild ? guild.name : data.serverName;
     embed.url = data.invite;
     embed.description = data.serverDescription;
     embed.thumbnail = !guild ? {"url": data.iconURL}
@@ -129,7 +129,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
       ? db.get(cygID).serverName
       : db.get(message.guild.id).serverName;
     let response = `Servers with **${guildName}** affiliate embed:\n\n`;
-    response += guilds.map(g => `• ${client.guilds.get(g).name}\n`);
+    response += guilds.map(g => `• ${client.guilds.get(g).name}`);
     mcs(response);
   } else
 
