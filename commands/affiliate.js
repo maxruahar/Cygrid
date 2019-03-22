@@ -128,9 +128,40 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     const guildName = level > 3 && cygID
       ? db.get(cygID).serverName
       : db.get(message.guild.id).serverName;
-    let response = `Servers with **${guildName}** affiliate embed:\n\n`;
-    response += guilds.map(g => `• ${client.guilds.get(g).name}`);
-    mcs(response);
+     const guildThumb = !guild ? {"url": data.iconURL}
+      : guild.me.hasPermission(32) && !data.iconURL
+      ? {"url": guild.iconURL} : {"url": data.iconURL};
+    let response = "";
+    guilds.forEach(g => {
+      const nam = client.guilds.get(g).name;
+      const inv = client.guilds.get(g).invite
+        ? client.guilds.get(g).invite
+        : db.get(g)
+          ? db.get(g).invite
+          : "";
+      const add = inv
+        ? `• [${nam}](${inv})\n`
+        : `• ${nam}\n`;
+      response += add;
+    });
+    const e = {
+      "embed": {
+        "author": {
+          "name": "RuneScape Affiliates",
+          "url": "https://discord.gg/qqducRK",
+          "icon_url": "https://i.imgur.com/8sRFoa6.png"
+          },
+        "title": `Servers with **${guildName}** affiliate embed:`,
+        "description": response,
+        "thumbnail": guildThumb,
+        "color": 12500670,
+        "footer": {
+          "icon_url": "https://i.imgur.com/6c6q2iC.png",
+          "text": `Use ${settings.prefix}help affiliate for more commands`
+          }
+        }
+      }
+    mcs(e);
   } else
 
   if (["l", "link"].includes(action)) {
@@ -194,7 +225,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   } else
 
   if (["up", "update"].includes(action)) {
-    
+    // Compare timestamps on lastUpdate for cooldown
   }
 
   else {
