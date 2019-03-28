@@ -125,11 +125,12 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     const guildName = level > 3 && cygID
       ? db.get(cygID).serverName
       : db.get(message.guild.id).serverName;
-      if (level > 3 && cygID && !client.affMessages.has(cygID) || !client.affMessages.get(message.guild.id))
-        return mcs (`There are currently no servers with **${guildName}** affiliate embed.`);
+    if (level > 3 && cygID && !client.affMessages.has(cygID) || !client.affMessages.get(message.guild.id))
+      return mcs (`There are currently no servers with **${guildName}** affiliate embed.`);
     const guilds = level > 3 && cygID
       ? Object.getOwnPropertyNames(client.affMessages.get(cygID))
       : Object.getOwnPropertyNames(client.affMessages.get(message.guild.id));
+    if (guilds.length < 1) return mcs(`There are currently no servers with **${guildName}** affiliate embed.`);
     let response = "";
     guilds.forEach(g => {
       const nam = client.guilds.get(g).name;
