@@ -247,9 +247,9 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   if(!db.has(cygID)) return mcs("No embed stored for that server.");
   const affEmbed = db.get(cygID);
   if (message.author.id !== client.settings.get(cygID).ownerID
-    || !client.guilds.get(cygID).members.get(message.author.id).roles.has(client.guilds.get(cygID)
+    && !client.guilds.get(cygID).members.get(message.author.id).roles.has(client.guilds.get(cygID)
       .roles.find(r => r.name == client.settings.get(cygID).adminRole).id)
-    || level < 4) return mcs(`You do not have permission to edit the **${affEmbed.serverName}** embed.`)
+    && level < 4) return mcs(`You do not have permission to edit the embed for **${affEmbed.serverName}**.`);
   let field = args[0];
   if (!field) return mcs("Please specify a field to update.")
   const value = args.slice(1).join(" ");
