@@ -225,6 +225,56 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   } else
 
   if (["up", "update"].includes(action)) {
+    const e = {
+      "embed": {
+        "author": {
+          "name": "RuneScape Affiliates",
+          "url": "https://discord.gg/qqducRK",
+          "icon_url": "https://i.imgur.com/8sRFoa6.png"
+        },
+        "description": `Use the field name or reference letter listed below to choose which property of your embed to update.\n\n__Syntax:__\n**${settings.prefix}affiliate update <serverID> <field> <newValue>**\n\n__Examples:__\n**${settings.prefix}affiliate update 433447855127003157 A Cygrid Dev**\n**${settings.prefix}affiliate update 433447855127003157 serverName Cygrid Dev**\n\n\n Both of these commands would update the serverName property of my embed to Cygrid Dev.`,
+        "image": {
+          "url": "https://i.imgur.com/KpVt6db.png"
+        },
+        "color": 12500670,
+        "footer": {
+          "icon_url": "https://i.imgur.com/6c6q2iC.png",
+          "text": `Use ${settings.prefix}help affiliate for more commands`
+        }
+      }
+    };
+  if (!cygID) return mcs(e);
+  if(!db.has(cygID)) return mcs("No embed stored for that server.");
+  const affEmbed = db.get(cygID);
+  if (message.author.id !== client.settings.get(cygID).ownerID
+    || !client.guilds.get(cygID).members.get(message.author.id).roles.has(client.guilds.get(cygID)
+      .roles.find(r => r.name == client.settings.get(cygID).adminRole).id)
+    || level < 4) return mcs(`You do not have permission to edit the **${affEmbed.serverName}** embed.`)
+  let field = args[0];
+  if (!field) return mcs("Please specify a field to update.")
+  const value = args.slice(1).join(" ");
+  const aliases = {
+    "a": "serverName",
+    "b": "serverDescription",
+    "c": "iconURL",
+    "d": "contact",
+    "e": "invite",
+    "f": "s3Header",
+    "g": "s3Body",
+    "h": "s4Header",
+    "i": "s4Body",
+    "j": "s5Header",
+    "k": "s5Body",
+    "l": "s6Header",
+    "m": "s6Body",
+    "n": "serverHighlight"
+  };
+  if (Object.getOwnPropertyNames(aliases).includes(field.toLowerCase())) field = aliases[field.toLowerCase()];
+  if (!Object.values(aliases).includes(field))
+    return mcs(`Invalid field specified. Use **${settings.prefix}affiliate update** to learn more.`);
+  if (!value) return mcs(`Please specify a value to update the **${field}** field with.`);
+
+
     // Compare timestamps on lastUpdate for cooldown
   }
 
