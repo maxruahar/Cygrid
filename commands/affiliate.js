@@ -99,19 +99,19 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
 
   if (["s", "self"].includes(action)) {
     const id = message.guild.id;
-    if (!db.get(id)) return mcs(`No embed stored for **${message.guild.name}**.`);
+    if (!db.get(id)) return mcs(`No embed stored for **${message.guild.name}**. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     mcs(embedify(id, db.get(id)));
   } else
 
   if ([level > 3 && "d", "pre", "preview"].includes(action)) {
     const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
-    if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}.`);
+    if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     mcs(embedify(cygID, db.get(cygID)));
   } else
 
   if (["p", "post"].includes(action)) {
     const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
-    if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}.`);
+    if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     if (!affMessages.has(cygID)) affMessages.set(cygID, {});
     if (Object.getOwnPropertyNames(affMessages.get(cygID)).includes(message.guild.id)) return mcs(`An embed for ${guildName} has already been posted in **${message.guild.name}**.`);
     mcs(embedify(cygID, db.get(cygID)))
@@ -123,7 +123,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   } else
 
   if (["log"].includes(action)) {
-    if (level > 3 && cygID && !db.has(cygID)) return mcs("No embed stored for that server.");
+    if (level > 3 && cygID && !db.has(cygID)) return mcs("No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.");
     const guildName = level > 3 && cygID
       ? db.get(cygID).serverName
       : db.get(message.guild.id).serverName;
@@ -181,7 +181,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
       : target.name !== "that server"
         ? `**${target.name}**`
         : target.name;
-    if (!db.has(cygID)) return mcs(`No embed stored for ${targetName}.`);
+    if (!db.has(cygID)) return mcs(`No embed stored for **${targetName}**. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const id = level > 3 && args[0] ? args[0] : message.guild.id;
     if (id == cygID) return mcs("Servers may not be linked to themselves.");
     const currName = db.has(id)
@@ -211,7 +211,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
       : target.name !== "that server"
         ? `**${target.name}**`
         : target.name;
-    if (!db.has(cygID)) return mcs(`No embed stored for ${targetName}.`);
+    if (!db.has(cygID)) return mcs(`No embed stored for **${targetName}**. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const id = level > 3 && args[0] ? args[0] : message.guild.id;
     if (id == cygID) return mcs("Servers may not be linked to themselves.");
     const currName = db.has(id)
@@ -249,7 +249,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
       }
     };
     if (!cygID) return mcs(e);
-    if(!db.has(cygID)) return mcs("No embed stored for that server.");
+    if(!db.has(cygID)) return mcs("No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.");
     const affEmbed = db.get(cygID);
     const adminRole = client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole)
       ? client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole).id
@@ -291,7 +291,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
         if (!/(http(s?):)([/|.|\w|\s|-])*\.(?:jpe?g|gif|png|webp\??)/gi.test(value)) return mcs(`The **${field}** requires a valid image URL ending in one of the following file extensions:\n• jpg/jpeg\n• png\n• gif\n• webp`);
         break;
       case "contact":
-        if (!/^<@!?\d{17,18}>( and <@!?\d{17,18}>)?$/.test(value)) return mcs(`The **${field}** field requires one or two valid Discord mentions. Formatting should be as follows:\n One contact: "\<@0123456789>"\nTwo contacts: "\<@0123456789> and \<@0123456789>"`);
+        if (!/^<@!?\d{17,18}>( or <@!?\d{17,18}>)?$/.test(value)) return mcs(`The **${field}** field requires one or two valid Discord mentions. Formatting should be as follows:\nOne contact: "\<@0123456789>"\nTwo contacts: "\<@0123456789> or \<@0123456789>"`);
         if (value.length > 1024) return mcs(`The **${field}** field has a character limit of **1024** characters.`);
         break;
       case "invite":
@@ -342,7 +342,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
         "color": 12500670,
         "footer": {
           "icon_url": "https://i.imgur.com/6c6q2iC.png",
-          "text": `Use ${settings.prefix}help affiliate for more commands`
+          "text": `Edited by ${message.author.username} in ${message.guild.name}`
           }
         }
       };
