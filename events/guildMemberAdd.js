@@ -7,7 +7,7 @@ module.exports = async (client, member) => {
 		logChannel.send(`${member.user.username} was banned automatically upon joining as they are on the auto-ban list.`);
 	}
 	if (/discord.gg/gi.test(member.user.username)
-		|| /discord.me/gi.test(member.user.username)
+		|| /discord.me\/\w+/gi.test(member.user.username)
 		|| /add me/gi.test(member.user.username)
 		|| /pls add/gi.test(member.user.username)
 		|| /add pls/gi.test(member.user.username)
