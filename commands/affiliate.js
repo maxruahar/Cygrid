@@ -5,6 +5,8 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   const db = client.affiliates;
   const affLinks = client.affLinks;
   const affMessages = client.affMessages;
+  const affTimestamps = client.affTimestamps;
+  const now = Math.floor(+new Date / 1000);
   const mcs = (msg) => message.channel.send(msg);
   action = action.toLowerCase();
 
@@ -125,6 +127,9 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     const guildName = level > 3 && cygID
       ? db.get(cygID).serverName
       : db.get(message.guild.id).serverName;
+    const iconURL = level > 3 && cygID
+      ? db.get(cygID).iconURL
+      : message.guild.iconURL
     if (level > 3 && cygID && !client.affMessages.has(cygID) || !client.affMessages.get(message.guild.id))
       return mcs (`There are currently no servers with **${guildName}** affiliate embed.`);
     const guilds = level > 3 && cygID
@@ -153,7 +158,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
           },
         "title": `Servers with **${guildName}** affiliate embed:`,
         "description": response,
-        "thumbnail": {"url": message.guild.iconURL},
+        "thumbnail": {"url": iconURL},
         "color": 12500670,
         "footer": {
           "icon_url": "https://i.imgur.com/6c6q2iC.png",
@@ -224,7 +229,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     }
   } else
 
-  if (["up", "update"].includes(action)) {
+  if (["e", "edit"].includes(action)) {
     const e = {
       "embed": {
         "author": {
@@ -243,39 +248,114 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
         }
       }
     };
-  if (!cygID) return mcs(e);
-  if(!db.has(cygID)) return mcs("No embed stored for that server.");
-  const affEmbed = db.get(cygID);
-  if (message.author.id !== client.settings.get(cygID).ownerID
-    && !client.guilds.get(cygID).members.get(message.author.id).roles.has(client.guilds.get(cygID)
-      .roles.find(r => r.name == client.settings.get(cygID).adminRole).id)
-    && level < 4) return mcs(`You do not have permission to edit the embed for **${affEmbed.serverName}**.`);
-  let field = args[0];
-  if (!field) return mcs("Please specify a field to update.")
-  const value = args.slice(1).join(" ");
-  const aliases = {
-    "a": "serverName",
-    "b": "serverDescription",
-    "c": "iconURL",
-    "d": "contact",
-    "e": "invite",
-    "f": "s3Header",
-    "g": "s3Body",
-    "h": "s4Header",
-    "i": "s4Body",
-    "j": "s5Header",
-    "k": "s5Body",
-    "l": "s6Header",
-    "m": "s6Body",
-    "n": "serverHighlight"
-  };
-  if (Object.getOwnPropertyNames(aliases).includes(field.toLowerCase())) field = aliases[field.toLowerCase()];
-  if (!Object.values(aliases).includes(field))
-    return mcs(`Invalid field specified. Use **${settings.prefix}affiliate update** to learn more.`);
-  if (!value) return mcs(`Please specify a value to update the **${field}** field with.`);
+    if (!cygID) return mcs(e);
+    if(!db.has(cygID)) return mcs("No embed stored for that server.");
+    const affEmbed = db.get(cygID);
+    if (message.author.id !== client.settings.get(cygID).ownerID
+      && !client.guilds.get(cygID).members.get(message.author.id).roles.has(client.guilds.get(cygID)
+        .roles.find(r => r.name == client.settings.get(cygID).adminRole).id)
+      && level < 4) return mcs(`You do not have permission to edit the embed for **${affEmbed.serverName}**.`);
+    let field = args[0];
+    if (!field) return mcs("Please specify a field to update.")
+    const value = args.slice(1).join(" ");
+    const aliases = {
+      "a": "serverName",
+      "b": "serverDescription",
+      "c": "iconURL",
+      "d": "contact",
+      "e": "invite",
+      "f": "s3Header",
+      "g": "s3Body",
+      "h": "s4Header",
+      "i": "s4Body",
+      "j": "s5Header",
+      "k": "s5Body",
+      "l": "s6Header",
+      "m": "s6Body",
+      "n": "serverHighlight"
+    };
+    if (Object.getOwnPropertyNames(aliases).includes(field.toLowerCase())) field = aliases[field.toLowerCase()];
+    if (!Object.values(aliases).includes(field))
+      return mcs(`Invalid field specified. Use **${settings.prefix}affiliate update** to learn more.`);
+    if (!value) return mcs(`Please specify a value to update the **${field}** field with.`);
+    switch (field) {
+      case "serverName":
+        if (value.length > 256) return mcs(`The **${field}** field has a character limit of **256** characters.`);
+        break;
+      case "serverDescription":
+        if (value.length > 2048) return mcs(`The **${field}** field has a character limit of **2048** characters.`);
+        break;
+      case "iconURL":
+        if (!/(http(s?):)([/|.|\w|\s|-])*\.(?:jpe?g|gif|png|webp\??)/gi.test(value)) return mcs(`The **${field}** requires a valid image URL ending in one of the following file extensions:\n• jpg/jpeg\n• png\n• gif\n• webp`);
+        break;
+      case "contact":
+        if (!/^<@!?\d{17,18}>( and <@!?\d{17,18}>)?$/.test(value)) return mcs(`The **${field}** field requires one or two valid Discord mentions. Formatting should be as follows:\n One contact: "\<@0123456789>"\nTwo contacts: "\<@0123456789> and \<@0123456789>"`);
+        if (value.length > 1024) return mcs(`The **${field}** field has a character limit of **1024** characters.`);
+        break;
+      case "invite":
+        if (!/https?:\/{2}discord.gg\/\w+/i.test(value)) return mcs(`The **${field}** field must be a valid **permanent** Discord invite link.`);
+        if (value.length > 1024) return mcs(`The **${field}** field has a character limit of **1024** characters.`);
+        break;
+      case "s3Header":
+        if (value.length > 256) return mcs(`The **${field}** field has a character limit of **256** characters.`);
+        break;
+      case "s3Body":
+        if (value.length > 1024) return mcs(`The **${field}** field has a character limit of **1024** characters.`);
+        break;
+      case "s4Header":
+        if (value.length > 256) return mcs(`The **${field}** field has a character limit of **256** characters.`);
+        break;
+      case "s4Body":
+        if (value.length > 1024) return mcs(`The **${field}** field has a character limit of **1024** characters.`);
+        break;
+      case "s5Header":
+        if (value.length > 256) return mcs(`The **${field}** field has a character limit of **256** characters.`);
+        break;
+      case "s5Body":
+        if (value.length > 1024) return mcs(`The **${field}** field has a character limit of **1024** characters.`);
+        break;
+      case "s6Header":
+        if (value.length > 256) return mcs(`The **${field}** field has a character limit of **256** characters.`);
+        break;
+      case "s6Body":
+        if (value.length > 1024) return mcs(`The **${field}** field has a character limit of **1024** characters.`);
+        break;
+      case "highlight":
+        if (!value.includes("|")) return mcs(`The **${field}** field should consist of short key points of your server separated by the **|** character.`);
+        if (value.length > 2048)  return mcs(`The **${field}** field has a character limit of **2048** characters.`);
+        break;
+    affEmbed[field] = value;
+    db.set(cygID, affEmbed);
+    const eUpdate = {
+      "embed": {
+        "author": {
+          "name": "RuneScape Affiliates",
+          "url": "https://discord.gg/qqducRK",
+          "icon_url": "https://i.imgur.com/8sRFoa6.png"
+          },
+        "title": `**${guildName}** affiliate embed updated:`,
+        "description": `The **${field}** field was updated to the following:\n\`\`\`${value}\`\`\``,
+        "thumbnail": {"url": affEmbed.iconURL},
+        "color": 12500670,
+        "footer": {
+          "icon_url": "https://i.imgur.com/6c6q2iC.png",
+          "text": `Use ${settings.prefix}help affiliate for more commands`
+          }
+        }
+      };
+    client.guilds.get("433447855127003157").channels.get("563874508625281024").send(eUpdate);
+  }
 
+  }
 
+  else 
+
+  if (["up", "update"].includes(action)) {
     // Compare timestamps on lastUpdate for cooldown
+    const lastUpdate = affTimestamps.has(cygID) ? affTimestamps.get(cygID) : "1546300800";
+    const diff = now - lastUpdate;
+    if (diff <= 3600) {}
+
   }
 
   else {
