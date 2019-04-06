@@ -237,7 +237,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
           "url": "https://discord.gg/qqducRK",
           "icon_url": "https://i.imgur.com/8sRFoa6.png"
         },
-        "description": `Use the field name or reference letter listed below to choose which property of your embed to update.\n\n__Syntax:__\n**${settings.prefix}affiliate update <serverID> <field> <newValue>**\n\n__Examples:__\n**${settings.prefix}affiliate update 433447855127003157 A Cygrid Dev**\n**${settings.prefix}affiliate update 433447855127003157 serverName Cygrid Dev**\n\n\n Both of these commands would update the serverName property of my embed to Cygrid Dev.`,
+        "description": `Use the field name or reference letter listed below to choose which property of your embed to edit.\n\n__Syntax:__\n**${settings.prefix}affiliate edit <serverID> <field> <newValue>**\n\n__Examples:__\n**${settings.prefix}affiliate edit 433447855127003157 A Cygrid Dev**\n**${settings.prefix}affiliate edit 433447855127003157 serverName Cygrid Dev**\n\n\n Both of these commands would edit the serverName property of my embed to be Cygrid Dev.`,
         "image": {
           "url": "https://i.imgur.com/KpVt6db.png"
         },
@@ -324,6 +324,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
         if (!value.includes("|")) return mcs(`The **${field}** field should consist of short key points of your server separated by the **|** character.`);
         if (value.length > 2048)  return mcs(`The **${field}** field has a character limit of **2048** characters.`);
         break;
+    }
     affEmbed[field] = value;
     db.set(cygID, affEmbed);
     const eUpdate = {
@@ -333,7 +334,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
           "url": "https://discord.gg/qqducRK",
           "icon_url": "https://i.imgur.com/8sRFoa6.png"
           },
-        "title": `**${guildName}** affiliate embed updated:`,
+        "title": `**${affEmbed.serverName}** affiliate embed updated:`,
         "description": `The **${field}** field was updated to the following:\n\`\`\`${value}\`\`\``,
         "thumbnail": {"url": affEmbed.iconURL},
         "color": 12500670,
@@ -344,7 +345,6 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
         }
       };
     client.guilds.get("433447855127003157").channels.get("563874508625281024").send(eUpdate);
-  }
 
   }
 
