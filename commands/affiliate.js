@@ -53,7 +53,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   }
 
   if (!action) return mcs("Please specify an action.");
-  message.delete();
+  if (!["e", "edit"].includes(action)) message.delete();
 
   if (level > 3 && ["temp", "template"].includes(action)) {
     const e = {
@@ -237,7 +237,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
           "url": "https://discord.gg/qqducRK",
           "icon_url": "https://i.imgur.com/8sRFoa6.png"
         },
-        "description": `Use the field name or reference letter listed below to choose which property of your embed to edit.\n\n__Syntax:__\n**${settings.prefix}affiliate edit <serverID> <field> <newValue>**\n\n__Examples:__\n**${settings.prefix}affiliate edit 433447855127003157 A Cygrid Dev**\n**${settings.prefix}affiliate edit 433447855127003157 serverName Cygrid Dev**\n\n\n Both of these commands would edit the serverName property of my embed to be Cygrid Dev.`,
+        "description": `Use the field name or reference letter listed below to choose which property of your embed to edit. You may also use **here** in place of a serverID to make changes to the embed for the server that you are using the commands in.\n\n__Syntax:__\n**${settings.prefix}affiliate edit <serverID> <field> <newValue>**\n\n__Examples:__\n**${settings.prefix}affiliate edit 433447855127003157 A Cygrid Dev**\n**${settings.prefix}affiliate edit 433447855127003157 serverName Cygrid Dev**\n\n\n Both of these commands would edit the serverName property of my embed to be Cygrid Dev.`,
         "image": {
           "url": "https://i.imgur.com/KpVt6db.png"
         },
@@ -249,7 +249,8 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
       }
     };
     if (!cygID) return mcs(e);
-    if(!db.has(cygID)) return mcs("No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.");
+    cygID = cygID == "." ? message.guild.id : cygID;
+    if (!db.has(cygID)) return mcs(`No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const affEmbed = db.get(cygID);
     const adminRole = client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole)
       ? client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole).id
@@ -329,6 +330,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     }
     affEmbed[field] = value;
     db.set(cygID, affEmbed);
+    mcs(`The **${field}** field for **${affEmbed.serverName}** was updated to the following:\n\`\`\`${value}\`\`\``);
     const eUpdate = {
       "embed": {
         "author": {
@@ -339,10 +341,11 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
         "title": `**${affEmbed.serverName}** affiliate embed updated:`,
         "description": `The **${field}** field was updated to the following:\n\`\`\`${value}\`\`\``,
         "thumbnail": {"url": affEmbed.iconURL},
+        "timestamp": Date.now(),
         "color": 12500670,
         "footer": {
           "icon_url": "https://i.imgur.com/6c6q2iC.png",
-          "text": `Edited by ${message.author.username} in ${message.guild.name}`
+          "text": `Edited by ${message.author.tag} in ${message.guild.name}`
           }
         }
       };
@@ -353,11 +356,55 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
   else 
 
   if (["up", "update"].includes(action)) {
-    // Compare timestamps on lastUpdate for cooldown
+    cygID = cygID ? cygID : message.guild.id;
+    if (!db.has(cygID)) return mcs(`No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const lastUpdate = affTimestamps.has(cygID) ? affTimestamps.get(cygID) : "1546300800";
     const diff = now - lastUpdate;
-    if (diff <= 3600) {}
-
+    if (level < 4 && diff <= 3600) return mcs(`Updating embeds has a cooldown of 1 hour, please wait another **${Math.ceil(diff/60)}** minutes to try again.`);
+    const affEmbed = db.get(cygID);
+    const adminRole = client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole)
+      ? client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole).id
+      : "";
+    if (message.author.id !== client.settings.get(cygID).ownerID
+      && !client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole)
+      && level < 4) return mcs(`You do not have permission to update the embed for **${affEmbed.serverName}**.`);
+    const guilds = Object.getOwnPropertyNames(client.affMessages.get(cygID));
+    if (guilds.length < 1) return mcs(`There are currently no servers with **${guildName}** affiliate embed.`);
+    let i = 0;
+    let errMsg = "";
+    guilds.forEach(id => {
+      const [g,c,m] = client.affMessages.get(cygID)[id];
+      client.guilds.get(g).channels.get(c).fetchMessage(m)
+        .then(msg => msg.edit(embedify(cygID, db.get(cygID))))
+        .catch(e => { if (JSON.stringify(e).includes("Unknown Message")) {
+          errMsg += `An error occurred whilst searching for the current affiliate embed post in **${client.guilds.get(id).name}**.\n`;
+        }});
+      i++;
+    });
+    affTimestamps.set(cygID, now);
+    if (errMsg) errMsg += `Any messages which could not be found have now been removed and are ready to be reposted.`;
+    if (errMsg) return mcs(errMsg);
+    mcs(`The affiliate embed for **${affEmbed.serverName}** was updated in **${i}/${guilds.length}** servers.`);
+    const eUpdate = {
+      "embed": {
+        "author": {
+          "name": "RuneScape Affiliates",
+          "url": "https://discord.gg/qqducRK",
+          "icon_url": "https://i.imgur.com/8sRFoa6.png"
+          },
+        "title": `**${affEmbed.serverName}** affiliate embed updated:`,
+        "description": `The affiliate embed for **${affEmbed.serverName}** was updated in **${i}/${guilds.length}** servers.`,
+        "thumbnail": {"url": affEmbed.iconURL},
+        "timestamp": Date.now(),
+        "color": 12500670,
+        "footer": {
+          "icon_url": "https://i.imgur.com/6c6q2iC.png",
+          "text": `Updated by ${message.author.tag} in ${message.guild.name}`
+        }
+      }
+    };
+    if (errMsg) eUpdate.description += errMsg;
+    client.guilds.get("433447855127003157").channels.get("563874508625281024").send(eUpdate);
   }
 
   else {
