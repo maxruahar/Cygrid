@@ -252,9 +252,11 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     cygID = cygID == "." ? message.guild.id : cygID;
     if (!db.has(cygID)) return mcs(`No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const affEmbed = db.get(cygID);
-    const adminRole = client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole)
-      ? client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole).id
-      : "";
+    const adminRole = !client.guilds.has(cygID)
+      ? ""
+      : client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole)
+        ? client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole).id
+        : "";
     if (message.author.id !== client.settings.get(cygID).ownerID
       && !client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole)
       && level < 4) return mcs(`You do not have permission to edit the embed for **${affEmbed.serverName}**.`);
