@@ -249,7 +249,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
       }
     };
     if (!cygID) return mcs(e);
-    cygID = cygID == "." ? message.guild.id : cygID;
+    cygID = cygID == "here" ? message.guild.id : cygID;
     if (!db.has(cygID)) return mcs(`No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const affEmbed = db.get(cygID);
     const adminRole = !client.guilds.has(cygID)
