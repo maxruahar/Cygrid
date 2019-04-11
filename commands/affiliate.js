@@ -410,10 +410,8 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
         }
       }
     };
-    if (errs.length > 1) {
-      errs.push(`Any servers where messages could not be found will need to have the **${affEmbed.serverName}** affiliate embed reposted.`);
-      eUpdate.description += errs.join("\n");
-    }
+    if (errs.length > 1) errs.push(`Any servers where messages could not be found will need to have the **${affEmbed.serverName}** affiliate embed reposted.`);
+    if (errs.length > 2) eUpdate.description += errs.join("\n");
     errs.length > 1
       ? mcs(`The affiliate embed for **${affEmbed.serverName}** was updated in **${i}/${guilds.length}** servers. ${errs.join("\n")}`)
       : mcs(`The affiliate embed for **${affEmbed.serverName}** was updated in **${i}/${guilds.length}** servers.`);
@@ -421,7 +419,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
   }
 
   else {
-    return mcs("exited.");
+    return;
   }
 
 
