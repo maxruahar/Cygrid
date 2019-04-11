@@ -1,4 +1,4 @@
-exports.run = (client, message, [action, cygID, ...args], level) => {
+exports.run = async (client, message, [action, cygID, ...args], level) => {
 
   const table = require("markdown-table");
   const settings = client.settings.get(message.guild.id);
@@ -364,29 +364,36 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
     const diff = now - lastUpdate;
     if (level < 4 && diff <= 3600) return mcs(`Updating embeds has a cooldown of 1 hour, please wait another **${Math.ceil(diff/60)}** minutes to try again.`);
     const affEmbed = db.get(cygID);
-    const adminRole = client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole)
-      ? client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole).id
-      : "";
+    const adminRole = !client.guilds.get(cygID)
+      ? ""
+      : client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole)
+        ? client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole).id
+        : "";
     if (message.author.id !== client.settings.get(cygID).ownerID
       && !client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole)
       && level < 4) return mcs(`You do not have permission to update the embed for **${affEmbed.serverName}**.`);
     const guilds = Object.getOwnPropertyNames(client.affMessages.get(cygID));
-    if (guilds.length < 1) return mcs(`There are currently no servers with **${guildName}** affiliate embed.`);
+    if (guilds.length < 1) return mcs(`There are currently no servers with the **${affEmbed.serverName}** affiliate embed.`);
     let i = 0;
-    let errMsg = "";
-    guilds.forEach(id => {
-      const [g,c,m] = client.affMessages.get(cygID)[id];
-      client.guilds.get(g).channels.get(c).fetchMessage(m)
-        .then(msg => msg.edit(embedify(cygID, db.get(cygID))))
-        .catch(e => { if (JSON.stringify(e).includes("Unknown Message")) {
-          errMsg += `An error occurred whilst searching for the current affiliate embed post in **${client.guilds.get(id).name}**.\n`;
-        }});
-      i++;
-    });
+    let errs = [`The following servers returned errors when attempting to fetch the posted affiliate embed for **${affEmbed.serverName}:**`];
+    const checkMessages = async (guildIDs) => {
+      for (const guildID of guildIDs) {
+        try {
+          const [g,c,m] = client.affMessages.get(cygID)[guildID];
+          const msg = await client.guilds.get(g).channels.get(c).fetchMessage(m);
+          msg.edit(embedify(cygID, db.get(cygID)));
+          i++;
+        }
+        catch (e) {
+          delete client.affMessages.get(cygID)[guildID];
+          errs.push(`${guildID}: **${client.guilds.get(guildID).name}**`);
+        }
+      }
+    }
+    await checkMessages(guilds);
     affTimestamps.set(cygID, now);
-    if (errMsg) errMsg += `Any messages which could not be found have now been removed and are ready to be reposted.`;
-    if (errMsg) return mcs(errMsg);
-    mcs(`The affiliate embed for **${affEmbed.serverName}** was updated in **${i}/${guilds.length}** servers.`);
+    if (errs.length > 1) errs.push(`Any servers where messages could not be found will need to have the **${affEmbed.serverName}** affiliate embed reposted.`);
+    mcs(`The affiliate embed for **${affEmbed.serverName}** was updated in **${i}/${guilds.length}** servers. ${errs.join("\n")}`);
     const eUpdate = {
       "embed": {
         "author": {
@@ -405,7 +412,7 @@ exports.run = (client, message, [action, cygID, ...args], level) => {
         }
       }
     };
-    if (errMsg) eUpdate.description += errMsg;
+    if (errs.length > 1) eUpdate.description += errs.join("\n");
     client.guilds.get("433447855127003157").channels.get("563874508625281024").send(eUpdate);
   }
 
