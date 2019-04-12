@@ -55,28 +55,6 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
   if (!action) return mcs("Please specify an action.");
   if (!["e", "edit"].includes(action)) message.delete();
 
-  if (level > 3 && ["temp", "template"].includes(action)) {
-    const e = {
-      "embed": {
-        "author": {
-          "name": "RuneScape Affiliates",
-          "url": "https://discord.gg/qqducRK",
-          "icon_url": "https://i.imgur.com/8sRFoa6.png"
-        },
-        "description": `Use the command **${settings.prefix}affiliate <update> <serverID> <field> <newValue>** to update your current affiliate embed.\n\nField = Use the image below to find the letter or name for the field that you will be updating.\n\nNewValue = The text you want to replace the current text with.`,
-        "image": {
-          "url": "https://i.imgur.com/NPI0ahN.png"
-        },
-        "color": 12500670,
-        "footer": {
-          "icon_url": "https://i.imgur.com/6c6q2iC.png",
-          "text": `Use ${settings.prefix}help affiliate for more commands`
-        }
-      }
-    };
-    mcs(e);
-  } else 
-
   if (["sub", "submit"].includes(action)) {
     const e = {
       "embed": {
@@ -169,6 +147,28 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     mcs(e);
   } else
 
+  if (level > 3 && ["temp", "template"].includes(action)) {
+    const e = {
+      "embed": {
+        "author": {
+          "name": "RuneScape Affiliates",
+          "url": "https://discord.gg/qqducRK",
+          "icon_url": "https://i.imgur.com/8sRFoa6.png"
+        },
+        "description": `Use the command **${settings.prefix}affiliate <update> <serverID> <field> <newValue>** to update your current affiliate embed.\n\nField = Use the image below to find the letter or name for the field that you will be updating.\n\nNewValue = The text you want to replace the current text with.`,
+        "image": {
+          "url": "https://i.imgur.com/NPI0ahN.png"
+        },
+        "color": 12500670,
+        "footer": {
+          "icon_url": "https://i.imgur.com/6c6q2iC.png",
+          "text": `Use ${settings.prefix}help affiliate for more commands`
+        }
+      }
+    };
+    mcs(e);
+  } else 
+
   if (["l", "link"].includes(action)) {
     if (!cygID) return mcs("Please specify a server ID to link.");
     const target = db.has(cygID)
@@ -191,6 +191,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
         : "that server";
     if (!affLinks.has(id)) client.affLinks.set(id, []);
     const links = affLinks.get(id);
+    if (id !== "433447855127003157" && !links.includes("433447855127003157")) links.push("433447855127003157");
     if (links.includes(cygID)) return mcs(`${targetName} is already linked to ${currName}.`);
     if (!links.includes(cygID)) {
       links.push(cygID);
@@ -277,7 +278,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       "k": "s5Body",
       "l": "s6Header",
       "m": "s6Body",
-      "n": "serverHighlight"
+      "n": "highlight"
     };
     if (Object.getOwnPropertyNames(aliases).includes(field.toLowerCase())) field = aliases[field.toLowerCase()];
     if (!Object.values(aliases).includes(field))
@@ -372,6 +373,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     if (message.author.id !== client.settings.get(cygID).ownerID
       && !client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole)
       && level < 4) return mcs(`You do not have permission to update the embed for **${affEmbed.serverName}**.`);
+    if (!client.affMessages.has(cygID)) client.affMessages.set(cygID, {})
     const guilds = Object.getOwnPropertyNames(client.affMessages.get(cygID));
     if (guilds.length < 1) return mcs(`There are currently no servers with the **${affEmbed.serverName}** affiliate embed.`);
     let i = 0;
