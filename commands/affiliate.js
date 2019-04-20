@@ -94,7 +94,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     if (cygID !== "all") {
       const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
       if (!db.has(cygID)) return mcs(`No embed stored for ${guildName}. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
-      if (!affLinks.get(message.guild.id).has(cygID)) return mcs(`Please link ${guildName} to **${message.guild.name}** before attempting to post their affiliate embed. Refer to the <#557258619482275860> (#affiliate-faqs) channel in the Cygrid Dev server for information about linking servers.`);
+      if (!affLinks.get(message.guild.id).includes(cygID)) return mcs(`Please link ${guildName} to **${message.guild.name}** before attempting to post their affiliate embed. Refer to the <#557258619482275860> (#affiliate-faqs) channel in the Cygrid Dev server for information about linking servers.`);
       if (!affMessages.has(cygID)) affMessages.set(cygID, {});
       if (Object.getOwnPropertyNames(affMessages.get(cygID)).includes(message.guild.id)) return mcs(`An embed for ${guildName} has already been posted in **${message.guild.name}**.`);
       mcs(embedify(cygID, db.get(cygID)))
@@ -105,7 +105,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
         });
     } else
     if (cygID == "all") {
-      const links = affLinks.get(id);
+      const links = affLinks.get(message.guild.id).sort((a, b) => db.get(a).serverName.localeCompare(db.get(b).serverName));
       if (links.length < 1) return mcs(`There are currently no servers linked to **${message.guild.name}**. Please refer to the <#557258619482275860> (#affiliate-faqs) channel in the Cygrid Dev server for information about linking servers.`);
       let i = 0;
       let errs = [`The following embeds returned errors when attempting to post them:`];
@@ -115,7 +115,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
             const guildName = db.has(guildID) ? `**${db.get(guildID).name}**` : "that server";
             if (!db.has(guildID)) errs.push(`${guildID}: No embed stored for ${guildName}.`);
             if (!affMessages.has(guildID)) affMessages.set(guildID, {});
-            if (Object.getOwnPropertyNames(affMessages.get(guildID)).includes(message.guild.id)) return errs.push(`An embed for ${guildName} has already been posted in **${message.guild.name}**.`);
+            if (Object.getOwnPropertyNames(affMessages.get(guildID)).includes(message.guild.id)) return errs.push(`${guildID}: An embed for ${guildName} has already been posted in **${message.guild.name}**.`);
             mcs(embedify(guildID, db.get(guildID)))
               .then(m => {
                 const embedGuilds = affMessages.get(guildID);
@@ -173,8 +173,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       ? Object.getOwnPropertyNames(client.affMessages.get(cygID))
       : Object.getOwnPropertyNames(client.affMessages.get(message.guild.id));
     if (guilds.length < 1) return mcs(`There are currently no servers with **${guildName}** affiliate embed.`);
-    let response = "";
-    guilds.forEach(g => {
+    const response = guilds.map(g => {
       const nam = client.guilds.get(g).name;
       const inv = client.guilds.get(g).invite
         ? client.guilds.get(g).invite
@@ -182,10 +181,10 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
           ? db.get(g).invite
           : "";
       const add = inv
-        ? `• [${nam}](${inv})\n`
-        : `• ${nam}\n`;
-      response += add;
-    });
+        ? `[${nam}](${inv})`
+        : `${nam}`;
+      return add;
+    }).sort().join("\n• ");
     const e = {
       "embed": {
         "author": {
@@ -194,7 +193,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
           "icon_url": "https://i.imgur.com/8sRFoa6.png"
           },
         "title": `Servers with **${guildName}** affiliate embed:`,
-        "description": response,
+        "description": `• ${response}`,
         "thumbnail": {"url": iconURL},
         "color": 12500670,
         "footer": {
@@ -212,7 +211,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     const guildName = db.get(id).serverName;
     const iconURL = db.get(id).iconURL;
     const links = affLinks.get(id);
-    if (!links) return mcs(`There are currently no servers linked to **${guildName}**.`);
+    if (links.length < 1) return mcs(`There are currently no servers linked to **${guildName}**.`);
     const response = client.affLinks.get(id).map(g => db.get(g).serverName).sort().join("\n• ");
     const e = {
       "embed": {
