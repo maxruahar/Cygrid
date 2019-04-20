@@ -150,7 +150,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       };
       if (errs.length > 1) {
         errs.push(`Any embeds which could not be posted should be reported to an Admin or above in the Cygrid Dev server.`);
-        eUpdate.description = `**${i}/${links.length}** linked server affiliate embeds for **${message.guild.name}** were successfully posted. ${errs.join("\n")}`;
+        eUpdate.embed.description = `**${i}/${links.length}** linked server affiliate embeds for **${message.guild.name}** were successfully posted. ${errs.join("\n")}`;
       }
       errs.length > 1
         ? mcs(`**${i}/${links.length}** linked server affiliate embeds for **${message.guild.name}** were successfully posted. ${errs.join("\n")}`)
@@ -447,7 +447,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     const guilds = Object.getOwnPropertyNames(client.affMessages.get(cygID));
     if (guilds.length < 1) return mcs(`There are currently no servers with the **${affEmbed.serverName}** affiliate embed.`);
     let i = 0;
-    let errs = [`The following servers returned errors when attempting to fetch the posted affiliate embed for **${affEmbed.serverName}:**`];
+    let errs = [`The following servers returned errors when attempting to fetch the posted affiliate embed:`];
     const checkMessages = async (guildIDs) => {
       for (const guildID of guildIDs) {
         try {
@@ -486,7 +486,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     };
     if (errs.length > 1) {
       errs.push(`Any servers where messages could not be found will need to have the **${affEmbed.serverName}** affiliate embed reposted.`);
-      eUpdate.description = `The affiliate embed for **${affEmbed.serverName}** was updated in **${i}/${guilds.length}** servers. ${errs.join("\n")}`;
+      eUpdate.embed.description = `The affiliate embed for **${affEmbed.serverName}** was updated in **${i}/${guilds.length}** servers. ${errs.join("\n")}`;
     }
     errs.length > 1
       ? mcs(`The affiliate embed for **${affEmbed.serverName}** was updated in **${i}/${guilds.length}** servers. ${errs.join("\n")}`)
