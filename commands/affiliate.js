@@ -24,8 +24,9 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     embed.url = data.invite;
     embed.description = data.serverDescription;
     embed.thumbnail = !guild ? {"url": data.iconURL}
-      : guild.me.hasPermission(32) && !data.iconURL
-        ? {"url": guild.iconURL} : {"url": data.iconURL};
+      : guild.me.hasPermission(32)
+        ? {"url": guild.iconURL.replace(/(?:jpe?g|gif|webp\??)/gi, "png")}
+        : {"url": data.iconURL};
     embed.color = 12500670;
     embed.fields = [
       {"name": "__**Contact:**__", "value": data.contact, "inline": true},
@@ -77,31 +78,89 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
 
   if (["s", "self"].includes(action)) {
     const id = message.guild.id;
-    if (!db.get(id)) return mcs(`No embed stored for **${message.guild.name}**. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
+    if (!db.has(id)) return mcs(`No embed stored for **${message.guild.name}**. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     mcs(embedify(id, db.get(id)));
   } else
 
-  if ([level > 3 && "d", "pre", "preview"].includes(action)) {
+  if ([level > 3 && "d", "display", "pre", "preview"].includes(action)) {
+    if (!cygID) return mcs("Please specify a server ID to display.");
     const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
     if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     mcs(embedify(cygID, db.get(cygID)));
   } else
 
   if (["p", "post"].includes(action)) {
-    const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
-    if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
-    if (!affMessages.has(cygID)) affMessages.set(cygID, {});
-    if (Object.getOwnPropertyNames(affMessages.get(cygID)).includes(message.guild.id)) return mcs(`An embed for ${guildName} has already been posted in **${message.guild.name}**.`);
-    mcs(embedify(cygID, db.get(cygID)))
-      .then(m => {
-        const embedGuilds = affMessages.get(cygID);
-        embedGuilds[m.guild.id] = [m.guild.id, m.channel.id, m.id];
-        affMessages.set(cygID, embedGuilds);
-      });
+    if (!cygID) return mcs("Please specify a server ID to post or use the **all** keyword to post all linked affiliate embeds.");
+    if (cygID !== "all") {
+      const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
+      if (!db.has(cygID)) return mcs(`No embed stored for ${guildName}. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
+      if (!affLinks.get(message.guild.id).has(cygID)) return mcs(`Please link ${guildName} to **${message.guild.name}** before attempting to post their affiliate embed. Refer to the <#557258619482275860> (#affiliate-faqs) channel in the Cygrid Dev server for information about linking servers.`);
+      if (!affMessages.has(cygID)) affMessages.set(cygID, {});
+      if (Object.getOwnPropertyNames(affMessages.get(cygID)).includes(message.guild.id)) return mcs(`An embed for ${guildName} has already been posted in **${message.guild.name}**.`);
+      mcs(embedify(cygID, db.get(cygID)))
+        .then(m => {
+          const embedGuilds = affMessages.get(cygID);
+          embedGuilds[m.guild.id] = [m.guild.id, m.channel.id, m.id];
+          affMessages.set(cygID, embedGuilds);
+        });
+    } else
+    if (cygID == "all") {
+      const links = affLinks.get(id);
+      if (links.length < 1) return mcs(`There are currently no servers linked to **${message.guild.name}**. Please refer to the <#557258619482275860> (#affiliate-faqs) channel in the Cygrid Dev server for information about linking servers.`);
+      let i = 0;
+      let errs = [`The following embeds returned errors when attempting to post them:`];
+      const postEmbeds = async (guildIDs) => {
+        for (const guildID of guildIDs) {
+          try {
+            const guildName = db.has(guildID) ? `**${db.get(guildID).name}**` : "that server";
+            if (!db.has(guildID)) errs.push(`${guildID}: No embed stored for ${guildName}.`);
+            if (!affMessages.has(guildID)) affMessages.set(guildID, {});
+            if (Object.getOwnPropertyNames(affMessages.get(guildID)).includes(message.guild.id)) return errs.push(`An embed for ${guildName} has already been posted in **${message.guild.name}**.`);
+            mcs(embedify(guildID, db.get(guildID)))
+              .then(m => {
+                const embedGuilds = affMessages.get(guildID);
+                embedGuilds[m.guild.id] = [m.guild.id, m.channel.id, m.id];
+                affMessages.set(guildID, embedGuilds);
+              });
+            i++;
+          }
+          catch (e) {
+            errs.push(`${guildID}: **${db.get(guildID).serverName}**`);
+          }
+        }
+      }
+      await postEmbeds(links);
+      const eUpdate = {
+        "embed": {
+          "author": {
+            "name": "RuneScape Affiliates",
+            "url": "https://discord.gg/qqducRK",
+            "icon_url": "https://i.imgur.com/8sRFoa6.png"
+            },
+          "title": `Posting all **${message.guild.name}** affiliate embeds:`,
+          "description": `**${i}/${links.length}** linked server affiliate embeds for **${message.guild.name}** were successfully posted.`,
+          "thumbnail": {"url": message.guild.iconURL},
+          "timestamp": Date.now(),
+          "color": 12500670,
+          "footer": {
+            "icon_url": "https://i.imgur.com/6c6q2iC.png",
+            "text": `Updated by ${message.author.tag} in ${message.guild.name}`
+          }
+        }
+      };
+      if (errs.length > 1) {
+        errs.push(`Any embeds which could not be posted should be reported to an Admin or above in the Cygrid Dev server.`);
+        eUpdate.description = `**${i}/${links.length}** linked server affiliate embeds for **${message.guild.name}** were successfully posted. ${errs.join("\n")}`;
+      }
+      errs.length > 1
+        ? mcs(`**${i}/${links.length}** linked server affiliate embeds for **${message.guild.name}** were successfully posted. ${errs.join("\n")}`)
+        : mcs(`**${i}/${links.length}** linked server affiliate embeds for **${message.guild.name}** were successfully posted.`);
+      client.guilds.get("433447855127003157").channels.get("563874508625281024").send(eUpdate);
+    }
   } else
 
   if (["log"].includes(action)) {
-    if (level > 3 && cygID && !db.has(cygID)) return mcs("No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.");
+    if (level > 3 && cygID && !db.has(cygID)) return mcs(`No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const guildName = level > 3 && cygID
       ? db.get(cygID).serverName
       : db.get(message.guild.id).serverName;
@@ -147,18 +206,24 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     mcs(e);
   } else
 
-  if (level > 3 && ["temp", "template"].includes(action)) {
+  if (level > 3 && ["links"].includes(action)) {
+    const id = level > 3 && cygID ? cygID : message.guild.id;
+    if (!db.has(id)) return mcs(`No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
+    const guildName = db.get(id).serverName;
+    const iconURL = db.get(id).iconURL;
+    const links = affLinks.get(id);
+    if (!links) return mcs(`There are currently no servers linked to **${guildName}**.`);
+    const response = client.affLinks.get(id).map(g => db.get(g).serverName).sort().join("\n• ");
     const e = {
       "embed": {
         "author": {
           "name": "RuneScape Affiliates",
           "url": "https://discord.gg/qqducRK",
           "icon_url": "https://i.imgur.com/8sRFoa6.png"
-        },
-        "description": `Use the command **${settings.prefix}affiliate <update> <serverID> <field> <newValue>** to update your current affiliate embed.\n\nField = Use the image below to find the letter or name for the field that you will be updating.\n\nNewValue = The text you want to replace the current text with.`,
-        "image": {
-          "url": "https://i.imgur.com/NPI0ahN.png"
-        },
+          },
+        "title": `Servers linked to **${guildName}**:`,
+        "description": `• ${response}`,
+        "thumbnail": {"url": iconURL},
         "color": 12500670,
         "footer": {
           "icon_url": "https://i.imgur.com/6c6q2iC.png",
@@ -166,11 +231,12 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
         }
       }
     };
-    mcs(e);
+    mcs(e);      
   } else 
 
   if (["l", "link"].includes(action)) {
     if (!cygID) return mcs("Please specify a server ID to link.");
+    if (!db.has(cygID)) return mcs(`No embed stored for **${targetName}**. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const target = db.has(cygID)
       ? db.get(cygID)
       : client.guilds.has(cygID)
@@ -181,7 +247,6 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       : target.name !== "that server"
         ? `**${target.name}**`
         : target.name;
-    if (!db.has(cygID)) return mcs(`No embed stored for **${targetName}**. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const id = level > 3 && args[0] ? args[0] : message.guild.id;
     if (id == cygID) return mcs("Servers may not be linked to themselves.");
     const currName = db.has(id)
@@ -258,8 +323,11 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       : client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole)
         ? client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole).id
         : "";
+    const hasGuild = !client.guilds.has(cygID)
+      ? ""
+      : client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole);
     if (message.author.id !== client.settings.get(cygID).ownerID
-      && !client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole)
+      && !hasGuild
       && level < 4) return mcs(`You do not have permission to edit the embed for **${affEmbed.serverName}**.`);
     let field = args[0];
     if (!field) return mcs("Please specify a field to update.")
@@ -370,8 +438,11 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       : client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole)
         ? client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole).id
         : "";
+    const hasGuild = !client.guilds.has(cygID)
+      ? ""
+      : client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole);
     if (message.author.id !== client.settings.get(cygID).ownerID
-      && !client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole)
+      && !hasGuild
       && level < 4) return mcs(`You do not have permission to update the embed for **${affEmbed.serverName}**.`);
     if (!client.affMessages.has(cygID)) client.affMessages.set(cygID, {})
     const guilds = Object.getOwnPropertyNames(client.affMessages.get(cygID));
@@ -404,7 +475,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
           "icon_url": "https://i.imgur.com/8sRFoa6.png"
           },
         "title": `**${affEmbed.serverName}** affiliate embed updated:`,
-        "description": `The affiliate embed for **${affEmbed.serverName}** was updated in **${i}/${guilds.length}** servers.`,
+        "description": `The affiliate embed for **${affEmbed.serverName}** was successfully updated in **${i}/${guilds.length}** servers.`,
         "thumbnail": {"url": affEmbed.iconURL},
         "timestamp": Date.now(),
         "color": 12500670,
