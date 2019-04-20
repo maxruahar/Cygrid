@@ -127,6 +127,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
                     affMessages.set(guildID, embedGuilds);
                   });
                 i++;
+                await client.wait(1000);
               }
             }
           }
