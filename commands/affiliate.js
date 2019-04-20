@@ -112,7 +112,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       const postEmbeds = async (guildIDs) => {
         for (const guildID of guildIDs) {
           try {
-            const guildName = db.has(guildID) ? `**${db.get(guildID).name}**` : "that server";
+            const guildName = db.has(guildID) ? `**${db.get(guildID).serverName}**` : "that server";
             if (!db.has(guildID)) errs.push(`${guildID}: No embed stored for ${guildName}.`);
             if (!affMessages.has(guildID)) affMessages.set(guildID, {});
             if (Object.getOwnPropertyNames(affMessages.get(guildID)).includes(message.guild.id)) return errs.push(`${guildID}: An embed for ${guildName} has already been posted in **${message.guild.name}**.`);
