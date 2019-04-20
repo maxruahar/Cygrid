@@ -56,7 +56,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
   if (!action) return mcs("Please specify an action.");
   if (!["e", "edit"].includes(action)) message.delete();
 
-  if (["sub", "submit"].includes(action)) {
+  if (level > 1 && ["sub", "submit"].includes(action)) {
     const e = {
       "embed": {
         "author": {
@@ -76,20 +76,20 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     mcs(e);
   } else
 
-  if (["s", "self"].includes(action)) {
+  if (level > 0 && ["s", "self"].includes(action)) {
     const id = message.guild.id;
     if (!db.has(id)) return mcs(`No embed stored for **${message.guild.name}**. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     mcs(embedify(id, db.get(id)));
   } else
 
-  if ([level > 3 && "d", "display", "pre", "preview"].includes(action)) {
+  if (level > 0 && ["d", "display", "pre", "preview"].includes(action)) {
     if (!cygID) return mcs("Please specify a server ID to display.");
     const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
     if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     mcs(embedify(cygID, db.get(cygID)));
   } else
 
-  if (["p", "post"].includes(action)) {
+  if (level > 1 && ["p", "post"].includes(action)) {
     if (!cygID) return mcs("Please specify a server ID to post or use the **all** keyword to post all linked affiliate embeds.");
     if (cygID !== "all") {
       const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
@@ -113,16 +113,22 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
         for (const guildID of guildIDs) {
           try {
             const guildName = db.has(guildID) ? `**${db.get(guildID).serverName}**` : "that server";
-            if (!db.has(guildID)) errs.push(`${guildID}: No embed stored for ${guildName}.`);
-            if (!affMessages.has(guildID)) affMessages.set(guildID, {});
-            if (Object.getOwnPropertyNames(affMessages.get(guildID)).includes(message.guild.id)) return errs.push(`${guildID}: An embed for ${guildName} has already been posted in **${message.guild.name}**.`);
-            mcs(embedify(guildID, db.get(guildID)))
-              .then(m => {
-                const embedGuilds = affMessages.get(guildID);
-                embedGuilds[m.guild.id] = [m.guild.id, m.channel.id, m.id];
-                affMessages.set(guildID, embedGuilds);
-              });
-            i++;
+            if (!db.has(guildID)) {
+              errs.push(`${guildID}: No embed stored for ${guildName}.`);
+            } else {
+              if (!affMessages.has(guildID)) affMessages.set(guildID, {});
+              if (Object.getOwnPropertyNames(affMessages.get(guildID)).includes(message.guild.id)) {
+                errs.push(`${guildID}: An embed for ${guildName} has already been posted in **${message.guild.name}**.`);
+              } else {
+                mcs(embedify(guildID, db.get(guildID)))
+                  .then(m => {
+                    const embedGuilds = affMessages.get(guildID);
+                    embedGuilds[m.guild.id] = [m.guild.id, m.channel.id, m.id];
+                    affMessages.set(guildID, embedGuilds);
+                  });
+                i++;
+              }
+            }
           }
           catch (e) {
             errs.push(`${guildID}: **${db.get(guildID).serverName}**`);
@@ -159,7 +165,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     }
   } else
 
-  if (["log"].includes(action)) {
+  if (level > 1 && ["log"].includes(action)) {
     if (level > 3 && cygID && !db.has(cygID)) return mcs(`No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const guildName = level > 3 && cygID
       ? db.get(cygID).serverName
@@ -205,13 +211,13 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     mcs(e);
   } else
 
-  if (level > 3 && ["links"].includes(action)) {
+  if (level > 1 && ["links"].includes(action)) {
     const id = level > 3 && cygID ? cygID : message.guild.id;
     if (!db.has(id)) return mcs(`No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const guildName = db.get(id).serverName;
     const iconURL = db.get(id).iconURL;
     const links = affLinks.get(id);
-    if (links.length < 1) return mcs(`There are currently no servers linked to **${guildName}**.`);
+    if (links.length < 1) return mcs(`There are currently no servers linked to **${message.guild.name}**. Please refer to the <#557258619482275860> (#affiliate-faqs) channel in the Cygrid Dev server for information about linking servers.`);
     const response = client.affLinks.get(id).map(g => db.get(g).serverName).sort().join("\n• ");
     const e = {
       "embed": {
@@ -233,7 +239,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     mcs(e);      
   } else 
 
-  if (["l", "link"].includes(action)) {
+  if (level > 1 && ["l", "link"].includes(action)) {
     if (!cygID) return mcs("Please specify a server ID to link.");
     if (!db.has(cygID)) return mcs(`No embed stored for **${targetName}**. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const target = db.has(cygID)
@@ -264,7 +270,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     }
   } else
 
-  if (["u", "unlink"].includes(action)) {
+  if (level > 1 && ["u", "unlink"].includes(action)) {
     if (!cygID) return mcs("Please specify a server ID to unlink.");
     const target = db.has(cygID)
       ? db.get(cygID)
@@ -294,7 +300,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     }
   } else
 
-  if (["e", "edit"].includes(action)) {
+  if (level > 1 && ["e", "edit"].includes(action)) {
     const e = {
       "embed": {
         "author": {
@@ -425,7 +431,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
 
   else 
 
-  if (["up", "update"].includes(action)) {
+  if (level > 1 && ["up", "update"].includes(action)) {
     cygID = cygID ? cygID : message.guild.id;
     if (!db.has(cygID)) return mcs(`No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const lastUpdate = affTimestamps.has(cygID) ? affTimestamps.get(cygID) : "1546300800";
@@ -497,26 +503,6 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
   else {
     return;
   }
-
-
-
-  /* data structure
-  *  {"serverName": "",
-  *  "serverDescription": "",
-  *  "iconURL": "",
-  *  "contact": "",
-  *  "invite": "",
-  *  "s3Header": "",
-  *  "s3Body": "",
-  *  "s4Header": "",
-  *  "s4Body": "",
-  *  "s5Header": "",
-  *  "s5Body": "",
-  *  "s6Header": "",
-  *  "s6Body": "",
-  *  "highlight": ""}
-  */
-
 };
 
 exports.conf = {
@@ -532,5 +518,5 @@ exports.help = {
   name: "affiliate",
   category: "Info",
   description: "Display and manage affiliate embeds.",
-  usage: `affiliate <submit/self>\n       affiliate <link/unlink/display> <ID>\n       affiliate <update> <ID> <field> <newValue>`
+  usage: `affiliate <links/log/self/submit/update>\n       affiliate <display/link/unlink> <ID>\n       affiliate <post> <ID/all>\n       affiliate <edit> <ID> <field> <newValue>`
 };
