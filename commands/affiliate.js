@@ -151,7 +151,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
           "color": 12500670,
           "footer": {
             "icon_url": "https://i.imgur.com/6c6q2iC.png",
-            "text": `Updated by ${message.author.tag} in ${message.guild.name}`
+            "text": `Posted by ${message.author.tag} in ${message.guild.name}`
           }
         }
       };
@@ -165,6 +165,65 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       client.guilds.get("433447855127003157").channels.get("563874508625281024").send(eUpdate);
     }
   } else
+
+  if (level > 1 && ["un", "unpost"].includes(action)) {
+    const id = level > 3 && cygID ? cygID : message.guild.id;
+    if (!db.has(id)) return mcs(`No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
+    const guildName = db.get(id).serverName;
+    if (!affLinks.has(id) || affLinks.has(id) && affLinks.get(id).length < 1) return mcs(`There are currently no servers linked to **${guildName}**. Please refer to the <#557258619482275860> (#faqs) channel in the Cygrid Dev server for information about linking servers.`);
+    const iconURL = db.get(id).iconURL;
+    const guilds = affMessages.keyArray().filter(g => Object.getOwnPropertyNames(affMessages.get(g)).includes(id));
+    if (guilds.length < 1) return mcs(`There are currently no linked affiliate embeds posted in **${guildName}**.`);
+    let i = 0;
+    let errs = [`The following posts returned errors when attempting to fetch the posted affiliate embed:`];
+
+    const removeMessages = async (guildIDs) => {
+        try {
+          const rec = client.affMessages.get(guildID);
+          const [g,c,m] = rec[id];
+          const msg = await client.guilds.get(g).channels.get(c).fetchMessage(m);
+          msg.remove();
+          delete rec[id];
+          client.affMessages.set(guildID, rec);
+          i++;
+        }
+        catch (e) {
+          errs.push(`${guildID}: **${db.get(guildID).name}**`);
+          const rec = client.affMessages.get(guildID);
+          delete rec[id];
+          client.affMessages.set(guildID, rec);
+        }
+      }
+      await removeMessages(guilds);
+      const eUpdate = {
+        "embed": {
+          "author": {
+            "name": "RuneScape Affiliates",
+            "url": "https://discord.gg/qqducRK",
+            "icon_url": "https://i.imgur.com/8sRFoa6.png"
+            },
+          "title": `Unposting **${guildName}** linked server affiliate embeds:`,
+          "description": `**${i}/${guilds.length}** linked server affiliate embeds have been unposted and removed from **${guildName}**.`,
+          "thumbnail": {"url": iconURL},
+          "timestamp": Date.now(),
+          "color": 12500670,
+          "footer": {
+            "icon_url": "https://i.imgur.com/6c6q2iC.png",
+            "text": `Unposted by ${message.author.tag} in ${message.guild.name}`
+          }
+        }
+      };
+    if (errs.length > 1) {
+      errs.push(`You may now post linked server affiliate embeds again using **${settings.prefix}affiliate post**.`);
+      eUpdate.embed.description = `**${i}/${guilds.length}** linked server affiliate embeds have been unposted and removed from **${guildName}**. ${errs.join("\n")}`;
+    }
+    errs.length > 1
+      ? mcs(`**${i}/${guilds.length}** linked server affiliate embeds have been unposted and removed from **${guildName}**. ${errs.join("\n")}`)
+      : mcs(`**${i}/${guilds.length}** linked server affiliate embeds have been unposted and removed from **${guildName}**.`);
+    client.guilds.get("433447855127003157").channels.get("563874508625281024").send(eUpdate);
+
+
+  } else 
 
   if (level > 1 && ["log"].includes(action)) {
     if (level > 3 && cygID && !db.has(cygID)) return mcs(`No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
@@ -218,7 +277,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     const guildName = db.get(id).serverName;
     const iconURL = db.get(id).iconURL;
     const links = affLinks.get(id);
-    if (links.length < 1) return mcs(`There are currently no servers linked to **${message.guild.name}**. Please refer to the <#557258619482275860> (#affiliate-faqs) channel in the Cygrid Dev server for information about linking servers.`);
+    if (links.length < 1) return mcs(`There are currently no servers linked to **${guildName}**. Please refer to the <#557258619482275860> (#faqs) channel in the Cygrid Dev server for information about linking servers.`);
     const response = client.affLinks.get(id).map(g => db.get(g).serverName).sort().join("\n• ");
     const e = {
       "embed": {
