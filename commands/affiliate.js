@@ -178,6 +178,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     let errs = [`The following posts returned errors when attempting to fetch the posted affiliate embed:`];
 
     const removeMessages = async (guildIDs) => {
+      for (const guildID of guildIDs) {
         try {
           const rec = client.affMessages.get(guildID);
           const [g,c,m] = rec[id];
@@ -194,6 +195,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
           client.affMessages.set(guildID, rec);
         }
       }
+    }
       await removeMessages(guilds);
       const eUpdate = {
         "embed": {
