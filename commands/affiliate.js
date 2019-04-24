@@ -183,13 +183,13 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
           const rec = client.affMessages.get(guildID);
           const [g,c,m] = rec[id];
           const msg = await client.guilds.get(g).channels.get(c).fetchMessage(m);
-          msg.remove();
+          msg.delete();
           delete rec[id];
           client.affMessages.set(guildID, rec);
           i++;
         }
         catch (e) {
-          errs.push(`${guildID}: **${db.get(guildID).name}**`);
+          errs.push(`${guildID}: **${db.get(guildID).serverName}**`);
           const rec = client.affMessages.get(guildID);
           delete rec[id];
           client.affMessages.set(guildID, rec);
