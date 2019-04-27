@@ -390,11 +390,14 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       : client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole)
         ? client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole).id
         : "";
-    const hasGuild = !client.guilds.has(cygID)
+    const isOwner = !client.guilds.has(cygID)
+      ? ""
+      : message.author.id == client.settings.get(cygID).ownerID;
+    const isAdmin = !client.guilds.has(cygID)
       ? ""
       : client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole);
-    if (message.author.id !== client.settings.get(cygID).ownerID
-      && !hasGuild
+    if (!isOwner
+      && !isAdmin
       && level < 4) return mcs(`You do not have permission to edit the embed for **${affEmbed.serverName}**.`);
     let field = args[0];
     if (!field) return mcs("Please specify a field to update.")
@@ -505,11 +508,14 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       : client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole)
         ? client.guilds.get(cygID).roles.find(r => r.name == client.settings.get(cygID).adminRole).id
         : "";
-    const hasGuild = !client.guilds.has(cygID)
+    const isOwner = !client.guilds.has(cygID)
+      ? ""
+      : message.author.id == client.settings.get(cygID).ownerID;
+    const isAdmin = !client.guilds.has(cygID)
       ? ""
       : client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole);
-    if (message.author.id !== client.settings.get(cygID).ownerID
-      && !hasGuild
+    if (!isOwner
+      && !isAdmin
       && level < 4) return mcs(`You do not have permission to update the embed for **${affEmbed.serverName}**.`);
     if (!client.affMessages.has(cygID)) client.affMessages.set(cygID, {})
     const guilds = Object.getOwnPropertyNames(client.affMessages.get(cygID));
