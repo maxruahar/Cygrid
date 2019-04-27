@@ -578,7 +578,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["aff"],
-  permLevel: "Bot Admin",
+  permLevel: "Moderator",
   guilds: [],
   cooldown: 2500
 };
@@ -587,5 +587,5 @@ exports.help = {
   name: "affiliate",
   category: "Info",
   description: "Display and manage affiliate embeds.",
-  usage: `affiliate <links/log/self/submit/update>\n       affiliate <display/link/unlink> <ID>\n       affiliate <post> <ID/all>\n       affiliate <edit> <ID> <field> <newValue>`
+  usage: `affiliate <links/log/self/submit/unpost/update>\n       affiliate <display/link/unlink> <ID>\n       affiliate <post> <ID/all>\n       affiliate <edit> <ID> <field> <newValue>`
 };
