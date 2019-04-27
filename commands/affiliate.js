@@ -127,7 +127,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
                     affMessages.set(guildID, embedGuilds);
                   });
                 i++;
-                await client.wait(1000);
+                await client.wait(2000);
               }
             }
           }
@@ -187,6 +187,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
           delete rec[id];
           client.affMessages.set(guildID, rec);
           i++;
+          await client.wait(1000);
         }
         catch (e) {
           errs.push(`${guildID}: **${db.get(guildID).serverName}**`);
