@@ -581,9 +581,12 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
 
   if ([...client.config.admins, client.config.ownerID, "196833719049256960"].includes(message.author.id) && ["skill", "skilling"].includes(action)) {
     switch (cygID) {
+      case "top":
+        message.channel.send({files: [{"attachment": "https://i.imgur.com/iMhzq3Q.png", "name": "top.png"}]});
+        break;
       case "desc":
       case "description":
-        message.channel.send("**We are currently accepting partner requests!**\n\nAll partners must:\n  <:bp:572185440094781469>  200+ Members (some exceptions made if the discord is skilling related)\n  <:bp:572185440094781469>  Be Runescape Related\n  <:bp:572185440094781469>  Follow All Runescape Rules\n  <:bp:572185440094781469>  Have a Representative in Our Server\n  <:bp:572185440094781469>  Have Our Link Displayed to the Public on a Partners/Affiliates page\n\nIf your discord meets the requirements send a permanent invite link with a short description to @Michelle Rae#0001.");
+        message.channel.send("**We are currently accepting partner requests!**\n\nAll partners must:\n  <:bp:572185440094781469>  200+ Members (some exceptions made if the discord is skilling related)\n  <:bp:572185440094781469>  Be Runescape Related\n  <:bp:572185440094781469>  Follow All Runescape Rules\n  <:bp:572185440094781469>  Have a Representative in Our Server\n  <:bp:572185440094781469>  Have Our Link Displayed to the Public on a Partners/Affiliates page\n\nIf your discord meets the requirements send a permanent invite link with a short description to Michelle Rae#0001.");
         break;
       case "header":
         message.channel.send({files: [{"attachment": "https://i.imgur.com/FR658Jw.png", "name": "aff_header.png"}]});
@@ -605,6 +608,10 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       case "skill":
       case "skilling":
         message.channel.send({files: [{"attachment": "https://i.imgur.com/yWsoOX1.png", "name": "skilling.png"}]});
+        break;
+      case "pin":
+      case "pinned":
+        message.channel.send({files: [{"attachment": "https://i.imgur.com/1Ae4yjW.png", "name": "pinned.png"}]});
         break;
     }
   } else
