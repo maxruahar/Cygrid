@@ -393,10 +393,14 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
         : "";
     const isOwner = !client.guilds.has(cygID)
       ? ""
-      : message.author.id == client.settings.get(cygID).ownerID;
+      : client.guilds.get(cygID).members.has(message.author.id)
+        ? message.author.id == client.settings.get(cygID).ownerID
+        : "";
     const isAdmin = !client.guilds.has(cygID)
       ? ""
-      : client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole);
+      : client.guilds.get(cygID).members.has(message.author.id)
+        ? client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole)
+        : "";
     if (!isOwner
       && !isAdmin
       && level < 4) return mcs(`You do not have permission to edit the embed for **${affEmbed.serverName}**.`);
@@ -511,10 +515,14 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
         : "";
     const isOwner = !client.guilds.has(cygID)
       ? ""
-      : message.author.id == client.settings.get(cygID).ownerID;
+      : client.guilds.get(cygID).members.has(message.author.id)
+        ? message.author.id == client.settings.get(cygID).ownerID
+        : "";
     const isAdmin = !client.guilds.has(cygID)
       ? ""
-      : client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole);
+      : client.guilds.get(cygID).members.has(message.author.id)
+        ? client.guilds.get(cygID).members.get(message.author.id).roles.has(adminRole)
+        : "";
     if (!isOwner
       && !isAdmin
       && level < 4) return mcs(`You do not have permission to update the embed for **${affEmbed.serverName}**.`);
