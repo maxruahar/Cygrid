@@ -600,7 +600,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
         break;
       case "skill":
       case "skilling":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/yWsoOX1.png", "name": "skilling"}]});
+        message.channel.send({files: [{"attachment": "https://i.imgur.com/yWsoOX1.png", "name": "skilling.png"}]});
         break;
     }
   } else
@@ -608,6 +608,10 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
   if ([...client.config.admins, ...client.guilds.get("382696689812766720").members.filter(m => m.roles.has("382703090455019521")).keyArray(), client.config.ownerID].includes(message.author.id)
     && ["ah", "ahelp"].includes(action)) {
       switch (cygID) {
+        case "desc":
+        case "description":
+          message.channel.send("**We are currently accepting partner requests!**\n\nAll partners must:\n  :BP:  200+ Members (some exceptions made if the discord is skilling related)\n  :BP:  Be Runescape Related\n  :BP:  Follow All Runescape Rules\n  :BP:  Have a Representative in Our Server\n  :BP:  Have Our Link Displayed to the Public on a Partners/Affiliates page\n\nIf your discord meets the requirements send a permanent invite link with a short description to @Michelle Rae#0001.");
+          break;
         case "header":
           message.channel.send({files: [{"attachment": "https://i.imgur.com/ht269d2.png", "name": "aff_header.png"}]});
           break;
@@ -627,7 +631,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
           break;
         case "skill":
         case "skilling":
-          message.channel.send({files: [{"attachment": "https://i.imgur.com/qlVBwmq.png", "name": "skilling"}]});
+          message.channel.send({files: [{"attachment": "https://i.imgur.com/qlVBwmq.png", "name": "skilling.png"}]});
           break;
       }
   } else {
