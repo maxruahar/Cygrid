@@ -579,7 +579,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
 
   else 
 
-  if ([...client.config.admins, "196833719049256960"].includes(message.author.id) && ["skill", "skilling"].includes(action)) {
+  if ([...client.config.admins, client.config.ownerID, "196833719049256960"].includes(message.author.id) && ["skill", "skilling"].includes(action)) {
     switch (cygID) {
       case "header":
         message.channel.send({files: [{"attachment": "https://i.imgur.com/FR658Jw.png", "name": "aff_header.png"}]});
@@ -605,30 +605,31 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     }
   } else
 
-  if (client.config.admins.includes(message.author.id) && ["ah", "ahelp"].includes(action)) {
-    switch (cygID) {
-      case "header":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/ht269d2.png", "name": "aff_header.png"}]});
-        break;
-      case "social":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/3cbTcve.png", "name": "social.png"}]});
-        break;
-      case "combat":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/dcFsxIJ.png", "name": "combat.png"}]});
-        break;
-      case "minigames":
-      case "dnds":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/3jd8yXu.png", "name": "minigames_and_dnds.png"}]});
-        break;
-      case "line":
-      case "break":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/Qbgcczf.png", "name": "break.png"}]});
-        break;
-      case "skill":
-      case "skilling":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/qlVBwmq.png", "name": "skilling"}]});
-        break;
-    }
+  if ([...client.config.admins, ...client.guilds.get("382696689812766720").members.filter(m => m.roles.has("382703090455019521")).keyArray(), client.config.ownerID].includes(message.author.id)
+    && ["ah", "ahelp"].includes(action)) {
+      switch (cygID) {
+        case "header":
+          message.channel.send({files: [{"attachment": "https://i.imgur.com/ht269d2.png", "name": "aff_header.png"}]});
+          break;
+        case "social":
+          message.channel.send({files: [{"attachment": "https://i.imgur.com/3cbTcve.png", "name": "social.png"}]});
+          break;
+        case "combat":
+          message.channel.send({files: [{"attachment": "https://i.imgur.com/dcFsxIJ.png", "name": "combat.png"}]});
+          break;
+        case "minigames":
+        case "dnds":
+          message.channel.send({files: [{"attachment": "https://i.imgur.com/3jd8yXu.png", "name": "minigames_and_dnds.png"}]});
+          break;
+        case "line":
+        case "break":
+          message.channel.send({files: [{"attachment": "https://i.imgur.com/Qbgcczf.png", "name": "break.png"}]});
+          break;
+        case "skill":
+        case "skilling":
+          message.channel.send({files: [{"attachment": "https://i.imgur.com/qlVBwmq.png", "name": "skilling"}]});
+          break;
+      }
   } else {
     return;
   }
