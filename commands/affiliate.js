@@ -582,36 +582,39 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
   if ([...client.config.admins, client.config.ownerID, "196833719049256960"].includes(message.author.id) && ["skill", "skilling"].includes(action)) {
     switch (cygID) {
       case "top":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/iMhzq3Q.png", "name": "top.png"}]});
+        message.channel.send({files: [{"attachment": "https://i.imgur.com/ZwLG3HT.png", "name": "top.png"}]});
         break;
       case "desc":
       case "description":
         message.channel.send("**We are currently accepting partner requests!**\n\nAll partners must:\n  <:bp:572185440094781469>  200+ Members (some exceptions made if the discord is skilling related)\n  <:bp:572185440094781469>  Be Runescape Related\n  <:bp:572185440094781469>  Follow All Runescape Rules\n  <:bp:572185440094781469>  Have a Representative in Our Server\n  <:bp:572185440094781469>  Have Our Link Displayed to the Public on a Partners/Affiliates page\n\nIf your discord meets the requirements send a permanent invite link with a short description to Michelle Rae#0001.");
         break;
       case "header":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/FR658Jw.png", "name": "aff_header.png"}]});
+        message.channel.send({files: [{"attachment": "https://i.imgur.com/PLsrof7.png", "name": "aff_header.png"}]});
         break;
       case "achievements":
       case "social":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/hKE7Giq.png", "name": "achievements_and_social.png"}]});
+        message.channel.send({files: [{"attachment": "https://i.imgur.com/x0VVczs.png", "name": "achievements_and_social.png"}]});
+        break;
+      case "bots":
+        message.channel.send({files: [{"attachment": "https://i.imgur.com/FTMWChu.png", "name": "bots.png"}]});
         break;
       case "combat":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/pi9fRdW.png", "name": "combat.png"}]});
+        message.channel.send({files: [{"attachment": "https://i.imgur.com/7wQ0bQD.png", "name": "combat.png"}]});
         break;
       case "minigames":
       case "dnds":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/kFL21UU.png", "name": "minigames_and_dnds.png"}]});
+        message.channel.send({files: [{"attachment": "https://i.imgur.com/O4nfTeb.png", "name": "minigames_and_dnds.png"}]});
         break;
       case "line":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/lhzHKbc.png", "name": "grey_line.png"}]});
+        message.channel.send({files: [{"attachment": "https://i.imgur.com/7wQ0bQD.png", "name": "grey_line.png"}]});
         break;
       case "skill":
       case "skilling":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/yWsoOX1.png", "name": "skilling.png"}]});
+        message.channel.send({files: [{"attachment": "https://i.imgur.com/6Aa7X0X.png", "name": "skilling.png"}]});
         break;
       case "pin":
       case "pinned":
-        message.channel.send({files: [{"attachment": "https://i.imgur.com/1Ae4yjW.png", "name": "pinned.png"}]});
+        message.channel.send({files: [{"attachment": "https://i.imgur.com/szMWirs.png", "name": "pinned.png"}]});
         break;
     }
   } else
