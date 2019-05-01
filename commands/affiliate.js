@@ -394,7 +394,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     const isOwner = !client.guilds.has(cygID)
       ? ""
       : client.guilds.get(cygID).members.has(message.author.id)
-        ? message.author.id == client.settings.get(cygID).ownerID
+        ? message.author.id == client.guilds.get(cygID).ownerID
         : "";
     const isAdmin = !client.guilds.has(cygID)
       ? ""
@@ -516,7 +516,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     const isOwner = !client.guilds.has(cygID)
       ? ""
       : client.guilds.get(cygID).members.has(message.author.id)
-        ? message.author.id == client.settings.get(cygID).ownerID
+        ? message.author.id == client.guilds.get(cygID).ownerID
         : "";
     const isAdmin = !client.guilds.has(cygID)
       ? ""
