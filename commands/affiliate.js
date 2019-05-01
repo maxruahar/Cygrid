@@ -484,7 +484,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
           "url": "https://discord.gg/qqducRK",
           "icon_url": "https://i.imgur.com/8sRFoa6.png"
           },
-        "title": `**${affEmbed.serverName}** affiliate embed updated:`,
+        "title": `**${affEmbed.serverName}** affiliate embed edited:`,
         "description": `The **${field}** field was updated to the following:\n\`\`\`${value}\`\`\``,
         "thumbnail": {"url": affEmbed.iconURL},
         "timestamp": Date.now(),
