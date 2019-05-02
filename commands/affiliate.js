@@ -175,10 +175,10 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       if (!affMessages.has(cygID)) affMessages.set(cygID, {});
       if (!Object.getOwnPropertyNames(affMessages.get(cygID)).includes(message.guild.id)) return mcs(`An embed for ${guildName} has not been posted in **${message.guild.name}**.`);
       const rec = client.affMessages.get(cygID);
-      const [g,c,m] = rec[id];
+      const [g,c,m] = rec[message.guild.id];
       const msg = await client.guilds.get(g).channels.get(c).fetchMessage(m);
       msg.delete();
-      delete rec[id];
+      delete rec[message.guild.id];
       client.affMessages.set(cygID, rec);
     } else 
     if (cygID == "all") {
