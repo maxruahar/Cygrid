@@ -644,7 +644,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
           message.channel.send({files: [{"attachment": "https://i.imgur.com/3cbTcve.png", "name": "social.png"}]});
           break;
         case "combat":
-          message.channel.send({files: [{"attachment": "https://i.imgur.com/dcFsxIJ.png", "name": "combat.png"}]});
+          message.channel.send({files: [{"attachment": "https://i.imgur.com/ydUMmAQ.png", "name": "combat.png"}]});
           break;
         case "minigames":
         case "dnds":
