@@ -156,7 +156,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
         }
       };
       if (errs.length > 1) {
-        errs.push(`Any embeds which could not be posted should be reported to an Admin or above in the Cygrid Dev server.`);
+        errs.push(`Embeds can be unposted with **${settings.prefix}affiliate unpost <ID>**. Any embeds which could not be posted otherwise should be reported to an Admin or above in the Cygrid Dev server.`);
         eUpdate.embed.description = `**${i}/${links.length}** linked server affiliate embeds for **${message.guild.name}** were successfully posted. ${errs.join("\n")}`;
       }
       errs.length > 1
