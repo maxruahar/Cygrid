@@ -500,7 +500,6 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     if (value == "remove") value = "";
     affEmbed[field] = value;
     db.set(cygID, affEmbed);
-    mcs(`The **${field}** field for **${affEmbed.serverName}** was updated to the following:\n\`\`\`${value}\`\`\``);
     const eUpdate = {
       "embed": {
         "author": {
@@ -516,9 +515,16 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
         "footer": {
           "icon_url": "https://i.imgur.com/6c6q2iC.png",
           "text": `Edited by ${message.author.tag} in ${message.guild.name}`
-          }
         }
-      };
+      }
+    };
+    if (value == "remove") {
+      const newDesc = `The **${field}** field was updated to be blank.`
+      eupdate.embed.description = newDesc;
+      mcs(newDesc);
+    } else {
+    mcs(`The **${field}** field for **${affEmbed.serverName}** was updated to the following:\n\`\`\`${value}\`\`\``);
+    }
     client.guilds.get("433447855127003157").channels.get("563874508625281024").send(eUpdate);
 
   }
