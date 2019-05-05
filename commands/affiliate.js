@@ -64,8 +64,8 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
           "url": "https://discord.gg/qqducRK",
           "icon_url": "https://i.imgur.com/8sRFoa6.png"
         },
-        "title": `Click here to submit information for **${message.guild.name}**.`,
-        "url": "https://docs.google.com/forms/d/e/1FAIpQLSeRUtO6CFH1xfYLDKZK1G4g66Yv0KIpLaKrWdv0jera8IkodA/viewform",
+        "title": `Submit Affiliate information for **${message.guild.name}**.`,
+        "description": "[Submit through Google Forms here](https://docs.google.com/forms/d/e/1FAIpQLSeRUtO6CFH1xfYLDKZK1G4g66Yv0KIpLaKrWdv0jera8IkodA/viewform)\n\n[Submit through Discord here](https://discord.gg/A5S6KZW)",
         "color": 12500670,
         "footer": {
           "icon_url": "https://i.imgur.com/6c6q2iC.png",
