@@ -443,7 +443,8 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       "k": "s5Body",
       "l": "s6Header",
       "m": "s6Body",
-      "n": "highlight"
+      "n": "highlight",
+      "r": "remove"
     };
     if (Object.getOwnPropertyNames(aliases).includes(field.toLowerCase())) field = aliases[field.toLowerCase()];
     if (!Object.values(aliases).includes(field))
@@ -496,6 +497,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
         if (value.length > 2048)  return mcs(`The **${field}** field has a character limit of **2048** characters.`);
         break;
     }
+    if (value == "remove") value = "";
     affEmbed[field] = value;
     db.set(cygID, affEmbed);
     mcs(`The **${field}** field for **${affEmbed.serverName}** was updated to the following:\n\`\`\`${value}\`\`\``);
