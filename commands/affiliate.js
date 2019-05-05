@@ -174,12 +174,19 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       if (!affLinks.get(message.guild.id).includes(cygID)) return mcs(`${guildName} is not linked to **${message.guild.name}**. Refer to the <#557258619482275860> (#faqs) channel in the Cygrid Dev server for information about linking servers.`);
       if (!affMessages.has(cygID)) affMessages.set(cygID, {});
       if (!Object.getOwnPropertyNames(affMessages.get(cygID)).includes(message.guild.id)) return mcs(`An embed for ${guildName} has not been posted in **${message.guild.name}**.`);
-      const rec = client.affMessages.get(cygID);
-      const [g,c,m] = rec[message.guild.id];
-      const msg = await client.guilds.get(g).channels.get(c).fetchMessage(m);
-      msg.delete();
-      delete rec[message.guild.id];
-      client.affMessages.set(cygID, rec);
+      try {
+        const rec = client.affMessages.get(cygID);
+        const [g,c,m] = rec[message.guild.id];
+        const msg = await client.guilds.get(g).channels.get(c).fetchMessage(m);
+        msg.delete();
+        delete rec[message.guild.id];
+        client.affMessages.set(cygID, rec);
+      }
+      catch (e) {
+        const rec = client.affMessages.get(cygID);
+        delete rec[message.guild.id];
+        client.affMessages.set(cygID, rec);        
+      }
     } else 
     if (cygID == "all") {
       const id = level > 3 && args[0] ? args[0] : message.guild.id;
