@@ -428,7 +428,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
       && level < 4) return mcs(`You do not have permission to edit the embed for **${affEmbed.serverName}**.`);
     let field = args[0];
     if (!field) return mcs("Please specify a field to update.")
-    const value = args.slice(1).join(" ");
+    let value = args.slice(1).join(" ");
     const aliases = {
       "a": "serverName",
       "b": "serverDescription",
