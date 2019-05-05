@@ -518,7 +518,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
         }
       }
     };
-    if (value == "remove") {
+    if (value == "") {
       const newDesc = `The **${field}** field was updated to be blank.`
       eupdate.embed.description = newDesc;
       mcs(newDesc);
