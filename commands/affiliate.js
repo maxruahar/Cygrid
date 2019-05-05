@@ -520,7 +520,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     };
     if (value == "") {
       const newDesc = `The **${field}** field was updated to be blank.`
-      eupdate.embed.description = newDesc;
+      eUpdate.embed.description = newDesc;
       mcs(newDesc);
     } else {
     mcs(`The **${field}** field for **${affEmbed.serverName}** was updated to the following:\n\`\`\`${value}\`\`\``);
