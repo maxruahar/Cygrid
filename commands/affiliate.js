@@ -452,19 +452,24 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     if (!value) return mcs(`Please specify a value to update the **${field}** field with.`);
     switch (field) {
       case "serverName":
+        if (value == "remove") return mcs(`The **${field}** field is required and may not be removed.`);
         if (value.length > 256) return mcs(`The **${field}** field has a character limit of **256** characters.`);
         break;
       case "serverDescription":
+        if (value == "remove") return mcs(`The **${field}** field is required and may not be removed.`);
         if (value.length > 2048) return mcs(`The **${field}** field has a character limit of **2048** characters.`);
         break;
       case "iconURL":
+        if (value == "remove") return mcs(`The **${field}** field is required and may not be removed.`);
         if (!/(http(s?):)([/|.|\w|\s|-])*\.(?:jpe?g|gif|png|webp\??)/gi.test(value)) return mcs(`The **${field}** requires a valid image URL ending in one of the following file extensions:\n• jpg/jpeg\n• png\n• gif\n• webp`);
         break;
       case "contact":
+        if (value == "remove") return mcs(`The **${field}** field is required and may not be removed.`);
         if (!/^<@!?\d{17,18}>( or <@!?\d{17,18}>)?$/.test(value)) return mcs(`The **${field}** field requires one or two valid Discord mentions. Formatting should be as follows:\nOne contact: "\<@0123456789>"\nTwo contacts: "\<@0123456789> or \<@0123456789>"`);
         if (value.length > 1024) return mcs(`The **${field}** field has a character limit of **1024** characters.`);
         break;
       case "invite":
+        if (value == "remove") return mcs(`The **${field}** field is required and may not be removed.`);
         if (!/https?:\/{2}discord.gg\/\w+/i.test(value)) return mcs(`The **${field}** field must be a valid **permanent** Discord invite link.`);
         if (value.length > 1024) return mcs(`The **${field}** field has a character limit of **1024** characters.`);
         break;
@@ -493,6 +498,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
         if (value.length > 1024) return mcs(`The **${field}** field has a character limit of **1024** characters.`);
         break;
       case "highlight":
+        if (value == "remove") return mcs(`The **${field}** field is required and may not be removed.`);
         if (!value.includes("|")) return mcs(`The **${field}** field should consist of short key points of your server separated by the **|** character.`);
         if (value.length > 2048)  return mcs(`The **${field}** field has a character limit of **2048** characters.`);
         break;
