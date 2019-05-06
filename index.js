@@ -17,7 +17,8 @@ client.skillingBans = {
 "258019528011808770": "PK",
 "172783182272397313": "Wolf",
 "200133258879434753": "smd",
-"155780988482486272": "lturange"
+"155780988482486272": "lturange",
+"273582635262148611": "unknown"
 }
 
 client.config = require("./config.js");
