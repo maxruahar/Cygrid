@@ -31,6 +31,7 @@ client.affiliates = new Enmap({provider: new EnmapLevel({name: "affiliates"})});
 client.affLinks = new Enmap({provider: new EnmapLevel({name: "affLinks"})});
 client.affMessages = new Enmap({provider: new EnmapLevel({name: "affMessages"})});
 client.affTimestamps = new Enmap({provider: new EnmapLevel({name: "affTimestamps"})});
+client.notes = new Enmap({provider: new EnmapLevel({name: "notes"})});
 
 const init = async () => {
 
