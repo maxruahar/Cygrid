@@ -90,7 +90,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
   } else
 
   if (level > 1 && ["p", "post"].includes(action)) {
-    if (!cygID) return mcs("Please specify a server ID to post or use the **all** keyword to post all linked affiliate embeds.");
+    if (!cygID) return mcs(`Please specify a server ID to post or use **${settings.prefix}affiliate post all** to post all linked affiliate embeds.`);
     if (cygID !== "all") {
       const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
       if (!db.has(cygID)) return mcs(`No embed stored for ${guildName}. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
@@ -167,7 +167,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
   } else
 
   if (level > 1 && ["un", "unpost"].includes(action)) {
-    if (!cygID) return mcs("Please specify a server ID to unpost or use the **all** keyword to unpost all linked affiliate embeds.");
+    if (!cygID) return mcs(`Please specify a server ID to unpost or use **${settings.prefix}affiliate unpost all** to unpost all linked affiliate embeds.`);
     if (cygID !== "all") {
       const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
       if (!db.has(cygID)) return mcs(`No embed stored for ${guildName}. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
