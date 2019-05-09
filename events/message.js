@@ -39,7 +39,7 @@ module.exports = (client, message) => {
 		&& message.member.roles.has("303835235290972160")) {
 			const embed = {};
 			embed.author = {"name": jmod[message.author.id], "icon_url": message.author.avatarURL};
-			embed.description = `**New message in <#${message.channel.id}>**:\n${message.content}`;
+			embed.description = `**New message in <#${message.channel.id}>**:\n${message.content}\n\n[View message](${message.url})`;
 			embed.color = "16776960";
 //			embed.fields = [{"name": "Content", "value": message.content}];
 			embed.footer = {"icon_url": "https://i.imgur.com/xIKUTMP.png", "text": message.channel.name};
