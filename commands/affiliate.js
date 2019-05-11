@@ -84,6 +84,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
 
   if (level > 0 && ["d", "display", "pre", "preview"].includes(action)) {
     if (!cygID) return mcs("Please specify a server ID to display.");
+    cygID = cygID == "here" ? message.guild.id : cygID;
     const guildName = client.guilds.has(cygID) ? `**${client.guilds.get(cygID).name}**` : "that server";
     if (!db.get(cygID)) return mcs(`No embed stored for ${guildName}. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     mcs(embedify(cygID, db.get(cygID)));
