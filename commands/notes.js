@@ -15,6 +15,10 @@ exports.run = async (client, message, [first, ...args], level) => {
 
   message.delete();
 
+  // create pages for notes list
+  // delete multiple notes
+  // allow changing separator
+
   if (["n", "c", "new", "create"].includes(first)) {
     if (!args[0]) return mcs(`Please provide a valid title for the note that you are creating.`);
     const [title, content] = args.join(" ").split("//");
@@ -100,7 +104,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["note"],
-  permLevel: "Bot Admin",
+  permLevel: "Moderator",
   guilds: [],
   cooldown: 2500
 };
@@ -108,6 +112,6 @@ exports.conf = {
 exports.help = {
   name: "notes",
   category: "Utility",
-  description: "Record per-server notes.",
+  description: "Store, access, and edit per-server notes.",
   usage: "notes [ID]\n       notes <create> <title> // <content>\n       notes <delete> <ID>\n       notes <edit> <ID> <title/content> <newContent>\n       notes <add> <ID> <additionalContent>"
 };
