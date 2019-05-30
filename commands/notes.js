@@ -10,7 +10,7 @@ exports.run = async (client, message, [first, ...args], level) => {
   first = first ? first.toLowerCase() : undefined;
   const mcs = (msg) => message.channel.send(msg);
   const notify = (title, content) => {
-    return `\`\`\`fix\n${title}\`\`\`\`\`\`css\n${content}\`\`\``;
+    return `\`\`\`fix\n${title}\`\`\`\`\`\`${content}\`\`\``;
   }
 
   message.delete();
