@@ -106,7 +106,7 @@ exports.conf = {
   aliases: ["note"],
   permLevel: "Moderator",
   guilds: [],
-  cooldown: 2500
+  cooldown: 1500
 };
 
 exports.help = {
