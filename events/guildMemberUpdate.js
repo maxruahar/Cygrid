@@ -2,7 +2,7 @@ module.exports = async (client, oldMember, newMember) => {
 	const Discord = require('discord.js');
 	const guild = newMember.guild;
 	const settings = client.settings.get(guild.id);
-	const logChannel = guild.channels.get(settings.logChannel);  // settings.nitroBooster
+	const logChannel = client.channels.get(settings.logChannel);
 	const boostChannel = client.channels.find(c => c.id == settings.boostChannel || c.name == settings.boostChannel);
 	const booster = guild.roles.find(r => r.managed && r.name == settings.nitroBooster || r.managed && r.id == settings.nitroBooster);
 
