@@ -35,8 +35,8 @@ exports.run = async (client, message, [action, key, ...value], level) => { // es
 	} else 
 
 	if (action === "edit") {
-		if (!key) return message.channel.send("Please specify a key to add.");
-		if (!settings[key]) return message.channel.send("This key does not exist.");
+		if (!key) return message.channel.send("Please specify a key to edit.");
+		if (!Object.getOwnPropertyNames(settings).includes(key)) return message.channel.send("This key does not exist.");
 		if (value.length < 1) return message.channel.send("Please specify a new value.");
 		if (typeof(value.join(" ")) !== 'string') return message.channel.send("Invalid value specified.");
 		if (key == "enabledCommands") return message.channel.send("Please use `command` to edit this setting.");
