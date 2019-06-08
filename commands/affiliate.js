@@ -25,7 +25,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     embed.description = data.serverDescription;
     embed.thumbnail = !guild ? {"url": data.iconURL}
       : guild.me.hasPermission(32)
-        ? {"url": guild.iconURL.replace(/(?:jpe?g|gif|webp\??)/gi, "png")}
+        ? {"url": guild.iconURL.replace(/(?:jpe?g|webp\??)/gi, "png")}
         : {"url": data.iconURL};
     embed.color = 12500670;
     embed.fields = [
