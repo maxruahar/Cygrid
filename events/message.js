@@ -59,6 +59,7 @@ module.exports = (client, message) => {
 	}
 
 	if (settings.spamFilter == "true") {
+		if (["585922657309032451"].includes(message.guild.id)) return;
 		if (message.content.toLowerCase().indexOf("wwwwwwwwww") > -1) message.delete();
 		let last = "";
 		let output = "";
