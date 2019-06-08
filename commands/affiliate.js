@@ -24,9 +24,11 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
     embed.url = data.invite;
     embed.description = data.serverDescription;
     embed.thumbnail = !guild ? {"url": data.iconURL}
-      : guild.me.hasPermission(32)
-        ? {"url": guild.iconURL.replace(/(?:jpe?g|webp\??)/gi, "png")}
-        : {"url": data.iconURL};
+      : !guild.me.hasPermission(32)
+        ? {"url": data.iconURL}
+        : guild.iconURL.slice(0, 2) == "a_"
+          ? {"url": guild.iconURL.replace(/(?:jpe?g|png|webp\??)/gi, "gif")}
+          : {"url": guild.iconURL.replace(/(?:jpe?g|gif|webp\??)/gi, "png")};
     embed.color = 12500670;
     embed.fields = [
       {"name": "__**Contact:**__", "value": data.contact, "inline": true},
