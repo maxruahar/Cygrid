@@ -8,7 +8,7 @@ module.exports = async (client, oldMember, newMember) => {
 
 	if (!booster) return;
 	if (!oldMember.roles.has(booster.id) && newMember.roles.has(booster.id)) {
-		if (!boostChannel && booster) return logChannel.send(`Please set a valid channel name or ID under the nitroChannel setting for **${guild.name}**. This can be done using **.set edit nitroChannel <name/id>**.`);
+		if (!boostChannel && booster) return logChannel.send(`Please set a valid channel name or ID under the boostChannel setting for **${guild.name}**. This can be done using **.set edit boostChannel <name/id>**.`);
 
 		let embed = new Discord.RichEmbed()
 		.setAuthor("New Nitro Booster!", "https://i.imgur.com/o6DaZI5.png")
