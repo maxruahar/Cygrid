@@ -59,7 +59,6 @@ module.exports = (client, message) => {
 	}
 
 	if (settings.spamFilter == "true") {
-		if (["585922657309032451"].includes(message.guild.id)) return;
 		if (message.content.toLowerCase().indexOf("wwwwwwwwww") > -1) message.delete();
 		let last = "";
 		let output = "";
@@ -74,6 +73,7 @@ module.exports = (client, message) => {
 			if (Object.keys(gex).includes(m.id) && !Object.keys(jmod).includes(message.author.id)) check = "true";
 		});
 		if (check == "true") {
+			if (["585922657309032451"].includes(message.guild.id)) return;
 			x.forEach(o => {
 				let raw = o.replace(/<@/g, "").replace(/>/g, "");
 				let id = raw.indexOf("!") > -1 ? raw.replace("!", "") : raw;
