@@ -21,7 +21,8 @@ exports.run = async (client, message, [first, ...args], level) => {
 
   if (["n", "c", "new", "create"].includes(first)) {
     if (!args[0]) return mcs(`Please provide a valid title for the note that you are creating.`);
-    const [title, content] = args.join(" ").split("//");
+    let [title, ...content] = args.join(" ").split("//");
+    content = content.join("//");
     if (!content) return mcs(`Please provide valid content for the note that you are creating. Title and content should be separated by a double forward-slash \`//\`.`);
     notes[message.id] = {"title": title.trim(), "content": content.trim()};
     client.notes.set(id, notes);
