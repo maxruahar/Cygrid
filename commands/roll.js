@@ -1,8 +1,7 @@
 exports.run = (client, message, args, level) => {
 
-	const num = args[0];
-	const min = args[1];
-	const max = args[2];
+	const [num, min, max] = args;
+	if (isNaN(num) || isNaN(min) || isNaN(max)) return message.channel.send("Please provide a valid number for each argument.")
 	const s = num > 1 ? "numbers" : "number"
 	if (!num) return message.channel.send('Please specify the number of rolls to make.');
 	if (num < 1) return message.channel.send('Minimum number of rolls not met. Please roll between **1** and **50** numbers.');
