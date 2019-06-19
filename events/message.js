@@ -11,8 +11,10 @@ module.exports = (client, message) => {
 	const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 	const gex = client.config.gex;
 	const jmod = client.config.jmod;
-	const jlog = ["424254117767282709", "473830893568524288", "469800165113331713", "474574393159188491", "424254313448079362", "524896593384701952", "428220727154442242"];
-								//General								Discussion						Clans									Lore									Community							Comp rework						M&S Rework
+	const ignoredChannels = ["539919661597196302", "590174425136103444", "589522684350562304", "425362551170400287", "466909336367529984",
+		"588383608511660060", "487563321113968640", "524897908122976256", "567757188437901312", "530067769182388227", "426066222627684364"];
+	const jlog = ["589518282709663745", "424254117767282709", "589518773849948283", "473830893568524288", "588383144319778816", "469800165113331713", "474574393159188491", "524896593384701952"];
+				//General Chat			RS General				Updates					Discussion			RuneFest 2019			Community				Lore				Comp rework
 
 	if (message.author.bot) return;
 	if (!message.guild && message.author.id !== client.config.ownerID) client.users.get(client.config.ownerID).send(`**${message.author.tag}**: ${message.content}`);
@@ -34,7 +36,7 @@ module.exports = (client, message) => {
 	if (message.guild) {
 		if (message.guild.id  == "303835144073248770"
 		&& jlog.includes(message.channel.parentID)
-		&& message.channel.id !== "432897130408050692"
+		&& ignoredChannels.includes(message.channel.id)
 //		&& Object.keys(jmod).includes(message.author.id)) {
 		&& message.member.roles.has("303835235290972160")) {
 			const embed = {};
