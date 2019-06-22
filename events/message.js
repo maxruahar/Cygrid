@@ -36,7 +36,7 @@ module.exports = (client, message) => {
 	if (message.guild) {
 		if (message.guild.id  == "303835144073248770"
 		&& jlog.includes(message.channel.parentID)
-		&& ignoredChannels.includes(message.channel.id)
+		&& !ignoredChannels.includes(message.channel.id)
 //		&& Object.keys(jmod).includes(message.author.id)) {
 		&& message.member.roles.has("303835235290972160")) {
 			const embed = {};
