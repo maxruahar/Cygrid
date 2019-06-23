@@ -5,7 +5,7 @@ module.exports = async (client, oldMember, newMember) => {
 
 	const guild = oldMember.guild;
 	const text = guild.channels.get('185978912126402560');
-	const voice = guild.channels.get('185978912617005056');
+	const voice = guild.channels.get('592319922827427840');
 	let newUserChannel = newMember.voiceChannel ? newMember.voiceChannel : {};
 	let oldUserChannel = oldMember.voiceChannel ? oldMember.voiceChannel : {};
 
