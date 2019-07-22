@@ -57,7 +57,7 @@ exports.conf = {
   enabled: true,
   guildOnly: false,
   aliases: ["purge", "p"],
-  permLevel: "User",
+  permLevel: "Moderator",
   guilds: [],
   cooldown: 2500
 };
