@@ -8,6 +8,7 @@ exports.run = async (client, message, args, level) => {
 	}
 
 	if (!m) return;
+	if (isNaN(m)) return;
 	guild = !g
 	  ? message.guild : client.guilds.has(g)
 	    ? client.guilds.get(g) : message.guild;
