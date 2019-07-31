@@ -55,6 +55,6 @@ exports.conf = {
 exports.help = {
   name: "quote",
   category: "Info",
-  description: "This is a test command.",
-  usage: "test\ntest\ntest"
+  description: "Enables sharing the contents of a referenced message neatly within an embed.",
+  usage: "quote <messageURL>\n       quote <messageID> [channelID] [serverID]"
 };
