@@ -1,5 +1,5 @@
 exports.run = async (client, message, args, level) => {
-  if (!["528268403098779658", "611203340335841290"].includes(message.channel.id)) return;
+  if (!["528268403098779658", "611203340335841290"].includes(message.channel.id) && message.author.id !== "97928972305707008") return;
   const set = client.settings.get(message.guild.id);
   const prefix = set.prefix;
   message.delete();

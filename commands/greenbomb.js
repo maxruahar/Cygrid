@@ -1,5 +1,5 @@
 exports.run = async (client, message, args, level) => {
-  if (!["528268403098779658", "611203340335841290"].includes(message.channel.id)) return;
+  if (!["528268403098779658", "611203340335841290"].includes(message.channel.id) && message.author.id !== "97928972305707008") return;
   const set = client.settings.get(message.guild.id);
   const prefix = set.prefix;
   message.delete();
@@ -17,7 +17,7 @@ exports.run = async (client, message, args, level) => {
 
   const e = {
     "embed": {
-      "description": `[Comprehensive Normal Mode Vorago Guide](https://docs.google.com/document/d/1vDQSdwDh-s5gG93yVljhTDZfumy3DdYvtuBjLEF7r3o)${current}\n\n**Phase** 3: Green➔ 5 Att (or skip)➔ OFF➔ 3 Att➔ Green➔ 5 Att (or skip)➔ Red➔ 4 Att\n**Phase** 4: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ Green➔ 5 Att (or skip)➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att\n**Phase** 5: Green➔ 5 Att (or skip)➔ OFF➔ 3 Smashes➔ 3 Att➔ Green➔ Red➔ 4 Att\n\n__**Strategy**__: P3: Sun drop (all) between 2 quadrants. Tank Gb, deto threshold. Base devo cept with mage pray if on bt, deto/thresh after reflect. Bounce or devo cept 2nd Gb, can reprisal this one.\nP5: Bt Asph 2 bleeds. Wait for Gb before cading. If on bt, deal with it like on P3, or bounce to base and build to cade. Base/dps sun drop, ons after bleeds.`,
+      "description": `[Comprehensive Normal Mode Vorago Guide](https://docs.google.com/document/d/1vDQSdwDh-s5gG93yVljhTDZfumy3DdYvtuBjLEF7r3o)${current}\n\n**Phase** 3: Green➔ 5 Att (or skip)➔ OFF➔ 3 Att➔ Green➔ 5 Att (or skip)➔ Red➔ 4 Att\n**Phase** 4: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ Green➔ 5 Att (or skip)➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att\n**Phase** 5: Green➔ 5 Att (or skip)➔ OFF➔ 3 Smashes➔ 3 Att➔ Green➔ Red➔ 4 Att\n\n__**Strategy**__:\n• P3: Sunshine drop (all) between 2 quadrants. Tank Green Bomb, Detonate threshold. Base Devotion Intercept with Deflect Magic if on Bomb Tank, Detonate/Threshold after Reflect. Bounce or Devotion Intercept 2nd Green Bomb, can Reprisal this one.\n• P5: Bomb Tank Asphyxiate 2 bleeds. Wait for Green Bomb before Barricading. If on Bomb Tank, deal with it like on P3, or bounce to Base and build to Barricade. Base/dps Sunshine drop, Onslaught after bleeds.`,
       "color": 8197085,
       "footer": {
         "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",

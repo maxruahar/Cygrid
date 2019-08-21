@@ -1,5 +1,5 @@
 exports.run = async (client, message, args, level) => {
-  if (!["528268403098779658", "611203340335841290"].includes(message.channel.id)) return;
+  if (!["528268403098779658", "611203340335841290"].includes(message.channel.id) && message.author.id !== "97928972305707008") return;
   const set = client.settings.get(message.guild.id);
   const prefix = set.prefix;
   message.delete();
@@ -17,7 +17,7 @@ exports.run = async (client, message, args, level) => {
 
   const e = {
     "embed": {
-      "description": `[Comprehensive Normal Mode Vorago Guide](https://docs.google.com/document/d/1vDQSdwDh-s5gG93yVljhTDZfumy3DdYvtuBjLEF7r3o)${current}\n\n**Phase** 3: TS➔ 3 Att➔ OFF➔ 3 Att➔ TS➔ 3 Att➔ Red➔ 4 Att\n**Phase** 4: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ TS➔ 3 Att➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att\n**Phase** 5: Team Split➔ 3 Att➔ OFF➔ 3 Att➔ 3 Smashes➔ 3 Att\n\n__**Strategy**__: P3: Ts Wm asphyx out of 1st ts, Bt gstaff. Out of 2nd ts Bt wm dbreath devo adren ons or sunshine reflect. Base/dps Asphyx dbreath adren ons.\nP5: Bt Wm then build to cade. Base/dps sun when TS spawns, Wm/Aphyx Dbreath, 1 gstaff. Reprisal TS, don’t ons.`,
+      "description": `[Comprehensive Normal Mode Vorago Guide](https://docs.google.com/document/d/1vDQSdwDh-s5gG93yVljhTDZfumy3DdYvtuBjLEF7r3o)${current}\n\n**Phase** 3: TS➔ 3 Att➔ OFF➔ 3 Att➔ TS➔ 3 Att➔ Red➔ 4 Att\n**Phase** 4: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ TS➔ 3 Att➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att\n**Phase** 5: Team Split➔ 3 Att➔ OFF➔ 3 Att➔ 3 Smashes➔ 3 Att\n\n__**Strategy**__:\n• P3: Wild Magic Asphyxiate out of 1st Team Split, Bomb Tank use Guthix Staff special attack. Out of 2nd Team Split Bomb Tank Wild Magic Dragon Breath Devotion Adrenaline Onslaught or Sunshine Reflect. Base/DPS Asphyxiate Dragon Breath Adrenaline Onslaught.\n• P5: Bomb Tank Wild Magic then build to Barricade. Base/DPS Sunshine when Team Split spawns, Wild Magic/Asphyxiate Dragon Breath, 1 Guthix Staff special attack. Reprisal Team Split, don’t Onslaught.`,
       "color": 8197085,
       "footer": {
         "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",

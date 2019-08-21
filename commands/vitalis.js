@@ -1,5 +1,5 @@
 exports.run = async (client, message, args, level) => {
-  if (!["528268403098779658", "611203340335841290"].includes(message.channel.id)) return;
+  if (!["528268403098779658", "611203340335841290"].includes(message.channel.id) && message.author.id !== "97928972305707008") return;
   const set = client.settings.get(message.guild.id);
   const prefix = set.prefix;
   message.delete();
@@ -17,7 +17,7 @@ exports.run = async (client, message, args, level) => {
 
   const e = {
     "embed": {
-      "description": `[Comprehensive Normal Mode Vorago Guide](https://docs.google.com/document/d/1vDQSdwDh-s5gG93yVljhTDZfumy3DdYvtuBjLEF7r3o)${current}\n\n***Note: Vitalis will spawn NE for P3 and P4 unless rago is walked before.***\n\n**Phase** 3: Vitalis➔ 3 Att➔ OFF➔ 3 Att➔ Vitalis➔ 3 Att➔ 5 Smashes➔ 3 Att\n**Phase** 4: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ Vitalis➔ 3 Att➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att\n**Phase** 5: Vitalis➔ 3 Att➔ OFF➔ 3 Att➔ 3 Smashes➔ 3 Att\n\n__**Strategy**__: P3: Sun drop (all) around Rago, base/dps md, Bt 1 off md, deto and thresh after reflect. Ignore vit spawns. Bt should go md on reflect for trios. Pray flick mage/melee at this point.\nP5: Bt Wm 2 bleeds cept cade. Base/dps sun or thresh. Build to ons+instacade after bleeds. The priority is to kill all vit spawns asap.`,
+      "description": `[Comprehensive Normal Mode Vorago Guide](https://docs.google.com/document/d/1vDQSdwDh-s5gG93yVljhTDZfumy3DdYvtuBjLEF7r3o)${current}\n\n***Note: Vitalis will spawn in the NE quadrant for P3 and P4 unless rago is walked before.***\n\n**Phase** 3: Vitalis➔ 3 Att➔ OFF➔ 3 Att➔ Vitalis➔ 3 Att➔ 5 Smashes➔ 3 Att\n**Phase** 4: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ Vitalis➔ 3 Att➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att\n**Phase** 5: Vitalis➔ 3 Att➔ OFF➔ 3 Att➔ 3 Smashes➔ 3 Att\n\n__**Strategy**__:\n• P3: Sunshine drop (all) around Vorago, base/DPS Melee Distance, Bomb Tank 1 away from Melee Distance, Detonate and Threshold after Reflect. Ignore Vitalis spawns. Bomb Tank should be within Melee Distance on Reflect for trios. Pray flick Deflect Mage/Melee at this point.\n• P5: Bomb Tank Wild Magic 2 bleeds Intercept Barricade. Base/DPS Sunshine or Threshold. Build to Onslaught + instantly Barricade after bleeds. The priority is to kill all Vitalis spawns asap.`,
       "color": 8197085,
       "footer": {
         "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",

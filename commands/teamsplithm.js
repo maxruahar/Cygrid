@@ -1,5 +1,5 @@
 exports.run = async (client, message, args, level) => {
-  if (!["528268403098779658", "611203340335841290"].includes(message.channel.id)) return;
+  if (!["528268403098779658", "611203340335841290"].includes(message.channel.id) && message.author.id !== "97928972305707008") return;
   const set = client.settings.get(message.guild.id);
   const prefix = set.prefix;
   message.delete();
@@ -17,7 +17,7 @@ exports.run = async (client, message, args, level) => {
 
   const e = {
     "embed": {
-      "description": `[Comprehensive Hard Mode Vorago Guide](https://www.youtube.com/watch?v=SdUbAqHAHOE)\nWhen to maul: **Reflect**\nCade timing: **P10 odd TS (1st, 3rd...) | P11 TS.**\nOmens unlock: **Maul.**${current}\n\n**Phase** 9: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ TS➔ 3 Att➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att\n**Phase** 10 (TS/TS): TS➔ 3 Att➔ OFF➔ 3 Att➔ Team Split➔ 3 Att\n**Phase** 11 (TS/PB): TS➔ 3 Att➔ OFF➔ 3 Att➔ Purple➔ 5 Att\n\n__**Strategy**__: P10: Sun then go to the TS box, always tank even TS (2, 4...) a.k.a the ones after reflect, can reprisal those. __Bt1__: D/s 1st blue, cade 2nd. Sun 2nd TS. __Bt2__: D/s 1st blue, Sun drop, Repri 2nd TS, reso.\nP11: Sun, reprisal TS. __Bt2__: Debil, can cade Pb intead if push is good. Repri TS + D/s. __Bt1__: Debil, Sun pb, D/s Ts, cade cept heal 2nd blue.`,
+      "description": `[Comprehensive Hard Mode Vorago Guide](https://www.youtube.com/watch?v=SdUbAqHAHOE)\nWhen to maul: **Reflect.**\nCade timing: **P10 odd TS (1st, 3rd...) | P11 TS.**\nOmens unlock: **Maul.**${current}\n\n**Phase** 9: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ TS➔ 3 Att➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att\n**Phase** 10 (TS/TS): TS➔ 3 Att➔ OFF➔ 3 Att➔ Team Split➔ 3 Att\n**Phase** 11 (TS/PB): TS➔ 3 Att➔ OFF➔ 3 Att➔ Purple➔ 5 Att\n\n__**Strategy**__: P10: Sun then go to the TS box, always tank even TS (2, 4...) a.k.a the ones after reflect, can reprisal those. __Bt1__: D/s 1st blue, cade 2nd. Sun 2nd TS. __Bt2__: D/s 1st blue, Sun drop, Repri 2nd TS, reso.\nP11: Sun, reprisal TS. __Bt2__: Debil, can cade Pb intead if push is good. Repri TS + D/s. __Bt1__: Debil, Sun pb, D/s Ts, cade cept heal 2nd blue.`,
       "color": 8197085,
       "footer": {
         "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",
