@@ -17,7 +17,7 @@ exports.run = async (client, message, args, level) => {
 
   const e = {
     "embed": {
-      "description": `[Comprehensive Hard Mode Vorago Guide](https://www.youtube.com/watch?v=SdUbAqHAHOE)\nWhen to maul: **Purple bomb release.**\nCade timing: **P10 Pb | P11 Vit orb.**\nOmens unlock: **Gloves.**${current}\n\n**Phase** 9: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ The End➔ 3 Att➔ Red➔ 4 Att➔ OFF➔ 3 Att\n**Phase** 10 (Pb/Bleeds): Purple➔ 5 Att➔ OFF➔ 3 Att➔ 3 Bleeds➔ 3 Att\n**Phase** 11 (Pb/Vit): Purple➔ 5 Att➔ OFF➔ 3 Att➔ Vitalis➔ 3 Att\n\n__**Strategy**__: P10: Sun, clear bleeds. __Bt1__: Cade cept Pb, dome Reflect. Try to maul or debil after smashes. __Bt2__: Sun.\nP11: Sun and block Vit orb. __Bts__: debil, dome during reflect. Take turns cade/sun vit orbs.`,
+      "description": `[Comprehensive Hard Mode Vorago Guide](https://www.youtube.com/watch?v=SdUbAqHAHOE)\nWhen to maul: **Purple bomb release.**\nCade timing: **P10 Pb | P11 Vit orb.**\nOmens unlock: **Gloves.**${current}\n\n**Phase** 9: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ The End➔ 3 Att➔ Red➔ 4 Att➔ OFF➔ 3 Att\n**Phase** 10 (Pb/Bleeds): Purple➔ 5 Att➔ OFF➔ 3 Att➔ 3 Bleeds➔ 3 Att\n**Phase** 11 (Pb/Vit): Purple➔ 5 Att➔ OFF➔ 3 Att➔ Vitalis➔ 3 Att\n\n__**Strategy**__:\n• P10: Sun, clear bleeds. __Bt1__: Cade cept Pb, dome Reflect. Try to maul or debil after smashes. __Bt2__: Sun.\n• P11: Sun and block Vit orb. __Bts__: debil, dome during reflect. Take turns cade/sun vit orbs.`,
       "color": 8197085,
       "footer": {
         "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",
