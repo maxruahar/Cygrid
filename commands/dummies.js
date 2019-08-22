@@ -37,15 +37,15 @@ exports.run = async (client, message, args, level) => {
 exports.conf = {
   enabled: true,
   guildOnly: false,
-  aliases: ["maul"],
+  aliases: ["dummy"],
   permLevel: "User",
   guilds: [],
   cooldown: 2500
 };
 
 exports.help = {
-  name: "mauling",
+  name: "dummies",
   category: "RuneScape",
-  description: "Hard Mode Vorago mauling information",
-  usage: "mauling"
+  description: "Hard Mode Vorago combat dummy placement information",
+  usage: "dummies"
 };
