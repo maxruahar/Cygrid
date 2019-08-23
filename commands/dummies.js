@@ -1,8 +1,6 @@
 exports.run = async (client, message, args, level) => {
-  if (!["528268403098779658", "611203340335841290"].includes(message.channel.id) && message.author.id !== "97928972305707008") return;
   const set = client.settings.get(message.guild.id);
   const prefix = set.prefix;
-  message.delete();
 
   const e = {
     "embed": {
@@ -24,7 +22,7 @@ exports.run = async (client, message, args, level) => {
         },
         {
           "name": "​",
-          "value": `*Use ${prefix}ragohm for Hard Mode commands.*\n*Use ${prefix}rago for Normal Mode commands.*`
+          "value": `*Use ${prefix}ragohm for Hard Mode commands.\nUse ${prefix}maul for further mauling information.\nUse ${prefix}rago for Normal Mode commands.*`
         }
       ]
     }

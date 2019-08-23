@@ -1,8 +1,6 @@
 exports.run = async (client, message, args, level) => {
-  if (!["528268403098779658", "611203340335841290"].includes(message.channel.id) && message.author.id !== "97928972305707008") return;
   const set = client.settings.get(message.guild.id);
   const prefix = set.prefix;
-  message.delete();
   let err, status, rot, resets;
   const list = [`Ceilings`, `Scopulus`, `Vitalis`, `Green Bomb`, `Team Split`, `The End`],
   desc = ["Maul Gb release, P11: 5 Att➔ (TS➔ 3 Att➔ OFF➔ 3 Att➔ Vit➔ 3 Att)\nMaul Ts, P11: 3 Att➔ OFF➔ 3 Att➔ Vit➔ 3 Att➔ TS\nMaul Reflect, P11: 3 Att➔ Vit➔ 3 Att➔ TS➔ 3 Att➔ OFF",
@@ -23,27 +21,27 @@ exports.run = async (client, message, args, level) => {
 
   switch (rot.toLowerCase()) {
     case "ceiling collapse":
-      list[0] = `**${list[0]}**`;
+      list[0] = `**${list[0]} (Current rotation)**`;
       desc[0] = `**${desc[0]}**`;
       break;
     case "scopulus":
-      list[1] = `**${list[1]}**`;
+      list[1] = `**${list[1]} (Current rotation)**`;
       desc[1] = `**${desc[1]}**`;
       break;
     case "vitalis":
-      list[2] = `**${list[2]}**`;
+      list[2] = `**${list[2]} (Current rotation)**`;
       desc[2] = `**${desc[2]}**`;
       break;
     case "green bomb":
-      list[3] = `**${list[3]}**`;
+      list[3] = `**${list[3]} (Current rotation)**`;
       desc[3] = `**${desc[3]}**`;
       break;
     case "team split":
-      list[4] = `**${list[4]}**`;
+      list[4] = `**${list[4]} (Current rotation)**`;
       desc[4] = `**${desc[4]}**`;
       break;
     case "the end":
-      list[5] = `**${list[5]}**`;
+      list[5] = `**${list[5]} (Current rotation)**`;
       desc[5] = `**${desc[5]}**`;
       break;
   }
