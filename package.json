@@ -16,13 +16,16 @@
   "author": "Maximillion Harper <maximillionrh@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "chalk": "^2.4.1",
-    "discord.js": "^11.3.2",
+    "chalk": "^2.4.2",
+    "discord.js": "^11.4.2",
     "enmap": "^0.4.6",
     "enmap-level": "^1.0.1",
-    "moment": "^2.22.1",
+    "googleapis": "^37.2.0",
+    "markdown-table": "^1.1.2",
+    "moment": "^2.24.0",
     "moment-duration-format": "^2.2.2",
-    "pm2": "^2.10.3",
-    "request": "^2.85.0"
+    "pm2": "^2.10.4",
+    "request": "^2.88.0",
+    "request-promise-native": "^1.0.7"
   }
 }
