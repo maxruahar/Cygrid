@@ -1,6 +1,5 @@
 exports.run = async (client, message, [action, cygID, ...args], level) => {
 
-  const table = require("markdown-table");
   const settings = client.settings.get(message.guild.id);
   const db = client.affiliates;
   const affLinks = client.affLinks;
@@ -329,7 +328,7 @@ exports.run = async (client, message, [action, cygID, ...args], level) => {
 
   if (level > 1 && ["l", "link"].includes(action)) {
     if (!cygID) return mcs("Please specify a server ID to link.");
-    if (!db.has(cygID)) return mcs(`No embed stored for **${targetName}**. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
+    if (!db.has(cygID)) return mcs(`No embed stored for that server. Please use **${settings.prefix}affiliate submit** or contact an Admin in the Cygrid Dev server.`);
     const target = db.has(cygID)
       ? db.get(cygID)
       : client.guilds.has(cygID)
