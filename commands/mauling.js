@@ -51,7 +51,6 @@ exports.run = async (client, message, args, level) => {
       "description": `**When to maul and how P11 will start.**\n\n__${list[0]}__\n${desc[0]}\n\n__${list[1]}__\n${desc[1]}\n\n__${list[2]}__\n${desc[2]}\n\n__${list[3]}__\n${desc[3]}\n\n__${list[4]}__\n${desc[4]}\n\n__${list[5]}__\n${desc[5]}`,
       "color": 8197085,
       "footer": {
-        "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",
         "text": "Guides written by Landon#4180"
       },
       "author": {

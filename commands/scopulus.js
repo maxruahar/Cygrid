@@ -18,7 +18,6 @@ exports.run = async (client, message, args, level) => {
       "description": `[Comprehensive Normal Mode Vorago Guide](https://docs.google.com/document/d/1vDQSdwDh-s5gG93yVljhTDZfumy3DdYvtuBjLEF7r3o)${current}\n\n**Phase** 3: 2 Scopulii spawn (Mid SW, Mid SE)➔ Blue bombs (until both die)\n**Phase** 4: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ Red➔ 4 Att➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att \n**Phase** 5: Purple➔ 5 Att➔ OFF➔ 3 Att➔ 3 Smashes➔ 3 Att\n** **\n__**Strategy**__:\n• P3: Sun drop. Vulnerability Scopulii. Resonance 3rd Blue bomb (Base Tank), Detonate (all) and use Barrage spells if using 4taa.\n• P5: Bomb Tank Wild Magic 2 bleeds Vulnerability and Barricade, Base/DPS Onslaught drop 1 north 1 south, build to Sunshine. If 4man+, Sunshine first and Onslaught after bleeds.`,
       "color": 8197085,
       "footer": {
-        "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",
         "text": "Guides written by Landon#4180"
       },
       "author": {

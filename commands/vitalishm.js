@@ -39,7 +39,6 @@ exports.run = async (client, message, args, level) => {
       "description": `[Comprehensive Hard Mode Vorago Guide](https://www.youtube.com/watch?v=SdUbAqHAHOE)\nWhen to maul: **Reflect.**\nCade timing: **P10 Vit orb | P11 Vit orb.**\nOmens unlock: **${omens}.**${current}\n\n***Note: Vitalis will spawn in the NE quadrant for P9 unless rago is walked before***\n\n**Phase** 9: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ Vit➔ 3 Att➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att\n**Phase** 10 (Vit/Pb): Vit➔ 3 Att➔ OFF➔ 3 Att➔ Pb➔ 5 Att\n**Phase** 11 (Vit/Bleeds): Vit➔ 3 Att➔ OFF➔ 3 Att➔ 3 Bleeds➔ 3 Att\n** **\n__**Strategy**__:\n• P10: Sun/thresh. __Bt1__: cade cept vit orb then sun. __Bt2__: Sun.\n• P11: block Vit orb, sun and clear bleeds after Reflect. __Bts__: debil, take turns to cade vits and sun.`,
       "color": 8197085,
       "footer": {
-        "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",
         "text": "Guides written by Landon#4180"
       },
       "author": {

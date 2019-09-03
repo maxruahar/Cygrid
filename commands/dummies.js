@@ -7,7 +7,6 @@ exports.run = async (client, message, args, level) => {
       "description": "Avoid placing under Vorago's spawn (middle) and Scopulus spawns (Mid-SW/SW/N).\nFor Ceilings, Vitalis, and Green Bomb rotations, place immediately after dropdown.\nFor 5man+ teams you only need 4 (Entrance, Green Bomb and P9/10). All others are optional.",
       "color": 8197085,
       "footer": {
-        "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",
         "text": "Guides written by Landon#4180"
       },
       "author": {

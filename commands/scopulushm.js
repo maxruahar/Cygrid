@@ -18,7 +18,6 @@ exports.run = async (client, message, args, level) => {
       "description": `[Comprehensive Hard Mode Vorago Guide](https://www.youtube.com/watch?v=SdUbAqHAHOE)\nWhen to maul: **Team Split.**\nCade timing: **P10 Pb release | P11 Vit orb.**\nOmens unlock: **Helm.**${current}\n\n**Phase** 9: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ Red➔ 4 Att➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att \n**Phase** 10 (Pb/Bleeds): Purple➔ 5 Att➔ OFF➔ 3 Att➔ TS➔ 3 Att\n**Phase** 11 (Pb/Vit): Purple➔ 5 Att➔ OFF➔ 3 Att➔ Vitalis➔ 3 Att\n\n__**Strategy**__:\n• P10: Sun drop, **TANK TS**. __Bt1__: D/s (P9) for 1st blue, cade cept team on 2nd, sun if needed. __Bt2__: D/s 1st blue, sun.\n• P11: Build, block vit orb then sun/ons. __Bts__: Both debil and take turns cade/sun vit orb.`,
       "color": 8197085,
       "footer": {
-        "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",
         "text": "Guides written by Landon#4180"
       },
       "author": {

@@ -39,7 +39,6 @@ exports.run = async (client, message, args, level) => {
       "description": `**The current rotation is __${nick}__ for an additional __${resets}__ reset${opt}.**\n[Comprehensive Normal Mode Vorago Guide](https://docs.google.com/document/d/1vDQSdwDh-s5gG93yVljhTDZfumy3DdYvtuBjLEF7r3o)\n\n**Phase** 1: Red➔ 4 Attacks (repeat)\n**Phase** 2: 5 Smashes➔ 3 Attacks➔ 3 Attacks➔ Red Bomb➔ 4 Attacks (repeat)\n  - For information on phases 3, 4, and 5 use one of the commands listed below`,
       "color": 8197085,
       "footer": {
-        "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",
         "text": "Guides written by Landon#4180"
       },
       "author": {

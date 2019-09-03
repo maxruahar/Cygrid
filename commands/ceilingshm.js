@@ -18,7 +18,6 @@ exports.run = async (client, message, args, level) => {
       "description": `[Comprehensive Hard Mode Vorago Guide](https://www.youtube.com/watch?v=SdUbAqHAHOE)\nWhen to maul: **Green bomb release.**\nCade timing: **P10 1st blue after TS | P11 Vit orb.**\nOmens unlock: **Torso.**${current}\n\n**Phase** 9: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ Rocks➔ 3 Att➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att\n**Phase** 10 (TS/Gb): TS➔ 3 Att➔ OFF➔ 3 Att➔ Green➔ 5 Att\n**Phase** 11 (TS/Vit): TS➔ 3 Att➔ OFF➔ 3 Att➔ Vitalis (*or red)➔ 3 Att\n\n__**Strategy**__:\n• P10: Thresh, Ons after reflect. __Bt1__: D/s, cade cept 2nd blue, sun after. __Bt2__: D/s and sun.\n• P11: Reprisal TS, Sun apot and thresh. Block vit orb. __Bts__: bts debil/dome Reflect, cade vits. *red if Rago is close to the edge.`,
       "color": 8197085,
       "footer": {
-        "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",
         "text": "Guides written by Landon#4180"
       },
       "author": {

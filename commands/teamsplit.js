@@ -18,7 +18,6 @@ exports.run = async (client, message, args, level) => {
       "description": `[Comprehensive Normal Mode Vorago Guide](https://docs.google.com/document/d/1vDQSdwDh-s5gG93yVljhTDZfumy3DdYvtuBjLEF7r3o)${current}\n\n**Phase** 3: TS➔ 3 Att➔ OFF➔ 3 Att➔ TS➔ 3 Att➔ Red➔ 4 Att\n**Phase** 4: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ TS➔ 3 Att➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att\n**Phase** 5: Team Split➔ 3 Att➔ OFF➔ 3 Att➔ 3 Smashes➔ 3 Att\n\n__**Strategy**__:\n• P3: Wild Magic Asphyxiate out of 1st Team Split, Bomb Tank use Guthix Staff special attack. Out of 2nd Team Split Bomb Tank Wild Magic Dragon Breath Devotion Adrenaline Onslaught or Sunshine Reflect. Base/DPS Asphyxiate Dragon Breath Adrenaline Onslaught.\n• P5: Bomb Tank Wild Magic then build to Barricade. Base/DPS Sunshine when Team Split spawns, Wild Magic/Asphyxiate Dragon Breath, 1 Guthix Staff special attack. Reprisal Team Split, don’t Onslaught.`,
       "color": 8197085,
       "footer": {
-        "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",
         "text": "Guides written by Landon#4180"
       },
       "author": {

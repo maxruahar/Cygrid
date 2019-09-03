@@ -18,7 +18,6 @@ exports.run = async (client, message, args, level) => {
       "description": `[Comprehensive Normal Mode Vorago Guide](https://docs.google.com/document/d/1vDQSdwDh-s5gG93yVljhTDZfumy3DdYvtuBjLEF7r3o)${current}\n\n**Phase** 3: The End➔ 3 Att➔ OFF➔ 3 Att➔ The End➔ 3 Att➔ Red➔ 4 Att\n**Phase** 4: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ The End➔ 3 Att➔ Red➔ 4 Att➔ OFF➔ 3 Att\n**Phase** 5: Purple➔ 5 Att➔ OFF➔ 3 Att➔ 3 Smashes➔ 3 Att\n\n__**Strategy**__:\n• P3: Asphyxiate Wild Magic drop, 1 Guthix Staff special attack. Escape hands standing 90 degree south or east. Sunshine on 3rd quadrant. Tag Blue bombs and use Devotion. On stand up, Asphyxiate Wild Magic Dragon Breath Flanking Detonate.\n• P5: Bomb Tank Wild Magix 2 bleeds Vulnerability and Barricade, Base/DPS Onslaught drop 1 north 1 south, build to Sunshine. If 4man+, Sunshine first and Onslaught after bleeds.`,
       "color": 8197085,
       "footer": {
-        "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",
         "text": "Guides written by Landon#4180"
       },
       "author": {

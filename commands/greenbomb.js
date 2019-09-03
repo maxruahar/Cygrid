@@ -18,7 +18,6 @@ exports.run = async (client, message, args, level) => {
       "description": `[Comprehensive Normal Mode Vorago Guide](https://docs.google.com/document/d/1vDQSdwDh-s5gG93yVljhTDZfumy3DdYvtuBjLEF7r3o)${current}\n\n**Phase** 3: Green➔ 5 Att (or skip)➔ OFF➔ 3 Att➔ Green➔ 5 Att (or skip)➔ Red➔ 4 Att\n**Phase** 4: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ Green➔ 5 Att (or skip)➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att\n**Phase** 5: Green➔ 5 Att (or skip)➔ OFF➔ 3 Smashes➔ 3 Att➔ Green➔ Red➔ 4 Att\n\n__**Strategy**__:\n• P3: Sunshine drop (all) between 2 quadrants. Tank Green Bomb, Detonate threshold. Base Devotion Intercept with Deflect Magic if on Bomb Tank, Detonate/Threshold after Reflect. Bounce or Devotion Intercept 2nd Green Bomb, can Reprisal this one.\n• P5: Bomb Tank Asphyxiate 2 bleeds. Wait for Green Bomb before Barricading. If on Bomb Tank, deal with it like on P3, or bounce to Base and build to Barricade. Base/dps Sunshine drop, Onslaught after bleeds.`,
       "color": 8197085,
       "footer": {
-        "icon_url": "https://cdn.discordapp.com/avatars/300296497277173761/11a5088f52b4b37fa579c412a63950ec.png",
         "text": "Guides written by Landon#4180"
       },
       "author": {
