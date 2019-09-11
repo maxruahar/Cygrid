@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => {
   const prefix = set.prefix;
   let err, status, rot, resets, omens;
   const request = require('request-promise-native');
-  await request("https://runescape.wiki/w/Template:Vorago_rotations", (error, response, body) => {
+  await request("https://runescape.wiki/w/Vorago", (error, response, body) => {
     err = error;
     status = response && response.statusCode;
     if (error || status !== 200) return message.channel.send(`Error collecting data: Code ${status}`);
@@ -11,11 +11,11 @@ exports.run = async (client, message, args, level) => {
     resets = body.split('<b>Next: ')[1].split(/\sdays?<\/b>/i)[0];
   });
   const opt = resets !== "1" ? "s" : "";
-  const current = rot.toLowerCase() !== "scopulus" ? `\n\n**This is the current rotation for an additional __${resets}__ reset${opt}.**` : "";
+  const current = rot.toLowerCase() == "scopulus" ? `\n\n**This is the current rotation for an additional __${resets}__ reset${opt}.**` : "";
 
   const e = {
     "embed": {
-      "description": `[Comprehensive Hard Mode Vorago Guide](https://www.youtube.com/watch?v=SdUbAqHAHOE)\nWhen to maul: **Team Split.**\nCade timing: **P10 Pb release | P11 Vit orb.**\nOmens unlock: **Helm.**${current}\n\n**Phase** 9: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ Red➔ 4 Att➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att \n**Phase** 10 (Pb/Bleeds): Purple➔ 5 Att➔ OFF➔ 3 Att➔ TS➔ 3 Att\n**Phase** 11 (Pb/Vit): Purple➔ 5 Att➔ OFF➔ 3 Att➔ Vitalis➔ 3 Att\n\n__**Strategy**__:\n• P10: Sun drop, **TANK TS**. __Bt1__: D/s (P9) for 1st blue, cade cept team on 2nd, sun if needed. __Bt2__: D/s 1st blue, sun.\n• P11: Build, block vit orb then sun/ons. __Bts__: Both debil and take turns cade/sun vit orb.`,
+      "description": `[Comprehensive Hard Mode Vorago Guide](https://www.youtube.com/watch?v=SdUbAqHAHOE)\nWhen to maul: **Team Split.**\nCade timing: **P10 Pb release | P11 Vit orb.**\nOmens unlock: **Helm.**${current}\n\n**Phase** 9: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ Red➔ 4 Att➔ 5 Smashes➔ 3 Att➔ OFF➔ 3 Att \n**Phase** 10 (Pb/TS): Purple➔ 5 Att➔ OFF➔ 3 Att➔ TS➔ 3 Att\n**Phase** 11 (Pb/Vit): Purple➔ 5 Att➔ OFF➔ 3 Att➔ Vitalis➔ 3 Att\n\n__**Strategy**__:\n• P10: Sun drop, **TANK TS**. __Bt1__: D/s (P9) for 1st blue, cade cept team on 2nd, sun if needed. __Bt2__: D/s 1st blue, sun.\n• P11: Build, block vit orb then sun/ons. __Bts__: Both debil and take turns cade/sun vit orb.`,
       "color": 8197085,
       "footer": {
         "text": "Guides written by Landon#4180"

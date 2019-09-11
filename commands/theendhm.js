@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => {
   const prefix = set.prefix;
   let err, status, rot, resets, omens;
   const request = require('request-promise-native');
-  await request("https://runescape.wiki/w/Template:Vorago_rotations", (error, response, body) => {
+  await request("https://runescape.wiki/w/Vorago", (error, response, body) => {
     err = error;
     status = response && response.statusCode;
     if (error || status !== 200) return message.channel.send(`Error collecting data: Code ${status}`);
@@ -11,11 +11,11 @@ exports.run = async (client, message, args, level) => {
     resets = body.split('<b>Next: ')[1].split(/\sdays?<\/b>/i)[0];
   });
   const opt = resets !== "1" ? "s" : "";
-  const current = rot.toLowerCase() !== "the end" ? `\n\n**This is the current rotation for an additional __${resets}__ reset${opt}.**` : "";
+  const current = rot.toLowerCase() == "the end" ? `\n\n**This is the current rotation for an additional __${resets}__ reset${opt}.**` : "";
 
   const e = {
     "embed": {
-      "description": `[Comprehensive Hard Mode Vorago Guide](https://www.youtube.com/watch?v=SdUbAqHAHOE)\nWhen to maul: **Purple bomb release.**\nCade timing: **P10 Pb | P11 Vit orb.**\nOmens unlock: **Gloves.**${current}\n\n**Phase** 9: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ The End➔ 3 Att➔ Red➔ 4 Att➔ OFF➔ 3 Att\n**Phase** 10 (Pb/Bleeds): Purple➔ 5 Att➔ OFF➔ 3 Att➔ 3 Bleeds➔ 3 Att\n**Phase** 11 (Pb/Vit): Purple➔ 5 Att➔ OFF➔ 3 Att➔ Vitalis➔ 3 Att\n\n__**Strategy**__:\n• P10: Sun, clear bleeds. __Bt1__: Cade cept Pb, dome Reflect. Try to maul or debil after smashes. __Bt2__: Sun.\n• P11: Sun and block Vit orb. __Bts__: debil, dome during reflect. Take turns cade/sun vit orbs.`,
+      "description": `[Comprehensive Hard Mode Vorago Guide](https://www.youtube.com/watch?v=SdUbAqHAHOE)\nWhen to maul: **After bleeds.**\nCade timing: **P10 Pb | P11 Vit orb.**\nOmens unlock: **Gloves.**${current}\n\n**Phase** 9: Waterfall➔ 3 Att➔ Clones➔ 7 Att➔ The End➔ 3 Att➔ Red➔ 4 Att➔ OFF➔ 3 Att\n**Phase** 10 (Pb/Bleeds): Purple➔ 5 Att➔ OFF➔ 3 Att➔ 3 Bleeds➔ 3 Att\n**Phase** 11 (Pb/Vit): Purple➔ 5 Att➔ OFF➔ 3 Att➔ Vitalis➔ 3 Att\n\n__**Strategy**__:\n• P10: Sun, clear bleeds. __Bt1__: Cade cept Pb, dome Reflect. Try to maul or debil after smashes. __Bt2__: Sun.\n• P11: Sun and block Vit orb. __Bts__: debil, dome during reflect. Take turns cade/sun vit orbs.`,
       "color": 8197085,
       "footer": {
         "text": "Guides written by Landon#4180"

@@ -10,7 +10,7 @@ exports.run = async (client, message, args, level) => {
     "Maul Reflect, P11: 3 Att➔ Pb➔ 5 Att➔ TS➔ 3 Att➔ OFF\nMaul 1st Ts, P11: 3 Att➔ OFF➔ 3 Att➔ Pb➔ 5 Att➔ TS\nMaul 2nd Ts, P11: 3 Att➔ (TS➔ 3 Att➔ OFF➔ 3 Att➔ Pb➔ 5 Att)",
     "Maul Pb release, P11: 5 Att➔ OFF➔ 3 Att➔ Vit➔ 3 Att➔ Pb\nMaul After bleeds, P11: 3 Att➔ Pb➔ 5 Att➔ OFF➔ 3 Att➔ Vit\nMaul Reflect, P11: 3 Att➔ Vit➔ 3 Att➔ Pb➔ 5 Att➔ OFF"];
   const request = require('request-promise-native');
-  await request("https://runescape.wiki/w/Template:Vorago_rotations", (error, response, body) => {
+  await request("https://runescape.wiki/w/Vorago", (error, response, body) => {
     err = error;
     status = response && response.statusCode;
     if (error || status !== 200) return message.channel.send(`Error collecting data: Code ${status}`);

@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => {
   const prefix = set.prefix;
   let err, status, rot, resets, list = [`${prefix}ceilings`, `${prefix}scopulus`, `${prefix}vitalis`, `${prefix}gb`, `${prefix}ts`, `${prefix}pb`]
   const request = require('request-promise-native');
-  await request("https://runescape.wiki/w/Template:Vorago_rotations", (error, response, body) => {
+  await request("https://runescape.wiki/w/Vorago", (error, response, body) => {
     err = error;
     status = response && response.statusCode;
     if (error || status !== 200) return message.channel.send(`Error collecting data: Code ${status}`);

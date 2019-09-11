@@ -3,7 +3,7 @@ exports.run = async (client, message, args, level) => {
   const prefix = set.prefix;
   let err, status, rot, resets, omens;
   const request = require('request-promise-native');
-  await request("https://runescape.wiki/w/Template:Vorago_rotations", (error, response, body) => {
+  await request("https://runescape.wiki/w/Vorago", (error, response, body) => {
     err = error;
     status = response && response.statusCode;
     if (error || status !== 200) return message.channel.send(`Error collecting data: Code ${status}`);
@@ -11,7 +11,7 @@ exports.run = async (client, message, args, level) => {
     resets = body.split('<b>Next: ')[1].split(/\sdays?<\/b>/i)[0];
   });
   const opt = resets !== "1" ? "s" : "";
-  const current = rot.toLowerCase() !== "ceiling collapse" ? `\n\n**This is the current rotation for an additional __${resets}__ reset${opt}.**` : "";
+  const current = rot.toLowerCase() == "ceiling collapse" ? `\n\n**This is the current rotation for an additional __${resets}__ reset${opt}.**` : "";
 
   const e = {
     "embed": {
