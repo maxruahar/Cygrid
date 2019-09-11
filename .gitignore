@@ -1,8 +1,10 @@
 node_modules
 config.js
+*.config.js
 .flowconfig
 .je-project-settings
 cygrid.sublime-project
 cygrid.sublime-workspace
 credentials.json
 token.json
+/data/*
