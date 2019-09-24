@@ -73,7 +73,7 @@ module.exports = (client, message) => {
 	        const ids = [];
 	        let i = 0, j = 0;
 		message.mentions.users.forEach(m => {
-			if (Object.keys(gex).includes(m.id) && !Object.keys(jmod).includes(message.author.id)) check = "true";
+			if (Object.keys(gex).includes(m.id) && !Object.keys(jmod).includes(message.author.id) && message.channel.id !== "597159607370252288") check = "true";
 		});
 		if (check == "true") {
 			if (["585922657309032451", "580178682782416906", "600505824305086516", "485523397179342848"].includes(message.guild.id)) return;
