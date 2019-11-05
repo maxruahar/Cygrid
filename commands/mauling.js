@@ -8,7 +8,7 @@ exports.run = async (client, message, args, level) => {
     "Maul Reflect, P11: 3 Att➔ 3 Bleeds➔ 3 Att➔ Vit➔ 3 Att➔ OFF\nMaul Pb release, P11: 5 Att➔ (Vit➔ 3 Att➔ OFF➔ 3 Att➔ 3 Bleeds➔ 3 Att)\nMaul Vit release, P11: 3 Att➔ OFF➔ 3 Att➔ 3 Bleeds➔ 3 Att➔ Vit",
     "Maul Gb release, P11: 5 Att➔ OFF➔ 3 Att➔ TS➔ 3 Att➔ Gb\nMaul Vit release, P11: 3 Att➔ Gb➔ 5 Att➔ OFF➔ 3 Att➔ TS\nMaul Reflect, P11: 3 Att➔ TS➔ 3 Att➔ Gb➔ 5 Att➔ OFF",
     "Maul Reflect, P11: 3 Att➔ Pb➔ 5 Att➔ TS➔ 3 Att➔ OFF\nMaul 1st Ts, P11: 3 Att➔ OFF➔ 3 Att➔ Pb➔ 5 Att➔ TS\nMaul 2nd Ts, P11: 3 Att➔ (TS➔ 3 Att➔ OFF➔ 3 Att➔ Pb➔ 5 Att)",
-    "Maul Pb release, P11: 5 Att➔ OFF➔ 3 Att➔ Vit➔ 3 Att➔ Pb\nMaul After bleeds, P11: 3 Att➔ Pb➔ 5 Att➔ OFF➔ 3 Att➔ Vit\nMaul Reflect, P11: 3 Att➔ Vit➔ 3 Att➔ Pb➔ 5 Att➔ OFF"];
+    "Maul After bleeds, P11: 3 Att➔ Pb➔ 5 Att➔ OFF➔ 3 Att➔ Vit\nMaul Pb release, P11: 5 Att➔ OFF➔ 3 Att➔ Vit➔ 3 Att➔ Pb\nMaul Reflect, P11: 3 Att➔ Vit➔ 3 Att➔ Pb➔ 5 Att➔ OFF"];
   const request = require('request-promise-native');
   await request("https://runescape.wiki/w/Vorago", (error, response, body) => {
     err = error;
